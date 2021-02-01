@@ -36,14 +36,14 @@ Deadlines
     April 4th - TBD
         App maintenance and updates
 
-                                                    
-                                                    
+
+
                                                             Important links
 
 Flutter - Instant search with Firestore
 https://www.youtube.com/watch?v=0szEJiCUtMM
 https://github.com/rajayogan/flutterfirestore-instantsearch
-	
+
 Build a Shazam Clone in Flutter using ACRCloud and Riverpod
 	https://www.youtube.com/watch?v=u2CsZnHMhmY
 	https://github.com/tayormi/shazam
@@ -54,7 +54,7 @@ https://stripe.com/
 
 
 
-    
+
 
 
 
