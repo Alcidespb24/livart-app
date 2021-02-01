@@ -7,6 +7,6 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     // Depending on current State (Signed In/Signed Out) determine if the Home
     // or authentication screen should be shown
-    return Authenticate();
+    return Home();
   }
 }
