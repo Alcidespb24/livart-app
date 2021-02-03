@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/wrapper.dart';
+import 'package:flutter_app/screens/Wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,8 +23,11 @@ class PlayThis extends StatelessWidget {
           if (snapshot.hasError) {}
 
           if (snapshot.connectionState == ConnectionState.done) {
-            return MaterialApp(
-              home: Wrapper(),
+            return StreamProvider<User>.value(
+              value: AuthService().user,
+                child: MaterialApp(
+                home: Wrapper(),
+              ),
             );
           }
 
