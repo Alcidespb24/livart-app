@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class AuthService{
   // This is a private property
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  UserCredential userCredential;
 
   // Sign in anonymously
   Future signInAnonymous() async {
@@ -23,40 +24,50 @@ class AuthService{
   }
 
   // Create account with email and password
-  Future createAccountEmailPwd(String email, String pwd) async{
+  // returns null on success or the error string if any errors occur
+  Future<String> createAccountEmailPwd(String email, String pwd) async{
     try{
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: pwd);
 
+      if (!userCredential.user.emailVerified) {
+        await userCredential.user.sendEmailVerification();
+      }
 
+      return null;
     } on FirebaseAuthException catch (error){
         if(error.code == 'weak-password'){
-          print('Password is weak, Bitch');
-          return null;
+          return 'Password is too weak';
         } else if (error.code == 'email-already-in-use'){
-          print('This email is already in use, you dumbfuck');
-          return null;
+          return 'This email is already in use, you dumbfuck';
         }
     } catch(error){
-      print(error);
+      return error.toString();
     }
+    return null;
   }
 
   // Sign in email pwd
-  Future signInEmailPwd(String email,String pwd) async {
+  Future<String> signInEmailPwd(String email,String pwd) async {
     try {
+
+      if(!userCredential.user.emailVerified){
+        return 'Email Not Verified, please check your email';
+      }
       await _auth.signInWithEmailAndPassword(email: email, password: pwd);
+      return null;
 
     } on FirebaseAuthException catch(error){
       if (error.code == 'user-not-found'){
-        print('User Not Found');
+       return 'User not Found, Please verify your Email';
       } else if (error.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+       return 'Wrong password provided for that user';
       }
     } catch(error){
-      print(error);
+      return error.toString();
     }
+    return null;
   }
 
   // Sign in google

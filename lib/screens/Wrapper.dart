@@ -12,7 +12,7 @@ class Wrapper extends StatelessWidget {
     if (user == null){
       print ("not signed in");
       return Authenticate();
-    } else {
+    } else if (user.emailVerified == true){
       print("signed in");
       return Home();
     }

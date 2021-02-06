@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/authenticate/CreateAccount.dart';
 import 'package:flutter_app/services/AuthService.dart';
 
 class SignIn extends StatefulWidget {
@@ -14,11 +15,18 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.cyan[25],
         appBar: AppBar(
-          backgroundColor: Colors.blue,
           elevation: 0.3,
           title: Text('Sign in into PlayThis'),
+          actions: <Widget>[
+            TextButton.icon(
+                label: Text('Register'),
+                icon: Icon(Icons.account_box_outlined),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CreateAccount()));
+                })
+          ],
         ),
         body: Container(
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -61,43 +69,24 @@ class _SignInState extends State<SignIn> {
                           setState(() => userPassword = textValuePwd);
                         },
                       ),
-                      Row(
-                        children: [
-                          Padding(
-                          padding: EdgeInsets.symmetric(vertical: 18.0),
-                          child: ElevatedButton(
-                              child: Text('Sign In with Email'),
-                              onPressed: () async {
-                                dynamic result = await _authService
-                                    .signInEmailPwd(userEmail, userPassword);
-                                if (result == null) {
-                                  print("Error Signing In");
-                                } else {
-                                  print("Signed In");
-                                  print(result);
-                                }
-                              }),
-                        ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 18.0),
-                            child: ElevatedButton(
-                                child: Text('Register Account'),
-                                onPressed: () async {
-                                  dynamic result = await _authService
-                                      .createAccountEmailPwd(userEmail, userPassword);
-                                  if (result == null) {
-                                    print("Error Creating account");
-                                  } else {
-                                    print("Account created");
-                                    print(result);
-                                  }
-                                }),
-                          ),],
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 18.0),
+                        child: ElevatedButton(
+                            child: Text('Sign In with Email'),
+                            onPressed: () async {
+                              dynamic result = await _authService
+                                  .signInEmailPwd(userEmail, userPassword);
+                              if (result == null) {
+                                print("Logged in successfully ");
+                              } else {
+                                _showAlertDialog(
+                                    'Error Signing In', result);
+                                print(result);
+                              }
+                            }),
                       ),
-
                     ],
                   )),
-
               ElevatedButton(
                   child: Text('Sign In anonymously'),
                   onPressed: () async {
@@ -112,5 +101,26 @@ class _SignInState extends State<SignIn> {
             ])));
   }
 
-  void auth() async {}
+  Future<void> _showAlertDialog(String titleText, String alertText) async {
+    return showDialog<void>(
+      context: context, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(titleText),
+          content: Text(alertText),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
