@@ -15,7 +15,7 @@ class _CreateAccountState extends State<CreateAccount> {
   String userPwd = '';
   bool validEmail = false;
   bool validPwd = false;
-  bool validVerifed = false;
+  bool validVerified = false;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         if (value != userPwd) {
                           return 'Password does not match';
                         }
-                        validVerifed = true;
+                        validVerified = true;
                         return null;
                       },
                       onChanged: (textValuePwd) {
@@ -98,7 +98,7 @@ class _CreateAccountState extends State<CreateAccount> {
                       child: ElevatedButton(
                           child: Text('Register Account'),
                           onPressed: () async {
-                            if (validEmail && validPwd && validVerifed) {
+                            if (validEmail && validPwd && validVerified) {
                               dynamic accountCreated = await _authService
                                   .createAccountEmailPwd(userEmail, userPwd);
                               if (accountCreated == null) {
@@ -136,9 +136,10 @@ class _CreateAccountState extends State<CreateAccount> {
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
               ),
               onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignIn()));
+                Navigator.pop(context);
+                Navigator.pop(context);
+                //Navigator.push(context,
+                //    MaterialPageRoute(builder: (context) => SignIn()));
               },
             ),
           ],

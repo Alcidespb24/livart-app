@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/Wrapper.dart';
 import 'package:flutter_app/screens/authenticate/CreateAccount.dart';
 import 'package:flutter_app/services/AuthService.dart';
 
@@ -74,19 +75,31 @@ class _SignInState extends State<SignIn> {
                         child: ElevatedButton(
                             child: Text('Sign In with Email'),
                             onPressed: () async {
-                              dynamic result = await _authService
+                              String result = await _authService
                                   .signInEmailPwd(userEmail, userPassword);
                               if (result == null) {
-                                print("Logged in successfully ");
+                                print("Logged in successfully");
                               } else {
                                 _showAlertDialog(
                                     'Error Signing In', result);
                                 print(result);
                               }
+
+                              if(!_authService.emailVerified()){
+                                _showAlertDialog('Error Signing In', 'Email has not been verified');
+                              } else {
+                                return Wrapper();
+                              }
+
                             }),
                       ),
                     ],
                   )),
+              ElevatedButton.icon(
+                  onPressed: (){_authService.signInWithGoogle();},
+                  label: Text('Sign in with Google'),
+                  icon: Image.asset("assets/google_icon.png"),
+              ),
               ElevatedButton(
                   child: Text('Sign In anonymously'),
                   onPressed: () async {

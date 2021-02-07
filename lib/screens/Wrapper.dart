@@ -9,16 +9,13 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
 
-    if (user == null){
+    if (user == null || user.emailVerified == false){
       print ("not signed in");
       return Authenticate();
-    } else if (user.emailVerified == true){
+    }
+    if (user.emailVerified == true){
       print("signed in");
       return Home();
     }
-
-    // Depending on current State (Signed In/Signed Out) determine if the Home
-    // or authentication screen should be shown
-    return Home();
   }
 }

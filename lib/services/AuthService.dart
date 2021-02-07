@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService{
   // This is a private property
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   UserCredential userCredential;
 
   // Sign in anonymously
@@ -52,11 +56,8 @@ class AuthService{
   Future<String> signInEmailPwd(String email,String pwd) async {
     try {
 
-      if(!userCredential.user.emailVerified){
-        return 'Email Not Verified, please check your email';
-      }
       await _auth.signInWithEmailAndPassword(email: email, password: pwd);
-      return null;
+      //return null;
 
     } on FirebaseAuthException catch(error){
       if (error.code == 'user-not-found'){
@@ -67,10 +68,16 @@ class AuthService{
     } catch(error){
       return error.toString();
     }
-    return null;
+  }
+
+  bool emailVerified() {
+    return _auth.currentUser.emailVerified;
   }
 
   // Sign in google
+  Future signInWithGoogle() async {
+      await _googleSignIn.signIn();
+  }
 
   // Register email/password
 
