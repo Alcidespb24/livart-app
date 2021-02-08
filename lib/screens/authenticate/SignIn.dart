@@ -98,7 +98,10 @@ class _SignInState extends State<SignIn> {
               ElevatedButton.icon(
                   onPressed: (){_authService.signInWithGoogle();},
                   label: Text('Sign in with Google'),
-                  icon: Image.asset("assets/google_icon.png"),
+                  icon: Icon(Icons.ac_unit_outlined),
+                 // icon: Image.asset('lib/assets/icons/google_icon.png',
+                 // height: 20,
+                 // width: 20,),
               ),
               ElevatedButton(
                   child: Text('Sign In anonymously'),
