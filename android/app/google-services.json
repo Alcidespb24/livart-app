@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "15161455001-vrddnsftq71ibdlr2r4n96onhlpj286m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.playthisinc.playthis",
+            "certificate_hash": "0baa4470ccd3eea93538950daa91202c3fd502a1"
+          }
+        },
+        {
           "client_id": "15161455001-2q59al5sq40um469kqbdr5grbveo8dh0.apps.googleusercontent.com",
           "client_type": 3
         }

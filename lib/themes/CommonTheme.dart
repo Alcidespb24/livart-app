@@ -15,7 +15,8 @@ class ThemeControl {
                 shape: MaterialStateProperty.all<OutlinedBorder>(
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(elevatedButtonRadius),
-                )))),
+                )),
+            minimumSize: MaterialStateProperty.all<Size>(Size(20,35)))),
         textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
