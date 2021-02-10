@@ -16,9 +16,11 @@ Deadlines
     Sunday Feb 28th
         Search functionality completed
         QR code funtionality completed
+    
     Sunday Feb 28th 
         Sign in page UI
         Dj's listening mode
+    
     Sunday March 7th
         All activities connected
         App is functional
