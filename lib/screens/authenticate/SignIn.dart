@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/Wrapper.dart';
 import 'package:flutter_app/screens/authenticate/CreateAccount.dart';
 import 'package:flutter_app/services/AuthService.dart';
+import 'package:flutter_app/services/InputValidator.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -43,12 +44,8 @@ class _SignInState extends State<SignIn> {
                             hintText: 'Enter your email',
                           ),
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter a valid email';
-                            }
-                            if (value.contains('@') == false ||
-                                value.contains('.') == false) {
-                              return 'Please enter a valid email';
+                            if(EmailValidator.validEmail(value)){
+                              return "Please Enter a valid email address";
                             }
                             return null;
                           },
@@ -62,7 +59,7 @@ class _SignInState extends State<SignIn> {
                           ),
                           obscureText: true,
                           validator: (value) {
-                            if (value.isEmpty) {
+                            if (PasswordValidator.validPassword(value)) {
                               return 'Please enter a valid password';
                             }
                             return null;
@@ -82,8 +79,7 @@ class _SignInState extends State<SignIn> {
                                 if (result == null) {
                                   print("Logged in successfully");
                                 } else {
-                                  _showAlertDialog(
-                                      'Error Signing In', result);
+                                  _showAlertDialog('Error Signing In', result);
                                   print(result);
                                 }
 

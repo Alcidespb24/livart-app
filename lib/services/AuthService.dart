@@ -14,8 +14,12 @@ class AuthService {
   // Sign in anonymously
   Future signInAnonymous() async {
     try {
-      UserCredential authResult = await _auth.signInAnonymously();
-      return authResult;
+      // TODO: need to access firestore and delete user account if the user decides not to use his Email/Pwd anymore
+      if(_auth.currentUser != null && _auth.currentUser.emailVerified == false){
+        print('Deleting user'+_auth.currentUser.toString() );
+      }
+      print (_auth.currentUser);
+      await _auth.signInAnonymously();
     } catch (error) {
       print(error.toString());
       return null;
