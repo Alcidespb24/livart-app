@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/authenticate/SignIn.dart';
 import 'package:flutter_app/services/AuthService.dart';
+import 'package:flutter_app/services/DataBaseService.dart';
 
 class CreateAccount extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
   String userEmail = '';
   String userPwd = '';
+  String userName= '';
   bool validEmail = false;
   bool validPwd = false;
   bool validVerified = false;
@@ -32,6 +34,24 @@ class _CreateAccountState extends State<CreateAccount> {
                 Form(
                   autovalidateMode: AutovalidateMode.always,
                   child: Column(children: <Widget>[
+                    TextFormField(
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.account_circle_outlined),
+                        hintText: 'Username',
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty || DataBaseService.userExists(userName)) {
+                          return 'Please enter a valid username';
+                        }
+                        validEmail = true;
+                        return null;
+                      },
+                      onChanged: (textValueUsername) {
+                        setState(() {
+                          userName = textValueUsername;
+                        });
+                      },
+                    ),
                     TextFormField(
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.email_outlined),
@@ -103,8 +123,8 @@ class _CreateAccountState extends State<CreateAccount> {
                                   .createAccountEmailPwd(userEmail, userPwd);
                               if (accountCreated == null) {
                                 _showAlertDialog('Email Verification',
-                                    'Your Account has been created\n '
-                                    'An email has been sent to the email address provided \n'
+                                    'Your Account has been created\n'
+                                    'An email has been sent to the email address provided\n'
                                     'Please Verify your email and sign in');
                               } else {
                                 await _showAlertDialog(
