@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_app/data_models/AppUser.dart';
 
 class DataBaseService {
   final String uid;
   DataBaseService({this.uid});
 
-  final CollectionReference guestCollection = FirebaseFirestore.instance.collection('Guests');
-  final CollectionReference creatorCollection = FirebaseFirestore.instance.collection('Creators');
+  final CollectionReference userCollection = FirebaseFirestore.instance.collection('Users');
   final CollectionReference requestCollection = FirebaseFirestore.instance.collection('Requests');
 
   //TODO: check if user exists in database
@@ -13,7 +13,9 @@ class DataBaseService {
     return false;
   }
 
-  Future updateData(String uid, String role) async{
+  Future updateUserData(AppUser user) async{
+    await userCollection.doc(uid).c
+
     return await creatorCollection.doc(uid).set({
       'data' : 'value',
       'role' : role.toLowerCase()

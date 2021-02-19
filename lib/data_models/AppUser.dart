@@ -12,4 +12,6 @@ class AppUser {
     this.isAnonymous,
     this.emailVerified
   });
+
+  
 }
