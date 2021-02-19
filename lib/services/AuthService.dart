@@ -1,15 +1,28 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app/data_models/AppUser.dart';
+import 'package:flutter_app/services/DataBaseService.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   // This is a private property
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final DataBaseService _dataBaseService = DataBaseService();
   UserCredential userCredential;
+
+
+
+  AppUser _appUserFromFirebaseUser(User user){
+    //print ('lalala'+user.toString());
+    return user != null ? new AppUser(
+        uid: user.uid,
+        isAnonymous: user.isAnonymous,
+        emailVerified: user.emailVerified,
+        userName: user.displayName
+    ) : null;
+  }
 
   // Sign in anonymously
   Future signInAnonymous() async {
@@ -28,8 +41,8 @@ class AuthService {
 
   // Authentication change for user stream
   // @return: null if not signed in, UserCredential Object if signed in
-  Stream<User> get user {
-    return _auth.authStateChanges();
+  Stream<AppUser> get user {
+    return _auth.authStateChanges().map((User user) => _appUserFromFirebaseUser(user));
   }
 
   // Create account with email and password
@@ -95,10 +108,6 @@ class AuthService {
       print (error);
     }
   }
-
-  // Register email/password
-
-  // register google
 
   // User Sign out
   Future signOut() async {
