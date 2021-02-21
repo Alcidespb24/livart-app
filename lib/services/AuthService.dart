@@ -2,23 +2,23 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
-import 'package:flutter_app/services/DataBaseService.dart';
+import 'package:flutter_app/services/DataBaseUserService.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   // This is a private property
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final DataBaseService _dataBaseService = DataBaseService();
-  UserCredential userCredential;
+  final DataBaseUserService _userDataBaseService = DataBaseUserService();
+  UserCredential _userCredential;
 
 
 
   AppUser _appUserFromFirebaseUser(User user){
-    //print ('lalala'+user.toString());
     return user != null ? new AppUser(
         uid: user.uid,
         isAnonymous: user.isAnonymous,
+        isCreator: (user.isAnonymous) ? false : null,
         emailVerified: user.emailVerified,
         userName: user.displayName
     ) : null;
@@ -32,7 +32,9 @@ class AuthService {
         print('Deleting user'+_auth.currentUser.toString() );
       }
       print (_auth.currentUser);
-      await _auth.signInAnonymously();
+       UserCredential user = await _auth.signInAnonymously();
+
+      await _userDataBaseService.createUserData(_appUserFromFirebaseUser(user.user));
     } catch (error) {
       print(error.toString());
       return null;
@@ -47,16 +49,19 @@ class AuthService {
 
   // Create account with email and password
   // returns null on success or the error string if any errors occur
-  Future<String> createAccountEmailPwd(String email, String pwd) async {
+  Future<String> createAccountEmailPwd(String email, String userName, String pwd) async {
     try {
-      userCredential =
+      _userCredential =
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: pwd);
 
-      if (!userCredential.user.emailVerified) {
-        await userCredential.user.sendEmailVerification();
+      if (!_userCredential.user.emailVerified) {
+        await _userCredential.user.sendEmailVerification();
       }
+      await _userDataBaseService.createUserData(_appUserFromFirebaseUser(_userCredential.user));
+
+      _userDataBaseService.updateUserName(userName);
 
       return null;
     } on FirebaseAuthException catch (error) {
@@ -107,6 +112,15 @@ class AuthService {
     } on PlatformException catch(error){
       print (error);
     }
+  }
+
+  Future resetPwd(String email) async{
+    await _auth.sendPasswordResetEmail(email: email);
+  }
+
+  AppUser getCurrentUser() {
+    AppUser curr = _appUserFromFirebaseUser(_auth.currentUser);
+    return (curr);
   }
 
   // User Sign out
