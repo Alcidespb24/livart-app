@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/authenticate/SignIn.dart';
 import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/services/DataBaseService.dart';
+import 'package:flutter_app/services/DataBaseUserService.dart';
 
 class CreateAccount extends StatefulWidget {
   @override
@@ -10,6 +10,7 @@ class CreateAccount extends StatefulWidget {
 
 class _CreateAccountState extends State<CreateAccount> {
   final AuthService _authService = AuthService();
+  final DataBaseUserService _dataBaseUserService = DataBaseUserService();
   AlertDialog _alertDialog = AlertDialog();
 
   String userEmail = '';
@@ -40,7 +41,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         hintText: 'Username',
                       ),
                       validator: (value) {
-                        if (value.isEmpty || DataBaseService.userExists(userName)) {
+                        if (value.isEmpty || _dataBaseUserService.userExists(userName)) {
                           return 'Please enter a valid username';
                         }
                         validEmail = true;
@@ -120,7 +121,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           onPressed: () async {
                             if (validEmail && validPwd && validVerified) {
                               dynamic accountCreated = await _authService
-                                  .createAccountEmailPwd(userEmail, userPwd);
+                                  .createAccountEmailPwd(userEmail, userName, userPwd);
                               if (accountCreated == null) {
                                 _showAlertDialog('Email Verification',
                                     'Your Account has been created\n'

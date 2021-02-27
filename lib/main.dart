@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/screens/Wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_app/screens/authenticate/LoginPage.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
@@ -28,14 +29,14 @@ class PlayThis extends StatelessWidget {
             return StreamProvider<AppUser>.value(
               value: AuthService().user,
               child: MaterialApp(
-                theme: ThemeControl().basicTheme(),
-                home: Wrapper(),
+                theme: ThemeData.dark(),
+                home: LoginPage(),
               ),
             );
           }
 
           return SpinKitRotatingCircle(
-            color: Colors.white,
+            color: Colors.red,
             size: 50,
             duration: Duration(seconds: 5),
           );
