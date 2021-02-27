@@ -5,9 +5,6 @@ import 'package:flutter_app/widgets/PasswordField.dart';
 
 import 'CreateAccount.dart';
 
-const emailField = 'Email';
-const passwordField = 'Password';
-
 class LoginPage extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -55,10 +52,9 @@ class _LoginState extends State<LoginPage> {
             children: <Widget>[
               Container(
                 margin: EdgeInsets.only(left: 50, right: 50, top: 10),
-                child: EmailField(onChangedEmail: (String email){
+                child: EmailField(onChangedEmail: (String email) {
                   emailField = email;
-                }
-                ),
+                }),
               ),
               SizedBox(
                 height: 15,
@@ -88,10 +84,12 @@ class _LoginState extends State<LoginPage> {
                 height: 50,
                 width: 180,
                 margin: EdgeInsets.only(left: 40, right: 40),
-                child: FlatButton(
-                  color: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
                   ),
                   onPressed: () async {
                     String result = await _authService.signInEmailPwd(
@@ -129,17 +127,19 @@ class _LoginState extends State<LoginPage> {
                   Padding(
                     padding: EdgeInsets.only(bottom: 50),
                     child: InkWell(
-                      child: Text('Sign up',
-                        style: TextStyle(
-                          color: Color(0xFF09817F),
-                          fontWeight: FontWeight.bold,
+                        child: Text(
+                          'Sign up',
+                          style: TextStyle(
+                            color: Color(0xFF09817F),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      onTap: () {
-                        Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => CreateAccount()));
-                      }
-                    ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CreateAccount()));
+                        }),
                   ),
                 ],
               )
@@ -151,4 +151,3 @@ class _LoginState extends State<LoginPage> {
     );
   }
 }
-
