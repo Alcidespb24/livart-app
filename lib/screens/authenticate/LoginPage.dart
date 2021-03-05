@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/widgets/EmailField.dart';
 import 'package:flutter_app/widgets/PasswordField.dart';
+import 'package:flutter_app/widgets/buttonWidget.dart';
+import 'package:flutter_particles/particle.dart';
+import 'package:flutter_particles/particles.dart';
 
 import 'CreateAccount.dart';
 
@@ -20,32 +23,10 @@ class _LoginState extends State<LoginPage> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
+          Particles(50, Color(0xFF00585F).withOpacity(0.3)),
           Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('lib/assets/backgrounds/background3.jpg'),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.5), BlendMode.dstATop),
-              ),
-            ),
+            color: Colors.black38,
           ),
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.transparent,
-                  Colors.transparent,
-                  Color(0xFF161D57).withOpacity(0.1),
-                  Color(0xFF161D57).withOpacity(0.4),
-                  Color(0xFF161D57).withOpacity(0.9),
-                ],
-                begin: Alignment.topCenter, //end: Alignment.bottomCenter,
-              ),
-            ),
-          ),
-          //    Center(
-          // child:
           Column(
             // mainAxisAlignment: MainAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
@@ -85,24 +66,24 @@ class _LoginState extends State<LoginPage> {
                 width: 180,
                 margin: EdgeInsets.only(left: 40, right: 40),
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Color(0xFF009393)),
+
+                  ),
+                  child: Text(
+                    "Log in",
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
                   ),
                   onPressed: () async {
                     String result = await _authService.signInEmailPwd(
                         emailField, passwordField);
-
                     if (result == null) {
                       print("Logged in successfully");
                     }
                   },
-                  child: Text(
-                    'Sign in',
-                    style: TextStyle(),
-                  ),
                 ),
               ),
               SizedBox(
@@ -114,7 +95,7 @@ class _LoginState extends State<LoginPage> {
                   Padding(
                     padding: EdgeInsets.only(bottom: 50),
                     child: Text(
-                      'New to PlayThist?',
+                      'New to LivArt?',
                       style: TextStyle(
                         color: Color(0xFFADADAD),
                         fontSize: 14,
@@ -130,7 +111,7 @@ class _LoginState extends State<LoginPage> {
                         child: Text(
                           'Sign up',
                           style: TextStyle(
-                            color: Color(0xFF09817F),
+                            color: Color(0xFF00585F),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
