@@ -1,58 +1,37 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app/data_models/DataModelBase.dart';
 import 'package:flutter_app/data_models/SongStruct.dart';
+import 'package:flutter_app/services/DataBaseRequestService.dart';
 
-class Request extends DataModelBase {
+class Request {
   String fromUid;
   String toUid;
-  SongStruct song;
   int requestTimeMs;
   int timeRemainingMs;
   int triesLeft;
-  int paymentAmount;
   bool fulfilled;
+  SongStruct song;
+  int paymentAmount;
+  final DataBaseRequestService _dataBaseRequestService = DataBaseRequestService();
 
   Request({
     @required this.fromUid,
     @required this.toUid,
     @required this.song,
     @required this.requestTimeMs,
-    @required this.timeRemainingMs,
-    @required this.triesLeft,
-    @required this.paymentAmount,
     this.fulfilled,
   });
 
-  @override
   Map<String, dynamic> toMap() {
     return {
       "fromUid": this.fromUid,
       "toUid": this.toUid,
-      "song": this.song.songToMap(),
       "requestTimeMs": this.requestTimeMs,
-      "timeRemaining": this.timeRemainingMs,
-      "triesLeft": this.triesLeft,
-      "paymentAmount": this.paymentAmount,
       "fulfilled": this.fulfilled,
+      "song": this.song.songToMap()
     };
   }
 
-  @override
-  Request fromMap(Map<String, dynamic> map) {
-    return Request(
-        fromUid: map['fromUid'],
-        toUid: map['toUid'],
-        song: SongStruct.songFromMap(map['song']),
-        requestTimeMs: map['requestTimeMs'],
-        timeRemainingMs: map['timeRemainingMs'],
-        triesLeft: map['triesLeft'],
-        paymentAmount: map['paymentAmount'],
-        fulfilled: map['fulfilled']);
-  }
-
-  int get getTimeremainingMS => timeRemainingMs;
-
-  void updateTimeRemaining() {
-    timeRemainingMs = requestTimeMs - DateTime.now().millisecondsSinceEpoch;
+  void pushRequest(){
+    _dataBaseRequestService.makeRequest(this);
   }
 }
