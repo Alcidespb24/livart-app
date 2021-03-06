@@ -6,8 +6,11 @@ class Request {
   String fromUid;
   String toUid;
   int requestTimeMs;
+  int timeRemainingMs;
+  int triesLeft;
   bool fulfilled;
   SongStruct song;
+  int paymentAmount;
   final DataBaseRequestService _dataBaseRequestService = DataBaseRequestService();
 
   Request({

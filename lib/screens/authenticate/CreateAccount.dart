@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/screens/authenticate/SignIn.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/services/DataBaseUserService.dart';
@@ -120,16 +121,16 @@ class _CreateAccountState extends State<CreateAccount> {
                           child: Text('Register Account'),
                           onPressed: () async {
                             if (validEmail && validPwd && validVerified) {
-                              dynamic accountCreated = await _authService
-                                  .createAccountEmailPwd(userEmail, userName, userPwd);
-                              if (accountCreated == null) {
+                              await _authService.createAccountEmailPwd(userEmail, userName, userPwd);
+                              AppUser user = _authService.getCurrentUser();
+                              if (user == null) {
                                 _showAlertDialog('Email Verification',
                                     'Your Account has been created\n'
                                     'An email has been sent to the email address provided\n'
                                     'Please Verify your email and sign in');
                               } else {
                                 await _showAlertDialog(
-                                    'Error Creating account', accountCreated);
+                                    'Error Creating account', user);
                               }
                             } else {
                               print('error please verify fields');

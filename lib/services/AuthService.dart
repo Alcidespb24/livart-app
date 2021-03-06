@@ -2,10 +2,12 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
+import 'package:flutter_app/data_models/Failure.dart';
 import 'package:flutter_app/services/DataBaseUserService.dart';
+import 'package:flutter_app/services/Service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthService {
+class AuthService extends Service {
   // This is a private property
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -35,8 +37,8 @@ class AuthService {
        UserCredential user = await _auth.signInAnonymously();
 
       await _userDataBaseService.createUserData(_appUserFromFirebaseUser(user.user));
-    } catch (error) {
-      print(error.toString());
+    } on  FirebaseAuthException{
+      super.setFailure(Failure(id: 10020));
       return null;
     }
   }
@@ -59,8 +61,6 @@ class AuthService {
       if (!_userCredential.user.emailVerified) {
         await _userCredential.user.sendEmailVerification();
       }
-      await _userDataBaseService.createUserData(_appUserFromFirebaseUser(_userCredential.user));
-
       _userDataBaseService.updateUserName(userName);
 
       return null;

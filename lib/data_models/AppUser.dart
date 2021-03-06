@@ -9,7 +9,7 @@ class AppUser {
   bool isAnonymous;
   bool emailVerified;
   bool isCreator;
-  List<Request> requestList;
+  String profilePicture;
 
   AppUser({
     @required this.uid,
