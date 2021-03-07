@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/widgets/EmailField.dart';
 import 'package:flutter_app/widgets/PasswordField.dart';
@@ -66,10 +68,12 @@ class _LoginState extends State<LoginPage> {
                 width: 180,
                 margin: EdgeInsets.only(left: 40, right: 40),
                 child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Color(0xFF009393)),
-
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF009393),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                    onPrimary: Colors.white,
+                    elevation: 1,
+                    shadowColor: Colors.black,
                   ),
                   child: Text(
                     "Log in",
