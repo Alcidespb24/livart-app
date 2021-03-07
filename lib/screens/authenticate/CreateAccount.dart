@@ -130,7 +130,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                     'Please Verify your email and sign in');
                               } else {
                                 await _showAlertDialog(
-                                    'Error Creating account', user);
+                                    'Error Creating account', 'user');
                               }
                             } else {
                               print('error please verify fields');

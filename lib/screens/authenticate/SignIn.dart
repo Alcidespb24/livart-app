@@ -73,17 +73,10 @@ class _SignInState extends State<SignIn> {
                           child: ElevatedButton(
                               child: Text('Sign In with Email'),
                               onPressed: () async {
-                                String result = await _authService
+                                await _authService
                                     .signInEmailPwd(userEmail, userPassword);
 
-                                if (result == null) {
-                                  print("Logged in successfully");
-                                } else {
-                                  _showAlertDialog('Error Signing In', result);
-                                  print(result);
-                                }
-
-                                if(!_authService.emailVerified()){
+                                if(!_authService.isEmailVerified()){
                                   _showAlertDialog('Error Signing In', 'Email has not been verified');
                                 } else {
                                   return Wrapper();
@@ -113,13 +106,8 @@ class _SignInState extends State<SignIn> {
                     height: 20,
                     width: 20,),
                     onPressed: () async {
-                      dynamic result = await _authService.signInAnonymous();
-                      if (result == null) {
-                        print("Error Signing In");
-                      } else {
-                        print("Signed In");
-                        print(result);
-                      }
+                      await _authService.signInAnonymous();
+
                     }),
               ])),
         ));

@@ -92,12 +92,8 @@ class _LoginState extends State<LoginPage> {
                     ),
                   ),
                   onPressed: () async {
-                    String result = await _authService.signInEmailPwd(
+                    await _authService.signInEmailPwd(
                         emailField, passwordField);
-
-                    if (result == null) {
-                      print("Logged in successfully");
-                    }
                   },
                   child: Text(
                     'Sign in',

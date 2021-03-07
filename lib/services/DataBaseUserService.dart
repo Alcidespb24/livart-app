@@ -9,9 +9,12 @@ import 'package:flutter_app/services/Service.dart';
 
 
 class DataBaseUserService extends Service{
-  final CollectionReference userCollection =
-      FirebaseFirestore.instance.collection('Users');
+  final CollectionReference userCollection = FirebaseFirestore.instance.collection('Users');
   AuthService _authService;
+
+  DataBaseUserService(){
+    super.setState(NotifierState.INITIAL);
+  }
 
 
 
@@ -30,7 +33,7 @@ class DataBaseUserService extends Service{
   Future updateUserData(AppUser user) async {
     super.setState(NotifierState.LOADING);
     try {
-      await userCollection.doc(user.uid).update(user.userToMap());
+      await userCollection.doc(user.uid).update(user.toMap());
     } on FirebaseException {
       super.setFailure(Failure(id: 20000));
     }
@@ -42,7 +45,7 @@ class DataBaseUserService extends Service{
   Future createUserData(AppUser user) async {
     super.setState(NotifierState.LOADING);
     try {
-      await userCollection.doc(user.uid).set(user.userToMap());
+      await userCollection.doc(user.uid).set(user.toMap());
     } on FirebaseException {
       super.setFailure(Failure(id: 20000));
     }
@@ -54,26 +57,29 @@ class DataBaseUserService extends Service{
     try {
       // Get Document for user
       DocumentSnapshot snapshot = await userCollection.doc(uid).get();
-      AppUser currUserInfo = AppUser.userFromMap(snapshot.data());
+      AppUser currUserInfo = AppUser.fromMap(snapshot.data());
       assert(currUserInfo != null);
 
       super.setState(NotifierState.LOADED);
       return currUserInfo;
     } on FirebaseException {
-       throw Failure(id: 20000);
+       super.setFailure(Failure(id: 20000));
     } on AssertionError {
-      throw Failure(id: 20001);
+      super.setFailure(Failure(id: 20001));
     }
   }
 
   Future<AppUser> getUserFromUserName(String userName) async {
     try {
+      super.setState(NotifierState.LOADING);
       // Get Document for user
       AppUser userInfo = await userCollection
           .where('userName', isEqualTo: userName)
           .get()
-          .then((value) => AppUser.userFromMap(value.docs[0].data()));
+          .then((value) => AppUser.fromMap(value.docs[0].data()));
       assert(userInfo != null);
+
+      super.setState(NotifierState.LOADED);
 
       return userInfo;
     } on FirebaseException {
@@ -104,9 +110,11 @@ class DataBaseUserService extends Service{
   }
 
   Future updateUserName(String newUserName) async {
+    super.setState(NotifierState.LOADING);
     _authService = AuthService();
     String uid = _authService.getCurrentUser().uid;
-
+    assert(uid != null);
+    super.setState(NotifierState.LOADED);
     try {
       await userCollection.doc(uid).update({'userName': newUserName});
     } on FirebaseException {
