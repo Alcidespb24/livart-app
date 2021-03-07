@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/services/InputValidator.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 typedef void onChangedCallback(String pwd);
 
@@ -22,31 +23,27 @@ class PasswordField extends StatelessWidget {
         return null;
       },
       onChanged: (value) {
-        onChangedPassword(value);
+        onChangedPassword('value');
       },
       obscureText: true,
       decoration: InputDecoration(
         prefixIcon: Icon(
-          Icons.vpn_key,
+          Icons.lock_rounded,
           color: Color(0xFFADADAD),
-          size: 13,
+          size: 17,
         ),
-        contentPadding: EdgeInsets.all(5),
         filled: true,
-        fillColor: Color(0xFFC4C4C4).withOpacity(0.1),
-        labelText: '*********',
+        fillColor: Colors.black.withOpacity(0.2),
+        labelText: 'Password',
         labelStyle: TextStyle(
           color: Color(0xFFADADAD),
-          fontSize: 12,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(13.0),
-          borderSide: BorderSide(
-            color: Color(0x3CADADAD),
-          ),
+          borderRadius: BorderRadius.circular(23.0),
+          borderSide: BorderSide(color: Color(0x3CADADAD)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(17.0),
+          borderRadius: BorderRadius.circular(23.0),
           borderSide: BorderSide.none,
         ),
       ),
