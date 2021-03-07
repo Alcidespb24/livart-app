@@ -12,7 +12,11 @@ class Service {
   NotifierState _state = NotifierState.INITIAL;
 
   // State Management
-  NotifierState get state => _state;
+  NotifierState get state{
+    NotifierState temp = _state;
+    _state = NotifierState.INITIAL;
+    return temp;
+  }
   void setState(NotifierState state) {
     _state = state;
   }
