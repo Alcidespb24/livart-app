@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/authenticate/SignIn.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/services/DataBaseUserService.dart';
+import 'package:flutter_app/widgets/registerAccount.dart';
 
 class CreateAccount extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
   String userEmail = '';
   String userPwd = '';
-  String userName= '';
+  String userName = '';
   bool validEmail = false;
   bool validPwd = false;
   bool validVerified = false;
@@ -23,122 +24,111 @@ class _CreateAccountState extends State<CreateAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0.3,
-          title: Text('Create PlayThis account'),
-        ),
+        backgroundColor: Color(0xFF000000),
         body: SingleChildScrollView(
           child: Container(
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              alignment: Alignment(0.0, 0.0),
-              child: Column(children: <Widget>[
-                Form(
-                  autovalidateMode: AutovalidateMode.always,
-                  child: Column(children: <Widget>[
-                    TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.account_circle_outlined),
-                        hintText: 'Username',
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty || _dataBaseUserService.userExists(userName)) {
-                          return 'Please enter a valid username';
-                        }
-                        validEmail = true;
-                        return null;
-                      },
-                      onChanged: (textValueUsername) {
-                        setState(() {
-                          userName = textValueUsername;
-                        });
-                      },
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.email_outlined),
-                        hintText: 'Enter your email',
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty ||
-                            value.contains('@') == false ||
-                            value.contains('.') == false) {
-                          return 'Please enter a valid email';
-                        }
-                        validEmail = true;
-                        return null;
-                      },
-                      onChanged: (textValueEmail) {
-                        setState(() {
-                          userEmail = textValueEmail;
-                        });
-                      },
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.lock_outline_rounded),
-                        hintText: 'Enter Password',
-                      ),
-                      obscureText: true,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a valid password';
-                        }
-                        validPwd = true;
-                        return null;
-                      },
-                      onChanged: (textValuePwd) {
-                        setState(() {
-                          userPwd = textValuePwd;
-                        });
-                      },
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.lock_outline_rounded),
-                        hintText: 'Verify Password',
-                      ),
-                      obscureText: true,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a valid password';
-                        }
-                        if (value != userPwd) {
-                          return 'Password does not match';
-                        }
-                        validVerified = true;
-                        return null;
-                      },
-                      onChanged: (textValuePwd) {
-                        setState(() {
-                          userPwd = textValuePwd;
-                        });
-                      },
-                    ),
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 18.0),
-                      child: ElevatedButton(
-                          child: Text('Register Account'),
-                          onPressed: () async {
-                            if (validEmail && validPwd && validVerified) {
-                              dynamic accountCreated = await _authService
-                                  .createAccountEmailPwd(userEmail, userName, userPwd);
-                              if (accountCreated == null) {
-                                _showAlertDialog('Email Verification',
-                                    'Your Account has been created\n'
-                                    'An email has been sent to the email address provided\n'
-                                    'Please Verify your email and sign in');
-                              } else {
-                                await _showAlertDialog(
-                                    'Error Creating account', accountCreated);
-                              }
-                            } else {
-                              print('error please verify fields');
-                            }
-                          }),
+                      padding: EdgeInsets.only(bottom: 20, top: 50),
+                      child: Text(
+                        'Register',
+                        style: TextStyle(
+                          fontSize: 34,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                  ]),
-                ),
-              ])),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Form(
+                      autovalidateMode: AutovalidateMode.always,
+                      child: Column(children: <Widget>[
+                        registerAccount(
+                          'username',
+                          Icon(
+                            Icons.person,
+                            color: Color(0xFFE7E7F3),
+                            size: 17,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        registerAccount(
+                          "Email",
+                          Icon(
+                            Icons.email_rounded,
+                            color: Color(0xFFE7E7F3),
+                            size: 17,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        registerAccount(
+                          "Password",
+                          Icon(
+                            Icons.lock_rounded,
+                            color: Color(0xFFE7E7F3),
+                            size: 17,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        registerAccount(
+                          "Re-enter Password",
+                          Icon(
+                            Icons.lock_open,
+                            color: Color(0xFFE7E7F3),
+                            size: 17,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Container(
+                          height: 50,
+                          width: 180,
+                          margin: EdgeInsets.only(left: 40, right: 40),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Color(0xFF28B5BB),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0)),
+                                onPrimary: Colors.white,
+                                elevation: 1,
+                                shadowColor: Colors.black,
+                              ),
+                              child: Text('Register Account'),
+                              onPressed: () async {
+                                if (validEmail && validPwd && validVerified) {
+                                  dynamic accountCreated =
+                                      await _authService.createAccountEmailPwd(
+                                          userEmail, userName, userPwd);
+                                  if (accountCreated == null) {
+                                    _showAlertDialog(
+                                        'Email Verification',
+                                        'Your Account has been created\n'
+                                            'An email has been sent to the email address provided\n'
+                                            'Please Verify your email and sign in');
+                                  } else {
+                                    await _showAlertDialog(
+                                        'Error Creating account',
+                                        accountCreated);
+                                  }
+                                } else {
+                                  print('error please verify fields');
+                                }
+                              }),
+                        ),
+                      ]),
+                    ),
+                  ])),
         ));
   }
 
@@ -169,3 +159,17 @@ class _CreateAccountState extends State<CreateAccount> {
     );
   }
 }
+
+
+// validator: (value) {
+// if (value.isEmpty || _dataBaseUserService.userExists(userName)) {
+// return 'Please enter a valid username';
+// }
+// validEmail = true;
+// return null;
+// },
+// onChanged: (textValueUsername) {
+// setState(() {
+// userName = textValueUsername;
+// });
+// },
