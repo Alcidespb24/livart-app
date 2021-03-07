@@ -33,6 +33,11 @@ class _LoginState extends State<LoginPage> {
             // mainAxisAlignment: MainAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
+              Expanded(
+                child: Image.asset(
+                  'lib/assets/icons/app_icon.png', width: 200,
+                ),
+              ),
               Container(
                 margin: EdgeInsets.only(left: 50, right: 50, top: 10),
                 child: EmailField(onChangedEmail: (String email) {
@@ -70,10 +75,11 @@ class _LoginState extends State<LoginPage> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xFF28B5BB),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
                     onPrimary: Colors.white,
                     elevation: 1,
-                    shadowColor: Colors.black,
+                    shadowColor: Colors.white,
                   ),
                   child: Text(
                     "Log in",
