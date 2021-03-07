@@ -69,7 +69,7 @@ class _LoginState extends State<LoginPage> {
                 margin: EdgeInsets.only(left: 40, right: 40),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF009393),
+                    primary: Color(0xFF28B5BB),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
                     onPrimary: Colors.white,
                     elevation: 1,
