@@ -159,17 +159,3 @@ class _CreateAccountState extends State<CreateAccount> {
     );
   }
 }
-
-
-// validator: (value) {
-// if (value.isEmpty || _dataBaseUserService.userExists(userName)) {
-// return 'Please enter a valid username';
-// }
-// validEmail = true;
-// return null;
-// },
-// onChanged: (textValueUsername) {
-// setState(() {
-// userName = textValueUsername;
-// });
-// },

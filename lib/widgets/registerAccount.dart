@@ -31,7 +31,6 @@ class registerAccount extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
         ),
-
       ),
     );
   }
