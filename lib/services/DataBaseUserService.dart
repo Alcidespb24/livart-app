@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
-import 'package:flutter_app/data_models/EventCodeDatabase.dart';
 import 'package:flutter_app/data_models/Failure.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/services/Service.dart';
@@ -13,65 +11,65 @@ class DataBaseUserService extends Service{
   AuthService _authService;
 
   DataBaseUserService(){
-    super.setState(NotifierState.INITIAL);
+    setState(NotifierState.INITIAL);
   }
 
 
 
   bool userExists(String userName) {
-    super.setState(NotifierState.LOADING);
+    setState(NotifierState.LOADING);
     bool userFound =
         (userCollection.where('userName', isEqualTo: userName)) == null
             ? false
             : true;
-    super.setState(NotifierState.LOADED);
+    setState(NotifierState.LOADED);
     return userFound;
   }
 
   // Should be called only when updating user data
   // TODO: determine if calling "update" on all user fields updates all fields or only those that changed
   Future updateUserData(AppUser user) async {
-    super.setState(NotifierState.LOADING);
+    setState(NotifierState.LOADING);
     try {
       await userCollection.doc(user.uid).update(user.toMap());
     } on FirebaseException {
-      super.setFailure(Failure(id: 20000));
+      setFailure(Failure(id: 20000));
     }
-    super.setState(NotifierState.LOADED);
+    setState(NotifierState.LOADED);
   }
 
   // Should only be called when creating user
   // if a document exists with this user's uid the data will be overwritten
   Future createUserData(AppUser user) async {
-    super.setState(NotifierState.LOADING);
+    setState(NotifierState.LOADING);
     try {
       await userCollection.doc(user.uid).set(user.toMap());
     } on FirebaseException {
-      super.setFailure(Failure(id: 20000));
+      setFailure(Failure(id: 20000));
     }
-    super.setState(NotifierState.LOADED);
+    setState(NotifierState.LOADED);
   }
 
   Future<AppUser> getUserFromUid(String uid) async {
-    super.setState(NotifierState.LOADING);
+    setState(NotifierState.LOADING);
     try {
       // Get Document for user
       DocumentSnapshot snapshot = await userCollection.doc(uid).get();
       AppUser currUserInfo = AppUser.fromMap(snapshot.data());
       assert(currUserInfo != null);
 
-      super.setState(NotifierState.LOADED);
+      setState(NotifierState.LOADED);
       return currUserInfo;
     } on FirebaseException {
-       super.setFailure(Failure(id: 20000));
+       setFailure(Failure(id: 20000));
     } on AssertionError {
-      super.setFailure(Failure(id: 20001));
+      setFailure(Failure(id: 20001));
     }
   }
 
   Future<AppUser> getUserFromUserName(String userName) async {
     try {
-      super.setState(NotifierState.LOADING);
+      setState(NotifierState.LOADING);
       // Get Document for user
       AppUser userInfo = await userCollection
           .where('userName', isEqualTo: userName)
@@ -79,13 +77,13 @@ class DataBaseUserService extends Service{
           .then((value) => AppUser.fromMap(value.docs[0].data()));
       assert(userInfo != null);
 
-      super.setState(NotifierState.LOADED);
+      setState(NotifierState.LOADED);
 
       return userInfo;
     } on FirebaseException {
-      super.setFailure(Failure(id: 20000));
+      setFailure(Failure(id: 20000));
     } on AssertionError {
-      super.setFailure(Failure(id: 20001));
+      setFailure(Failure(id: 20001));
     }
   }
 
@@ -110,17 +108,17 @@ class DataBaseUserService extends Service{
   }
 
   Future updateUserName(String newUserName) async {
-    super.setState(NotifierState.LOADING);
+    setState(NotifierState.LOADING);
     _authService = AuthService();
     String uid = _authService.getCurrentUser().uid;
     assert(uid != null);
-    super.setState(NotifierState.LOADED);
+    setState(NotifierState.LOADED);
     try {
       await userCollection.doc(uid).update({'userName': newUserName});
     } on FirebaseException {
-      super.setFailure(Failure(id: 20000));
+      setFailure(Failure(id: 20000));
     } on AssertionError {
-      super.setFailure(Failure(id: 20001));
+      setFailure(Failure(id: 20001));
     }
   }
 
