@@ -3,6 +3,8 @@ import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/screens/authenticate/SignIn.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/services/DataBaseUserService.dart';
+import 'package:flutter_app/widgets/EmailField.dart';
+import 'package:flutter_app/widgets/PasswordField.dart';
 
 class CreateAccount extends StatefulWidget {
   @override
@@ -36,85 +38,12 @@ class _CreateAccountState extends State<CreateAccount> {
                 Form(
                   autovalidateMode: AutovalidateMode.always,
                   child: Column(children: <Widget>[
-                    TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.account_circle_outlined),
-                        hintText: 'Username',
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty || _dataBaseUserService.userExists(userName)) {
-                          return 'Please enter a valid username';
-                        }
-                        validEmail = true;
-                        return null;
-                      },
-                      onChanged: (textValueUsername) {
-                        setState(() {
-                          userName = textValueUsername;
-                        });
-                      },
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.email_outlined),
-                        hintText: 'Enter your email',
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty ||
-                            value.contains('@') == false ||
-                            value.contains('.') == false) {
-                          return 'Please enter a valid email';
-                        }
-                        validEmail = true;
-                        return null;
-                      },
-                      onChanged: (textValueEmail) {
-                        setState(() {
-                          userEmail = textValueEmail;
-                        });
-                      },
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.lock_outline_rounded),
-                        hintText: 'Enter Password',
-                      ),
-                      obscureText: true,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a valid password';
-                        }
-                        validPwd = true;
-                        return null;
-                      },
-                      onChanged: (textValuePwd) {
-                        setState(() {
-                          userPwd = textValuePwd;
-                        });
-                      },
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.lock_outline_rounded),
-                        hintText: 'Verify Password',
-                      ),
-                      obscureText: true,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a valid password';
-                        }
-                        if (value != userPwd) {
-                          return 'Password does not match';
-                        }
-                        validVerified = true;
-                        return null;
-                      },
-                      onChanged: (textValuePwd) {
-                        setState(() {
-                          userPwd = textValuePwd;
-                        });
-                      },
-                    ),
+                    EmailField(onChangedEmail: (String email){
+                      userEmail = email;
+                    }),
+                    PasswordField(onChangedPassword: (String pwd){
+                      userPwd = pwd;
+                    }),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 18.0),
                       child: ElevatedButton(

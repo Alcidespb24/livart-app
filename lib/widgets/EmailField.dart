@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/services/InputValidator.dart';
 
-typedef void onChangedCallback(String pwd);
+typedef void onChangedCallback(String email);
 
 class EmailField extends StatelessWidget{
   final onChangedCallback onChangedEmail;
