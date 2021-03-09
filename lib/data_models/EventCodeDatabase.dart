@@ -9,7 +9,6 @@
  */
 
 // TODO: This can be made into a class with getters to obfuscate the actual implementation
-
 const Map<int,String> EventCodeDatabase =
 {
   10000 : 'Unable to send Password Reset Email. Please check your connection and try again',
@@ -20,6 +19,4 @@ const Map<int,String> EventCodeDatabase =
   10040 : 'Sign in Failed. Please try again',
   20000 : 'Unable to write to the Database. Please try again later',
   20001 : 'User not found. Please enter another user'
-
-
 };

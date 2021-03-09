@@ -94,6 +94,11 @@ class _LoginState extends State<LoginPage> {
                   onPressed: () async {
                     await _authService.signInEmailPwd(
                         emailField, passwordField);
+
+                    _authService.hasError();
+
+                    _authService.failure.toString();
+
                   },
                   child: Text(
                     'Sign in',
