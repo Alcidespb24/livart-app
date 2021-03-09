@@ -16,7 +16,7 @@ class AuthService extends Service {
   static AppUser _currentUser;
 
   AuthService(){
-    super.setState(NotifierState.INITIAL);
+    setState(NotifierState.INITIAL);
   }
 
   AppUser _appUserFromFirebaseUser(User user){
@@ -32,7 +32,7 @@ class AuthService extends Service {
   // Sign in anonymously
   void  signInAnonymous() async {
     try {
-      super.setState(NotifierState.LOADING);
+      setState(NotifierState.LOADING);
       // TODO: need to access firestore and delete user account if the user decides not to use his Email/Pwd anymore
       if(_auth.currentUser != null && _auth.currentUser.emailVerified == false){
         print('Deleting user'+_auth.currentUser.toString() );
@@ -43,7 +43,7 @@ class AuthService extends Service {
 
       super.setState(NotifierState.LOADED);
     } on  FirebaseAuthException{
-      super.setFailure(Failure(id: 10020));
+      setFailure(Failure(id: 10020));
     }
   }
 
