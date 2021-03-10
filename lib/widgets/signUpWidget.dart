@@ -1,31 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/data_models/AppUser.dart';
-import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
-import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
-import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
-import 'package:flutter_app/themes/theme.dart';
-import 'package:flutter_app/widgets/FormFields/EmailField.dart';
-import 'package:flutter_app/widgets/FormFields/PasswordField.dart';
-import 'package:flutter_app/widgets/FormFields/UserField.dart';
 
-class SignUpWidget extends StatefulWidget {
-  SignUpWidget({this.userRole});
-
-  final Role userRole;
-
-  @override
-  _SignUpWidgetState createState() => _SignUpWidgetState();
-}
-
-class _SignUpWidgetState extends State<SignUpWidget> {
-  final AuthService _authService = AuthService();
-  final FirestoreUserService _userService = FirestoreUserService();
-  final FirestoreRequestService _requestService = FirestoreRequestService();
-  GlobalTheme globalTheme = GlobalTheme();
-  String emailField = '';
-  String passwordField = '';
-  String userNameField = '';
+class signUpWidget extends StatelessWidget {
+  const signUpWidget({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,21 +17,92 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               fontSize: 24,
               color: Color(0xFFFFFFFF),
               height: 3.4,
-              fontFamily: 'RobotoCondensed-Bold.ttf',
             ),
           ),
           SizedBox(height: 15),
-          UserField(onChangedUname: (String uName) {
-            userNameField = uName;
-          }),
+          TextField(
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.face_retouching_natural,
+                color: Color(0xFFADADAD),
+                size: 13,
+              ),
+              contentPadding: EdgeInsets.all(5),
+              filled: true,
+              fillColor: Color(0xFFC4C4C4).withOpacity(0.1),
+              labelText: 'username',
+              labelStyle: TextStyle(
+                color: Color(0xFFADADAD),
+                fontSize: 12,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(13.0),
+                borderSide: BorderSide(
+                  color: Color(0x3CADADAD),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(17.0),
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
           SizedBox(height: 15),
-          EmailField(onChangedEmail: (String email) {
-            emailField = email;
-          }),
+          TextField(
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.email_rounded,
+                color: Color(0xFFADADAD),
+                size: 13,
+              ),
+              contentPadding: EdgeInsets.all(5),
+              filled: true,
+              fillColor: Color(0xFFC4C4C4).withOpacity(0.1),
+              labelText: 'EMAIL',
+              labelStyle: TextStyle(
+                color: Color(0xFFADADAD),
+                fontSize: 12,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(13.0),
+                borderSide: BorderSide(
+                  color: Color(0x3CADADAD),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(17.0),
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
           SizedBox(height: 15),
-          PasswordField(onChangedPassword: (String pwd) {
-            passwordField = pwd;
-          }),
+          TextField(
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.vpn_key,
+                color: Color(0xFFADADAD),
+                size: 13,
+              ),
+              contentPadding: EdgeInsets.all(5),
+              filled: true,
+              fillColor: Color(0xFFC4C4C4).withOpacity(0.1),
+              labelText: '*********',
+              labelStyle: TextStyle(
+                color: Color(0xFFADADAD),
+                fontSize: 12,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(13.0),
+                borderSide: BorderSide(
+                  color: Color(0x3CADADAD),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(17.0),
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
           SizedBox(height: 15),
           Container(
             height: 38,
@@ -61,11 +110,10 @@ class _SignUpWidgetState extends State<SignUpWidget> {
             margin: EdgeInsets.only(left: 35, right: 35, top: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14.0),
-              color: globalTheme.buttonColor3,
+              color: Color(0xFFFFFFFF),
             ),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: globalTheme.buttonColor3,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14.0),
                 ),
@@ -74,28 +122,10 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               child: Text(
                 "Register Now",
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              onPressed: () async {
-                await _authService.createAccountEmailPwd(
-                    emailField, userNameField, passwordField, widget.userRole);
-
-                if (!_authService.hasError()) {
-                  //TODO: Handle Error and display message to user
-                  await _userService
-                      .createUserData(_authService.getCurrentUser());
-
-                  // if the user is a creator create a document to handle requests
-                  if (_authService.getCurrentUser().userRole == Role.CREATOR) {
-                    await _requestService.createCreatorRequestDoc(
-                        _authService.getCurrentUser().uid);
-                  }
-
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  SideBarLayout()));
-                }
-              },
             ),
           ),
         ],

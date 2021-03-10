@@ -1,183 +1,183 @@
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/data_models/AppUser.dart';
-import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
-import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
-import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
-import 'package:flutter_app/themes/theme.dart';
-import 'package:flutter_app/widgets/FormFields/EmailField.dart';
-import 'package:flutter_app/widgets/FormFields/PasswordField.dart';
+import 'package:community_material_icon/community_material_icon.dart';
 
-class LogInWidget extends StatefulWidget {
-  LogInWidget({this.userRole});
-
-  final Role userRole;
-  @override
-  _LogInWidgetState createState() => _LogInWidgetState();
-}
-
-class _LogInWidgetState extends State<LogInWidget> {
-  final FirestoreUserService _userService = FirestoreUserService();
-  final FirestoreRequestService _requestService = FirestoreRequestService();
-  final AuthService _authService = AuthService();
-
-  GlobalTheme globalTheme = GlobalTheme();
-  String emailField = '';
-  String passwordField = '';
-  String userName = '';
+class logInWidget extends StatelessWidget {
+  const logInWidget({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        margin: EdgeInsets.only(right: 50, left: 50),
-        child: Column(
-          children: <Widget>[
-            Text(
-              'Welcome Back',
+    return Container(
+      margin: EdgeInsets.only(right: 50, left: 50),
+      child: Column(
+        children: <Widget>[
+          Text(
+            'Welcome Back',
+            style: TextStyle(
+              fontSize: 24,
+              color: Color(0xFFFFFFFF),
+              height: 3.4,
+            ),
+          ),
+          SizedBox(height: 15),
+          TextField(
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.email_rounded,
+                color: Color(0xFFADADAD),
+                size: 13,
+              ),
+              contentPadding: EdgeInsets.all(5),
+              filled: true,
+              fillColor: Color(0xFFC4C4C4).withOpacity(0.1),
+              labelText: 'EMAIL',
+              labelStyle: TextStyle(
+                color: Color(0xFFADADAD),
+                fontSize: 12,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(13.0),
+                borderSide: BorderSide(
+                  color: Color(0x3CADADAD),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(17.0),
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
+          SizedBox(height: 15),
+          TextField(
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  Icons.vpn_key,
+                  color: Color(0xFFADADAD),
+                  size: 13,
+                ),
+                contentPadding: EdgeInsets.all(5),
+                filled: true,
+                fillColor: Color(0xFFC4C4C4).withOpacity(0.1),
+                labelText: '*********',
+                labelStyle: TextStyle(
+                  color: Color(0xFFADADAD),
+                  fontSize: 12,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(13.0),
+                  borderSide: BorderSide(
+                    color: Color(0x3CADADAD),
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(17.0),
+                  borderSide: BorderSide.none,
+                ),
+              )),
+          Container(
+            margin: EdgeInsets.only(left: 180, top: 5),
+            child: Text(
+              'Forgot Password?',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 9,
                 color: Color(0xFFFFFFFF),
-                height: 3.4,
-                fontFamily: 'RobotoCondensed-Bold.ttf',
               ),
             ),
-            SizedBox(height: 15),
-            EmailField(onChangedEmail: (String email) {
-              setState(() {
-                emailField = email;
-              });
-            }),
-            SizedBox(height: 15),
-            PasswordField(onChangedPassword: (String pwd) {
-              setState(() {
-                passwordField = pwd;
-              });
-            }),
-            Container(
-              margin: EdgeInsets.only(left: 180, top: 5),
-              child: TextButton(
-                child: Text(
-                  'Forgot Password?',
-                  style: TextStyle(
-                    fontSize: 9,
-                    color: Color(0xFFFFFFFF),
-                  ),
+          ),
+          Container(
+            height: 38,
+            width: 150,
+            margin: EdgeInsets.only(left: 35, right: 35, top: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14.0),
+              color: Color(0xFF000000),
+            ),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14.0),
                 ),
-                //TODO: This needs to take the user to another Screen where he/she is asked to enter his email address
-                onPressed: () async {
-                  //TODO: This should remain commented until the "Forgot Password" screen is created
-                  //_authService.resetPwd(emailField);
-                },
+                elevation: 1,
+              ),
+              child: Text(
+                "Submit",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
-            Container(
-              height: 38,
-              width: 150,
-              margin: EdgeInsets.only(left: 35, right: 35, top: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14.0),
-                color: Color(0xFFA400C1),
-              ),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  onSurface: Color(0xFF388E3C),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14.0),
-                  ),
-                  elevation: 1,
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Divider(
+                  height: 35,
+                  thickness: 0.5,
+                  indent: 0,
+                  endIndent: 10,
+                  color: Colors.white,
                 ),
-                child: Text(
-                  "Submit",
-                  style: TextStyle(
-                    color: Color(0xFFFFFFFF),
-                  ),
-                ),
-                onPressed: () async {
-                  await _authService.signInEmailPwd(emailField, passwordField);
-                  if (_authService.hasError()) {
-                    //TODO: Handle Error and send information about what went wrong to the user
-                    print(_authService.failure.toString());
-                  }
-                },
               ),
+              Text(
+                'OR',
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Color(0xFFFFFFFF),
+                ),
+              ),
+              Expanded(
+                child: Divider(
+                  height: 35,
+                  thickness: 0.5,
+                  indent: 10,
+                  endIndent: 0,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          Container(
+            height: 30,
+            margin: EdgeInsets.only(left: 40, right: 40),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: AlignmentDirectional(0.0, -0.8),
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFFDC1919).withOpacity(0.8),
+                  Color(0xFFE3F509).withOpacity(0.8),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(14.0),
             ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Divider(
-                    height: 35,
-                    thickness: 0.5,
-                    indent: 0,
-                    endIndent: 10,
-                    color: Colors.white,
+            child: Row(
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14.0),
+                    ),
+                    elevation: 1,
                   ),
-                ),
-                Text(
-                  'OR',
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Color(0xFFFFFFFF),
-                  ),
-                ),
-                Expanded(
-                  child: Divider(
-                    height: 35,
-                    thickness: 0.5,
-                    indent: 10,
-                    endIndent: 0,
-                    color: Colors.white,
+                  child: Row(
+                    children: [
+                      Icon(
+                        CommunityMaterialIcons.google,
+                        size: 20,
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        "SIGN IN WITH GOOGLE",
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
-            Container(
-              height: 30,
-              margin: EdgeInsets.only(left: 40, right: 47),
-              decoration: BoxDecoration(
-                // gradient: LinearGradient(
-                //   begin: AlignmentDirectional(0.0, -0.8),
-                //   end: Alignment.bottomCenter,
-                //   colors: [
-                //     Color(0xFFDC1919).withOpacity(0.8),
-                //     Color(0xFFE3F509).withOpacity(0.8),
-                //   ],
-                // ),
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(14.0),
-              ),
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14.0),
-                  ),
-                  elevation: 1,
-                ),
-                label: Text('Sign in with Google'),
-                icon: Icon(
-                  CommunityMaterialIcons.google,
-                  size: 20,
-                  color: Color(0xFFDC1919),
-                ),
-                onPressed: () async {
-                  await _authService.signInWithGoogle(widget.userRole);
-
-                  await _userService
-                      .createUserData(_authService.getCurrentUser());
-
-                  // if the user is a creator create a document to handle requests
-                  if (_authService.getCurrentUser().userRole == Role.CREATOR) {
-                    await _requestService.createCreatorRequestDoc(
-                        _authService.getCurrentUser().uid);
-                  }
-
-                  Navigator.pop(context, SideBarLayout());
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

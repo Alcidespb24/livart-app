@@ -30,16 +30,16 @@ class _LoginState extends State<LoginPage> {
             color: Colors.black38,
           ),
           Column(
-            // mainAxisAlignment: MainAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Expanded(
                 child: Image.asset(
-                  'lib/assets/icons/app_icon.png', width: 200,
+                  'lib/assets/icons/app_icon.png',
+                  width: 180,
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left: 50, right: 50, top: 10),
+                margin: EdgeInsets.only(left: 50, right: 50),
                 child: EmailField(onChangedEmail: (String email) {
                   emailField = email;
                 }),
@@ -48,21 +48,38 @@ class _LoginState extends State<LoginPage> {
                 height: 15,
               ),
               Container(
-                margin: EdgeInsets.only(left: 50, right: 50, top: 10),
+                margin:
+                    EdgeInsets.only(left: 50, right: 50, top: 10, bottom: 0),
                 child: PasswordField(
                   onChangedPassword: (String pwd) {
                     passwordField = pwd;
                   },
                 ),
               ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                'Forgot Password?',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
+              Container(
+                margin: EdgeInsets.only(left: 55, right: 55),
+                child: Row(
+                  children: <Widget>[
+                    Checkbox(
+                      value: false,
+                      onChanged: (value) {},
+                    ),
+                    Text(
+                      'Remember me',
+                      style: TextStyle(
+                        color: Color(0xFFADADAD),
+                        fontSize: 13,
+                      ),
+                    ),
+                    Spacer(),
+                    Text(
+                      'Forgot Password?',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(

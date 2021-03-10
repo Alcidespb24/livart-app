@@ -1,59 +1,59 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/themes/theme.dart';
 import 'package:flutter_app/widgets/logInWidget.dart';
 import 'package:flutter_app/widgets/signUpWidget.dart';
 
-class HomeScreen extends StatefulWidget {
-  HomeScreen({this.userRole});
-  final userRole;
+class homeScreen extends StatefulWidget {
   @override
-  _HomeScreen createState() => _HomeScreen();
+  _homeScreen createState() => _homeScreen();
 }
 
-class _HomeScreen extends State<HomeScreen> {
+class _homeScreen extends State<homeScreen> {
   bool isSignupScreen = true;
-
-  GlobalTheme globalTheme = GlobalTheme();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Container(
-            decoration: globalTheme.backgroundGradient,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: AlignmentDirectional(0.0, -0.7),
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF000000),
+                  Color(0xFF190A43),
+                ],
+              ),
+            ),
             child: Column(
               children: <Widget>[
                 Expanded(
                   child: Image.asset(
-                    'lib/assets/icons/app_icon.png',
+                    'lib/app_icon.png',
                     width: 180,
                     alignment: AlignmentDirectional(0.0, 0.6),
-                    color: globalTheme.miscellaneous,
                   ),
                 ),
                 Container(
-                  height: 425,
+                  height: 400,
                   padding: EdgeInsets.all(20),
                   width: MediaQuery.of(context).size.width - 0,
-                  margin: EdgeInsets.symmetric(horizontal: 1.0),
+                  margin: EdgeInsets.symmetric(horizontal: 0.4),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      begin: AlignmentDirectional(0.0, -2.05),
+                      begin: AlignmentDirectional(0.0, -0.8),
                       end: Alignment.bottomCenter,
                       colors: [
-                        globalTheme.gradient1,
-                        globalTheme.gradient2,
+                        Color(0xFF000000),
+                        Color(0xFF190A43),
                       ],
                     ),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(32),
-                        topLeft: Radius.circular(32)),
+                    borderRadius: BorderRadius.circular(32),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0xFFFFFFFF).withOpacity(0.7),
+                        color: Color(0xFF000000).withOpacity(0),
                       ),
                     ],
                   ),
@@ -70,18 +70,13 @@ class _HomeScreen extends State<HomeScreen> {
                             },
                             child: Column(
                               children: <Widget>[
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                  ),
-                                  child: Text(
-                                    'LOG IN',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: !isSignupScreen
-                                          ? Color(0xFFFFFFFF)
-                                          : Color(0xFFFFFFFF).withOpacity(0.5),
-                                    ),
+                                Text(
+                                  'LOG IN',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: !isSignupScreen
+                                        ? Color(0xFFFFFFFF)
+                                        : Color(0xFFFFFFFF).withOpacity(0.5),
                                   ),
                                 ),
                                 if (!isSignupScreen)
@@ -102,18 +97,13 @@ class _HomeScreen extends State<HomeScreen> {
                             },
                             child: Column(
                               children: <Widget>[
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                  ),
-                                  child: Text(
-                                    'SIGN UP',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: isSignupScreen
-                                          ? Color(0xFFFFFFFF)
-                                          : Color(0xFFFFFFFF).withOpacity(0.5),
-                                    ),
+                                Text(
+                                  'SIGN UP',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: isSignupScreen
+                                        ? Color(0xFFFFFFFF)
+                                        : Color(0xFFFFFFFF).withOpacity(0.5),
                                   ),
                                 ),
                                 if (isSignupScreen)
@@ -128,8 +118,8 @@ class _HomeScreen extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                      if (!isSignupScreen) LogInWidget(),
-                      if (isSignupScreen) SignUpWidget(userRole: widget.userRole),
+                      if (!isSignupScreen) logInWidget(),
+                      if(isSignupScreen)signUpWidget(),
                     ],
                   ),
                 ),
