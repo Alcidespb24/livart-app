@@ -91,10 +91,11 @@ class logInWidget extends StatelessWidget {
             margin: EdgeInsets.only(left: 35, right: 35, top: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14.0),
-              color: Color(0xFF000000),
+              color: Color(0xFFA400C1),
             ),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
+                onSurface: Color(0xFF388E3C),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14.0),
                 ),
@@ -103,7 +104,7 @@ class logInWidget extends StatelessWidget {
               child: Text(
                 "Submit",
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Color(0xFFFFFFFF),
                 ),
               ),
             ),
@@ -139,16 +140,17 @@ class logInWidget extends StatelessWidget {
           ),
           Container(
             height: 30,
-            margin: EdgeInsets.only(left: 40, right: 40),
+            margin: EdgeInsets.only(left: 40, right: 47),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: AlignmentDirectional(0.0, -0.8),
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFFDC1919).withOpacity(0.8),
-                  Color(0xFFE3F509).withOpacity(0.8),
-                ],
-              ),
+              // gradient: LinearGradient(
+              //   begin: AlignmentDirectional(0.0, -0.8),
+              //   end: Alignment.bottomCenter,
+              //   colors: [
+              //     Color(0xFFDC1919).withOpacity(0.8),
+              //     Color(0xFFE3F509).withOpacity(0.8),
+              //   ],
+              // ),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(14.0),
             ),
             child: Row(
@@ -165,11 +167,12 @@ class logInWidget extends StatelessWidget {
                       Icon(
                         CommunityMaterialIcons.google,
                         size: 20,
+                        color: Color(0xFFDC1919),
                       ),
                       SizedBox(width: 5),
                       Text(
                         "SIGN IN WITH GOOGLE",
-                        style: TextStyle(color: Colors.white, fontSize: 12),
+                        style: TextStyle(color: Colors.black, fontSize: 12),
                       ),
                     ],
                   ),

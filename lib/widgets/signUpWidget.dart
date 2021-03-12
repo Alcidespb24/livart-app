@@ -110,10 +110,11 @@ class signUpWidget extends StatelessWidget {
             margin: EdgeInsets.only(left: 35, right: 35, top: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14.0),
-              color: Color(0xFFFFFFFF),
+              color: Color(0xFFA400C1),
             ),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
+                onSurface: Color(0xFFA400C1),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14.0),
                 ),
@@ -122,7 +123,7 @@ class signUpWidget extends StatelessWidget {
               child: Text(
                 "Register Now",
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
