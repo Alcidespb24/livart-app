@@ -17,16 +17,17 @@ class _homeScreen extends State<homeScreen> {
       body: Stack(
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: AlignmentDirectional(0.0, -0.7),
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFF000000),
-                  Color(0xFF190A43),
-                ],
-              ),
-            ),
+            color: Color(0xFF000000),
+            // decoration: BoxDecoration(
+            //   gradient: LinearGradient(
+            //     begin: AlignmentDirectional(0.0, -0.7),
+            //     end: Alignment.bottomCenter,
+            //     colors: [
+            //       Color(0xFF000000),
+            //       Color(0xFF190A43),
+            //     ],
+            //   ),
+            // ),
             child: Column(
               children: <Widget>[
                 Expanded(
@@ -34,26 +35,30 @@ class _homeScreen extends State<homeScreen> {
                     'lib/app_icon.png',
                     width: 180,
                     alignment: AlignmentDirectional(0.0, 0.6),
+                    color: Colors.white,
                   ),
                 ),
                 Container(
                   height: 400,
                   padding: EdgeInsets.all(20),
                   width: MediaQuery.of(context).size.width - 0,
-                  margin: EdgeInsets.symmetric(horizontal: 0.4),
+                  margin: EdgeInsets.symmetric(horizontal: 1.0),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: AlignmentDirectional(0.0, -0.8),
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0xFF000000),
-                        Color(0xFF190A43),
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(32),
+                    // gradient: LinearGradient(
+                    //   begin: AlignmentDirectional(0.0, -2.05),
+                    //   end: Alignment.bottomCenter,
+                    //   colors: [
+                    //     Color(0xFF131313),
+                    //     Color(0xFF111111).withOpacity(0.90),
+                    //   ],
+                    // ),
+                    color: Colors.black,
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(32),
+                        topLeft: Radius.circular(32)),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0xFF000000).withOpacity(0),
+                        color: Color(0xFFFFFFFF).withOpacity(0.7),
                       ),
                     ],
                   ),
@@ -119,7 +124,7 @@ class _homeScreen extends State<homeScreen> {
                         ],
                       ),
                       if (!isSignupScreen) logInWidget(),
-                      if(isSignupScreen)signUpWidget(),
+                      if (isSignupScreen) signUpWidget(),
                     ],
                   ),
                 ),
