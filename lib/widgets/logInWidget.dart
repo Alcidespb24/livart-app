@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 
-class logInWidget extends StatelessWidget {
-  const logInWidget({
+class LogInWidget extends StatelessWidget {
+  const LogInWidget({
     Key key,
   }) : super(key: key);
 

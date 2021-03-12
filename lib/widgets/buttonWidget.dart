@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class buttonWidget extends StatelessWidget {
+class ButtonWidget extends StatelessWidget {
 
 
   @override
