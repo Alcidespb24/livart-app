@@ -18,6 +18,7 @@ class LogInWidget extends StatelessWidget {
               fontSize: 24,
               color: Color(0xFFFFFFFF),
               height: 3.4,
+              fontFamily: 'RobotoCondensed-Bold.ttf',
             ),
           ),
           SizedBox(height: 15),
@@ -31,7 +32,7 @@ class LogInWidget extends StatelessWidget {
               contentPadding: EdgeInsets.all(5),
               filled: true,
               fillColor: Color(0xFFC4C4C4).withOpacity(0.1),
-              labelText: 'EMAIL',
+              labelText: 'Email',
               labelStyle: TextStyle(
                 color: Color(0xFFADADAD),
                 fontSize: 12,
@@ -51,30 +52,30 @@ class LogInWidget extends StatelessWidget {
           SizedBox(height: 15),
           TextField(
               decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.vpn_key,
-                  color: Color(0xFFADADAD),
-                  size: 13,
-                ),
-                contentPadding: EdgeInsets.all(5),
-                filled: true,
-                fillColor: Color(0xFFC4C4C4).withOpacity(0.1),
-                labelText: '*********',
-                labelStyle: TextStyle(
-                  color: Color(0xFFADADAD),
-                  fontSize: 12,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(13.0),
-                  borderSide: BorderSide(
-                    color: Color(0x3CADADAD),
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17.0),
-                  borderSide: BorderSide.none,
-                ),
-              )),
+            prefixIcon: Icon(
+              Icons.vpn_key,
+              color: Color(0xFFADADAD),
+              size: 13,
+            ),
+            contentPadding: EdgeInsets.all(5),
+            filled: true,
+            fillColor: Color(0xFFC4C4C4).withOpacity(0.1),
+            labelText: '*********',
+            labelStyle: TextStyle(
+              color: Color(0xFFADADAD),
+              fontSize: 12,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(13.0),
+              borderSide: BorderSide(
+                color: Color(0x3CADADAD),
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(17.0),
+              borderSide: BorderSide.none,
+            ),
+          )),
           Container(
             margin: EdgeInsets.only(left: 180, top: 5),
             child: Text(

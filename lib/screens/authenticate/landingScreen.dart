@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import'package:flutter_app/screens/authenticate/homeScreen.dart';
-import 'package:flutter_app/widgets/UserCreatorButton.dart';
+import 'package:flutter_app/screens/authenticate/homeScreen.dart';
+import 'package:flutter_app/widgets/UserCreatorGesture.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -11,7 +11,6 @@ class LandingScreen extends StatefulWidget {
 
 class _LandingScreenState extends State<LandingScreen> {
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -47,12 +46,13 @@ class _LandingScreenState extends State<LandingScreen> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
-                            fontSize: 20),
+                            fontSize: 20,
+                            fontFamily: 'RobotoCondensed-Bold.ttf'),
                       ),
                     ],
                   ),
                 ),
-               UserCreatorButton('Creator', Colors.white, Colors.black, 35.0),
+                UserCreatorButton('Creator', Colors.white, Colors.black, 35.0),
                 SizedBox(height: 5),
                 UserCreatorButton('User', Colors.black, Colors.white, 10.0),
               ],

@@ -17,6 +17,7 @@ class SignUpWidget extends StatelessWidget {
               fontSize: 24,
               color: Color(0xFFFFFFFF),
               height: 3.4,
+              fontFamily: 'RobotoCondensed-Bold.ttf',
             ),
           ),
           SizedBox(height: 15),
@@ -58,7 +59,7 @@ class SignUpWidget extends StatelessWidget {
               contentPadding: EdgeInsets.all(5),
               filled: true,
               fillColor: Color(0xFFC4C4C4).withOpacity(0.1),
-              labelText: 'EMAIL',
+              labelText: 'Email',
               labelStyle: TextStyle(
                 color: Color(0xFFADADAD),
                 fontSize: 12,

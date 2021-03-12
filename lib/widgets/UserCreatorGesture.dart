@@ -35,6 +35,7 @@ class UserCreatorButton extends StatelessWidget {
           style: TextStyle(
             color: colorText,
             fontWeight: FontWeight.bold,
+              fontFamily: 'RobotoCondensed-Bold.ttf',
           ),
         ),
       ),
