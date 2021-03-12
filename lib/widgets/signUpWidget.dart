@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class signUpWidget extends StatelessWidget {
-  const signUpWidget({
+class SignUpWidget extends StatelessWidget {
+  const SignUpWidget({
     Key key,
   }) : super(key: key);
 
