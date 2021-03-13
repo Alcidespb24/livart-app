@@ -141,7 +141,7 @@ class LogInWidget extends StatelessWidget {
           ),
           Container(
             height: 30,
-            margin: EdgeInsets.only(left: 40, right: 47),
+            margin: EdgeInsets.only(left: 40),
             decoration: BoxDecoration(
               // gradient: LinearGradient(
               //   begin: AlignmentDirectional(0.0, -0.8),
