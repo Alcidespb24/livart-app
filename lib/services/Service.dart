@@ -1,6 +1,7 @@
 // All services should implement this class
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/data_models/Failure.dart';
 
 enum NotifierState { INITIAL, LOADING, LOADED }
@@ -17,13 +18,15 @@ class Service {
     _state = NotifierState.INITIAL;
     return temp;
   }
+  @protected
   void setState(NotifierState state) {
     _state = state;
   }
 
   // Failure Management
   Failure get failure => _failure;
-  void setFailure(Failure failure) {
+  @protected
+  void setFailure(Failure failure, {id}) {
     _failure = failure;
   }
 

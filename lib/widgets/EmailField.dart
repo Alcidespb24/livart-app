@@ -29,20 +29,24 @@ class EmailField extends StatelessWidget {
         prefixIcon: Icon(
           Icons.email_rounded,
           color: Color(0xFFADADAD),
-          size: 17,
+          size: 13,
         ),
+        contentPadding: EdgeInsets.all(5),
         filled: true,
-        fillColor: Colors.black.withOpacity(0.2),
+        fillColor: Color(0xFFC4C4C4).withOpacity(0.1),
         labelText: 'Email',
         labelStyle: TextStyle(
           color: Color(0xFFADADAD),
+          fontSize: 12,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(23.0),
-          borderSide: BorderSide(color: Color(0x3CADADAD)),
+          borderRadius: BorderRadius.circular(13.0),
+          borderSide: BorderSide(
+            color: Color(0x3CADADAD),
+          ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(17.0),
           borderSide: BorderSide.none,
         ),
       ),
