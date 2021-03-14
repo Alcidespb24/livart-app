@@ -124,8 +124,9 @@ class AuthService extends Service {
       setState(NotifierState.LOADING);
       await _auth.sendPasswordResetEmail(email: email);
       setState(NotifierState.LOADED);
-    } on FirebaseAuthException{
+    } on FirebaseAuthException catch(e){
       setFailure(Failure(id: EventCodes.UNABLE_TO_SEND_PASSWORD_EMAIL));
+      print (e.code);
     }
   }
 

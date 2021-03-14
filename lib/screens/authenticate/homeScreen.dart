@@ -9,7 +9,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
-
   bool isSignupScreen = true;
   final Color gradient1 = Color(0xFF000000);
   final Color gradient2 = Color(0xFF190A43);
@@ -30,6 +29,7 @@ class _HomeScreen extends State<HomeScreen> {
                 ],
               ),
             ),
+
             child: Column(
               children: <Widget>[
                 Expanded(
@@ -135,7 +135,7 @@ class _HomeScreen extends State<HomeScreen> {
                         ],
                       ),
                       if (!isSignupScreen) LogInWidget(),
-                      if (isSignupScreen) SignUpWidget(),
+                      SignUpWidget(),
                     ],
                   ),
                 ),
