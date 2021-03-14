@@ -19,7 +19,8 @@ class FirestoreRequestService extends Service {
     setState(NotifierState.LOADED);
   }
 
-  Future createCreatorRequestDoc(String creatorUid){
-    requestCollection.doc(creatorUid).set({'creatorUid':creatorUid});
+  Future getRequests() {
+
   }
+
 }

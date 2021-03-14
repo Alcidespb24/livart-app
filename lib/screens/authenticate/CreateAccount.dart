@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/screens/authenticate/SignIn.dart';
 import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/services/DataBaseUserService.dart';
+import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
 import 'package:flutter_app/widgets/EmailField.dart';
 import 'package:flutter_app/widgets/PasswordField.dart';
 
@@ -13,7 +13,7 @@ class CreateAccount extends StatefulWidget {
 
 class _CreateAccountState extends State<CreateAccount> {
   final AuthService _authService = AuthService();
-  final DataBaseUserService _dataBaseUserService = DataBaseUserService();
+  final FirestoreUserService _dataBaseUserService = FirestoreUserService();
   AlertDialog _alertDialog = AlertDialog();
 
   String userEmail = '';

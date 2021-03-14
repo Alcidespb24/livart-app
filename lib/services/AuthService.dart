@@ -2,8 +2,9 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
+import 'package:flutter_app/data_models/EventCodeDatabase.dart';
 import 'package:flutter_app/data_models/Failure.dart';
-import 'package:flutter_app/services/DataBaseUserService.dart';
+import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
 import 'package:flutter_app/services/Service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -11,8 +12,7 @@ class AuthService extends Service {
   // This is a private property
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final DataBaseUserService _userDataBaseService = DataBaseUserService();
- // UserCredential _userCredential;
+  final FirestoreUserService _userDataBaseService = FirestoreUserService();
   static AppUser _currentUser;
 
   AuthService(){
@@ -37,24 +37,22 @@ class AuthService extends Service {
       if(_auth.currentUser != null && _auth.currentUser.emailVerified == false){
         print('Deleting user'+_auth.currentUser.toString() );
       }
-      print (_auth.currentUser);
-       UserCredential user = await _auth.signInAnonymously();
 
-      await _userDataBaseService.createUserData(_appUserFromFirebaseUser(user.user));
-      setState(NotifierState.LOADED);
+      UserCredential user = await _auth.signInAnonymously();
+      _currentUser = _appUserFromFirebaseUser(user.user);
+
+      super.setState(NotifierState.LOADED);
     } on  FirebaseAuthException{
-      setFailure(Failure(id: 10020));
+      setFailure(Failure(id: EventCodes.USER_NOT_FOUND_INVALID_UNAME));
     }
   }
 
   // Authentication change for user stream
-  // @return: null if not signed in, UserCredential Object if signed in
   Stream<AppUser> get user {
     return _auth.authStateChanges().map((User user) => _appUserFromFirebaseUser(user));
   }
 
   // Create account with email and password
-  // returns null on success or the error string if any errors occur
   void createAccountEmailPwd(String email, String userName, String pwd) async {
     try {
       setState(NotifierState.LOADING);
@@ -63,17 +61,20 @@ class AuthService extends Service {
           email: email,
           password: pwd);
 
+      _currentUser = _appUserFromFirebaseUser(userCredential.user);
+
+      _userDataBaseService.createUserData(_currentUser);
+
       if (!userCredential.user.emailVerified) {
         await userCredential.user.sendEmailVerification();
       }
-      _userDataBaseService.updateUserName(userName);
 
       setState(NotifierState.LOADED);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'weak-password') {
-        setFailure(Failure(id: 10011));
+        setFailure(Failure(id: EventCodes.PASSWORD_TOO_WEAK));
       } else if (error.code == 'email-already-in-use') {
-        setFailure(Failure(id: 10030));
+        setFailure(Failure(id: EventCodes.CREDENTIALS_IN_USE));
       }
     }
   }
@@ -81,18 +82,22 @@ class AuthService extends Service {
   // Sign in email pwd
   void signInEmailPwd(String email, String pwd) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: pwd);
+      setState(NotifierState.LOADING);
+      UserCredential curr = await _auth.signInWithEmailAndPassword(email: email, password: pwd);
+      _currentUser = _appUserFromFirebaseUser(curr.user);
+      setState(NotifierState.LOADED);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'user-not-found') {
-        setFailure(Failure(id: 10030));
+        setFailure(Failure(id: EventCodes.USER_NOT_FOUND_INVALID_UNAME));
       } else if (error.code == 'wrong-password') {
-        setFailure(Failure(id: 10030));
+        setFailure(Failure(id: EventCodes.INVALID_CREDENTIALS));
       }
     } 
   }
 
   bool isEmailVerified() {
-    return _auth.currentUser.emailVerified;
+    _currentUser.emailVerified = _auth.currentUser.emailVerified;
+    return _currentUser.emailVerified;
   }
 
   // Sign in with google
@@ -106,9 +111,11 @@ class AuthService extends Service {
         idToken: googleSignInAuthentication.idToken,
       );
 
-      await _auth.signInWithCredential(credential);
+      UserCredential curr = await _auth.signInWithCredential(credential);
+      _currentUser = _appUserFromFirebaseUser(curr.user);
+
     } on PlatformException {
-      setFailure(Failure(id: 1040));
+      setFailure(Failure(id: EventCodes.SIGN_IN_FAILED));
     }
   }
 
@@ -118,13 +125,12 @@ class AuthService extends Service {
       await _auth.sendPasswordResetEmail(email: email);
       setState(NotifierState.LOADED);
     } on FirebaseAuthException{
-      setFailure(Failure(id: 10000));
+      setFailure(Failure(id: EventCodes.UNABLE_TO_SEND_PASSWORD_EMAIL));
     }
   }
 
   AppUser getCurrentUser() {
-    AppUser curr = _appUserFromFirebaseUser(_auth.currentUser);
-    return (curr);
+    return  _currentUser;
   }
 
   // User Sign out
@@ -132,6 +138,7 @@ class AuthService extends Service {
     setState(NotifierState.LOADING);
     _googleSignIn.signOut();
     _auth.signOut();
+    _currentUser = null;
     setState(NotifierState.LOADED);
   }
 }
