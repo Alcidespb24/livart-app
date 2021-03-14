@@ -8,6 +8,7 @@ import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_app/themes/CommonTheme.dart';
+import 'package:flutter_app/screens/authenticate/landingScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,7 @@ class PlayThis extends StatelessWidget {
               value: AuthService().user,
               child: MaterialApp(
                 theme: ThemeData.dark(),
-                home: LoginPage(),
+                home: LandingScreen(),
               ),
             );
           }
