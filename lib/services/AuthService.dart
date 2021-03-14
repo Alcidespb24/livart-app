@@ -2,8 +2,9 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
+import 'package:flutter_app/data_models/EventCodeDatabase.dart';
 import 'package:flutter_app/data_models/Failure.dart';
-import 'package:flutter_app/services/DataBaseUserService.dart';
+import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
 import 'package:flutter_app/services/Service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -11,8 +12,7 @@ class AuthService extends Service {
   // This is a private property
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final DataBaseUserService _userDataBaseService = DataBaseUserService();
- // UserCredential _userCredential;
+  final FirestoreUserService _userDataBaseService = FirestoreUserService();
   static AppUser _currentUser;
 
   AuthService(){
@@ -43,7 +43,7 @@ class AuthService extends Service {
 
       super.setState(NotifierState.LOADED);
     } on  FirebaseAuthException{
-      setFailure(Failure(id: 10020));
+      setFailure(Failure(id: EventCodes.USER_NOT_FOUND_INVALID_UNAME));
     }
   }
 
@@ -63,6 +63,8 @@ class AuthService extends Service {
 
       _currentUser = _appUserFromFirebaseUser(userCredential.user);
 
+      _userDataBaseService.createUserData(_currentUser);
+
       if (!userCredential.user.emailVerified) {
         await userCredential.user.sendEmailVerification();
       }
@@ -70,9 +72,9 @@ class AuthService extends Service {
       setState(NotifierState.LOADED);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'weak-password') {
-        setFailure(Failure(id: 10011));
+        setFailure(Failure(id: EventCodes.PASSWORD_TOO_WEAK));
       } else if (error.code == 'email-already-in-use') {
-        setFailure(Failure(id: 10030));
+        setFailure(Failure(id: EventCodes.CREDENTIALS_IN_USE));
       }
     }
   }
@@ -86,14 +88,15 @@ class AuthService extends Service {
       setState(NotifierState.LOADED);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'user-not-found') {
-        setFailure(Failure(id: 10030));
+        setFailure(Failure(id: EventCodes.USER_NOT_FOUND_INVALID_UNAME));
       } else if (error.code == 'wrong-password') {
-        setFailure(Failure(id: 10030));
+        setFailure(Failure(id: EventCodes.INVALID_CREDENTIALS));
       }
     } 
   }
 
   bool isEmailVerified() {
+    _currentUser.emailVerified = _auth.currentUser.emailVerified;
     return _currentUser.emailVerified;
   }
 
@@ -112,7 +115,7 @@ class AuthService extends Service {
       _currentUser = _appUserFromFirebaseUser(curr.user);
 
     } on PlatformException {
-      setFailure(Failure(id: 1040));
+      setFailure(Failure(id: EventCodes.SIGN_IN_FAILED));
     }
   }
 
@@ -122,7 +125,7 @@ class AuthService extends Service {
       await _auth.sendPasswordResetEmail(email: email);
       setState(NotifierState.LOADED);
     } on FirebaseAuthException{
-      setFailure(Failure(id: 10000));
+      setFailure(Failure(id: EventCodes.UNABLE_TO_SEND_PASSWORD_EMAIL));
     }
   }
 

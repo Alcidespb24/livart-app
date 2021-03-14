@@ -3,7 +3,7 @@ import 'package:flutter_app/data_models/EventCodeDatabase.dart';
 
 class Failure{
   String _message;
-  final int id;
+  final EventCodes id;
   Failure({@required this.id}){
     _message = EventCodeDatabase[id];
   }
