@@ -7,7 +7,6 @@ import 'package:flutter_app/screens/authenticate/LoginPage.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_app/themes/CommonTheme.dart';
 import 'package:flutter_app/screens/authenticate/landingScreen.dart';
 
 void main() async {
@@ -19,6 +18,7 @@ void main() async {
 // App init
 class PlayThis extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
 
   Widget build(BuildContext context) {
     return FutureBuilder(

@@ -92,6 +92,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  curved_animation_controller:
+    dependency: transitive
+    description:
+      name: curved_animation_controller
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   dio:
     dependency: "direct main"
     description:
@@ -429,11 +436,25 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.4"
+  rxdart:
+    dependency: "direct main"
+    description:
+      name: rxdart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.26.0"
   sky_engine:
     dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.99"
+  slide_drawer:
+    dependency: "direct main"
+    description:
+      name: slide_drawer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   source_span:
     dependency: transitive
     description:

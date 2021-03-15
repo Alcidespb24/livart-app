@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
+import 'package:flutter_app/themes/theme.dart';
 
-class LogInWidget extends StatelessWidget {
-  const LogInWidget({
-    Key key,
-  }) : super(key: key);
+class LogInWidget extends StatefulWidget {
+
+  @override
+  _LogInWidgetState createState() => _LogInWidgetState();
+}
+
+class _LogInWidgetState extends State<LogInWidget> {
+  GlobalTheme globalTheme = GlobalTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,7 @@ class LogInWidget extends StatelessWidget {
             decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.email_rounded,
-                color: Color(0xFFADADAD),
+                color: globalTheme.iconsColor,
                 size: 13,
               ),
               contentPadding: EdgeInsets.all(5),
@@ -54,7 +60,7 @@ class LogInWidget extends StatelessWidget {
               decoration: InputDecoration(
             prefixIcon: Icon(
               Icons.vpn_key,
-              color: Color(0xFFADADAD),
+              color: globalTheme.iconsColor,
               size: 13,
             ),
             contentPadding: EdgeInsets.all(5),
@@ -77,7 +83,7 @@ class LogInWidget extends StatelessWidget {
             ),
           )),
           Container(
-            margin: EdgeInsets.only(left: 180, top: 5),
+            margin: EdgeInsets.only(left: 175, top: 5),
             child: Text(
               'Forgot Password?',
               style: TextStyle(
@@ -92,16 +98,19 @@ class LogInWidget extends StatelessWidget {
             margin: EdgeInsets.only(left: 35, right: 35, top: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14.0),
-              color: Color(0xFFA400C1),
+              color: globalTheme.buttonColor4,
             ),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                onSurface: Color(0xFF388E3C),
+                primary: globalTheme.buttonColor4,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14.0),
                 ),
                 elevation: 1,
               ),
+              onPressed:(){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SideBarLayout()));
+              },
               child: Text(
                 "Submit",
                 style: TextStyle(
@@ -141,17 +150,9 @@ class LogInWidget extends StatelessWidget {
           ),
           Container(
             height: 30,
-            margin: EdgeInsets.only(left: 40),
+            margin: EdgeInsets.only(left: 30, right: 30),
             decoration: BoxDecoration(
-              // gradient: LinearGradient(
-              //   begin: AlignmentDirectional(0.0, -0.8),
-              //   end: Alignment.bottomCenter,
-              //   colors: [
-              //     Color(0xFFDC1919).withOpacity(0.8),
-              //     Color(0xFFE3F509).withOpacity(0.8),
-              //   ],
-              // ),
-              color: Colors.white,
+              color: globalTheme.miscellaneous,
               borderRadius: BorderRadius.circular(14.0),
             ),
             child: Row(
@@ -173,7 +174,7 @@ class LogInWidget extends StatelessWidget {
                       SizedBox(width: 5),
                       Text(
                         "SIGN IN WITH GOOGLE",
-                        style: TextStyle(color: Colors.black, fontSize: 12),
+                        style: TextStyle(color: globalTheme.miscellaneous1, fontSize: 12),
                       ),
                     ],
                   ),
