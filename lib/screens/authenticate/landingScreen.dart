@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/screens/authenticate/homeScreen.dart';
-import 'package:flutter_app/widgets/UserCreatorGesture.dart';
+import 'package:flutter_app/widgets/UserCreatorButton.dart';
+import 'package:flutter_app/themes/theme.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -10,22 +11,15 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
+  GlobalTheme globalTheme = GlobalTheme();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: AlignmentDirectional(0.0, -0.7),
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFF000000),
-                  Color(0xFF190A43),
-                ],
-              ),
-            ),
+            decoration: globalTheme.backgroundGradient,
             // color: Colors.black,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -43,18 +37,24 @@ class _LandingScreenState extends State<LandingScreen> {
                     children: <Widget>[
                       Text(
                         'I AM A: ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontFamily: 'RobotoCondensed-Bold.ttf'),
+                        style: globalTheme.headText,
                       ),
                     ],
                   ),
                 ),
-                UserCreatorButton('Creator', Colors.white, Colors.black, 35.0),
+                UserCreatorButton(
+                    'Creator',
+                    globalTheme.textButton1,
+                    globalTheme.buttonDecoration1,
+                    35.0,
+                    globalTheme.buttonColor1), //Creator
                 SizedBox(height: 5),
-                UserCreatorButton('User', Colors.black, Colors.white, 10.0),
+                UserCreatorButton(
+                    'User',
+                    globalTheme.textButton2,
+                    globalTheme.buttonDecoration2,
+                    10.0,
+                    globalTheme.buttonColor2),//User
               ],
             ),
           ),

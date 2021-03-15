@@ -16,6 +16,7 @@ void main() async {
 class PlayThis extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
+
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: _initialization,

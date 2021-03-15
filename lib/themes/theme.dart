@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class GlobalTheme extends StatelessWidget {
   final BoxDecoration buttonDecoration1 = BoxDecoration(
@@ -50,7 +51,7 @@ class GlobalTheme extends StatelessWidget {
   final Color textColor1 = Color(0xFFDBDBD); //TextField Color for homeScreen
   final font1 = TextStyle(fontFamily: 'RobotoCondensed-Bold.ttf');
   final font2 = TextStyle(fontFamily: 'SyneMono-Regular.ttf');
-  final Color sideBarColor = Color(0xFF1F1238); //color for the sideBar
+  final Color sideBarColor = Color(0xFF242121); //color for the sideBar
   final Color iconsColor = Color(0xFF000000); //color for all the icons
   final TextStyle menuText = TextStyle(
       color: Color(0xFF757585),

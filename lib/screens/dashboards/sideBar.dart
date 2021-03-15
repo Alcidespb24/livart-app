@@ -1,11 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/services/AuthService.dart';
+import 'package:flutter_app/screens/dashboards/userDashboard.dart';
 import 'package:flutter_app/themes/theme.dart';
-import 'package:flutter_app/widgets/menuItems.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:flutter_app/widgets/menuItems.dart';
 
 class SideBar extends StatefulWidget {
   @override
@@ -13,7 +12,6 @@ class SideBar extends StatefulWidget {
 }
 
 class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
-  final AuthService _authService = AuthService();
   final bool isSideBarOpened = true;
   String username = 'username';
   StreamController<bool> isSideBarOpenedStreamController;
@@ -21,8 +19,6 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
   StreamSink<bool> isSideBarOpenedSink;
   AnimationController _animationController;
   final _animationDuration = Duration(milliseconds: 500);
-
-  GlobalTheme globalTheme = GlobalTheme();
 
   @override
   void initState() {
@@ -55,6 +51,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
     }
   }
 
+  GlobalTheme globalTheme = GlobalTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +66,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
             top: 0,
             bottom: 0,
             left: isSideBarOpenedAsync.data ? 0 : -screenWidth,
-            right: isSideBarOpenedAsync.data ? 0 : screenWidth - 35,
+            right: isSideBarOpenedAsync.data ? 0 : screenWidth - 45,
             child: Row(
               children: <Widget>[
                 Expanded(
@@ -96,14 +93,14 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                           color: globalTheme.miscellaneous,
                         ),
                         SizedBox(height: 15),
-                        MenuItems(icon: Icons.list_rounded,title: 'Requests', onPressedItem: (){},),
+                        MenuItems(Icons.list_rounded, 'Requests'),
                         SizedBox(height: 15),
-                        MenuItems(icon: Icons.qr_code,title: 'QR Code', onPressedItem: (){}),
+                        MenuItems(Icons.qr_code, 'QR Code'),
                         SizedBox(height: 15),
-                        MenuItems(icon:Icons.location_on,title: 'Change Location', onPressedItem: (){}),
+                        MenuItems(Icons.location_on, 'Change Location'),
                         SizedBox(height: 15),
                         MenuItems(
-                            icon: Icons.settings_applications_outlined,title: 'Settings', onPressedItem: (){}),
+                            Icons.settings_applications_outlined, 'Settings'),
                         Divider(
                           height: 25,
                           thickness: 0.1,
@@ -115,9 +112,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            MenuItems(icon: Icons.logout,title: 'Log Out', onPressedItem: () async {
-                              await _authService.signOut();
-                            },),
+                            MenuItems(Icons.logout, 'Log Out'),
                           ],
                         ),
                       ],
@@ -125,24 +120,21 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                   ),
                 ),
                 Align(
-                  alignment: Alignment(0, -0.85),
+                  alignment: Alignment(0, -0.8),
                   child: GestureDetector(
                     onTap: () {
                       onIconPressed();
                     },
-                    child: ClipPath(
-                      clipper: CustomMenuClipper(),
-                      child: Container(
-                        width: 35,
-                        height: 110,
-                        color: globalTheme.sideBarColor,
-                        alignment: Alignment.centerLeft,
-                        child: AnimatedIcon(
-                            icon: AnimatedIcons.menu_close,
-                            progress: _animationController.view,
-                            color: globalTheme.miscellaneous,
-                            size: 30),
-                      ),
+                    child: Container(
+                      width: 35,
+                      height: 110,
+                      color: globalTheme.sideBarColor,
+                      alignment: Alignment.centerLeft,
+                      child: AnimatedIcon(
+                          icon: AnimatedIcons.menu_close,
+                          progress: _animationController.view,
+                          color: globalTheme.miscellaneous1,
+                          size: 30),
                     ),
                   ),
                 ),
@@ -150,30 +142,5 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
             ),
           );
         });
-  }
-}
-
-class CustomMenuClipper extends CustomClipper <Path> {
-  @override
-  Path getClip(Size size) {
-    Paint paint = Paint();
-    paint.color = Colors.black;
-
-    final width = size.width;
-    final height = size.height;
-
-    Path path = Path();
-    path.moveTo(0, 0);
-    path.quadraticBezierTo(0, 8, 10, 16);
-    path.quadraticBezierTo(width-1, height/2-20, width, height/2);
-    path.quadraticBezierTo(width+1, height/2+20, 10, height-16);
-    path.quadraticBezierTo(0, height-8,0 , height);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return true;
   }
 }

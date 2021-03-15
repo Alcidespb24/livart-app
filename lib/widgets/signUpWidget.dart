@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/widgets/EmailField.dart';
-import 'package:flutter_app/widgets/PasswordField.dart';
+import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
+import 'package:flutter_app/screens/dashboards/userDashboard.dart';
+import 'package:flutter_app/themes/theme.dart';
 
 class SignUpWidget extends StatefulWidget {
+  const SignUpWidget({
+    Key key,
+  }) : super(key: key);
 
   @override
   _SignUpWidgetState createState() => _SignUpWidgetState();
 }
 
 class _SignUpWidgetState extends State<SignUpWidget> {
-  final AuthService _authService = AuthService();
-  String emailField = '';
-  String passwordField = '';
-  String userNameField = '';
+  GlobalTheme globalTheme = GlobalTheme();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +35,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
             decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.face_retouching_natural,
-                color: Color(0xFFADADAD),
+                color: globalTheme.iconsColor,
                 size: 13,
               ),
               contentPadding: EdgeInsets.all(5),
@@ -58,17 +59,61 @@ class _SignUpWidgetState extends State<SignUpWidget> {
             ),
           ),
           SizedBox(height: 15),
-          EmailField(onChangedEmail: (String email){
-            setState(() {
-              emailField = email;
-            });
-          }),
+          TextField(
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.email_rounded,
+                color: globalTheme.iconsColor,
+                size: 13,
+              ),
+              contentPadding: EdgeInsets.all(5),
+              filled: true,
+              fillColor: Color(0xFFC4C4C4).withOpacity(0.1),
+              labelText: 'Email',
+              labelStyle: TextStyle(
+                color: Color(0xFFADADAD),
+                fontSize: 12,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(13.0),
+                borderSide: BorderSide(
+                  color: Color(0x3CADADAD),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(17.0),
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
           SizedBox(height: 15),
-          PasswordField(onChangedPassword: (String pwd){
-            setState(() {
-              emailField = pwd;
-            });
-          }),
+          TextField(
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.vpn_key,
+                color: globalTheme.iconsColor,
+                size: 13,
+              ),
+              contentPadding: EdgeInsets.all(5),
+              filled: true,
+              fillColor: Color(0xFFC4C4C4).withOpacity(0.1),
+              labelText: '*********',
+              labelStyle: TextStyle(
+                color: Color(0xFFADADAD),
+                fontSize: 12,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(13.0),
+                borderSide: BorderSide(
+                  color: Color(0x3CADADAD),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(17.0),
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
           SizedBox(height: 15),
           Container(
             height: 38,
@@ -76,16 +121,19 @@ class _SignUpWidgetState extends State<SignUpWidget> {
             margin: EdgeInsets.only(left: 35, right: 35, top: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14.0),
-              color: Color(0xFFA400C1),
+              color: globalTheme.buttonColor3,
             ),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                onSurface: Color(0xFFA400C1),
+                primary: globalTheme.buttonColor3,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14.0),
                 ),
                 elevation: 1,
               ),
+              onPressed:(){
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>  SideBarLayout()));
+              },
               child: Text(
                 "Register Now",
                 style: TextStyle(
@@ -93,12 +141,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              onPressed: () async {
-                _authService.createAccountEmailPwd(emailField, userNameField, passwordField);
-                if(_authService.hasError()){
-                  //TODO: Handle Error and display message to user
-                }
-              },
             ),
           ),
         ],
