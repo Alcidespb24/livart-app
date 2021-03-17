@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/dashboards/userDashboard.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_app/widgets/menuItems.dart';
-import'package:flutter_app/themes/theme.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 class SideBar extends StatefulWidget {
   @override
@@ -84,6 +83,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                           radius: 40,
                         ),
                         //will be used for the user to insert an image of himself/herself
+                        SizedBox(height: 15),
                         Text(
                           username,
                         ),
@@ -95,14 +95,14 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                           color: globalTheme.miscellaneous,
                         ),
                         SizedBox(height: 15),
-                        MenuItems(Icons.list_rounded, 'Requests'),
+                        MenuItems(EvaIcons.music, 'Requests'),
                         SizedBox(height: 15),
-                        MenuItems(Icons.qr_code, 'QR Code'),
+                        MenuItems(EvaIcons.code, 'QR Code'),
                         SizedBox(height: 15),
-                        MenuItems(Icons.location_on, 'Change Location'),
+                        MenuItems(EvaIcons.map, 'Change Location'),
                         SizedBox(height: 15),
                         MenuItems(
-                            Icons.settings_applications_outlined, 'Settings'),
+                            EvaIcons.settings, 'Settings'),
                         Divider(
                           height: 25,
                           thickness: 0.1,
@@ -112,9 +112,9 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                         ),
                         SizedBox(height: 50),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            MenuItems(Icons.logout, 'Log Out'),
+                            MenuItems(EvaIcons.logOut, 'Log Out'),
                           ],
                         ),
                       ],

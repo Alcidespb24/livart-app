@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
 import 'package:flutter_app/themes/theme.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 class LogInWidget extends StatefulWidget {
 
@@ -31,7 +32,7 @@ class _LogInWidgetState extends State<LogInWidget> {
           TextField(
             decoration: InputDecoration(
               prefixIcon: Icon(
-                Icons.email_rounded,
+                EvaIcons.email,
                 color: globalTheme.iconsColor,
                 size: 13,
               ),
@@ -59,7 +60,7 @@ class _LogInWidgetState extends State<LogInWidget> {
           TextField(
               decoration: InputDecoration(
             prefixIcon: Icon(
-              Icons.vpn_key,
+              EvaIcons.lock,
               color: globalTheme.iconsColor,
               size: 13,
             ),
@@ -167,7 +168,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                   child: Row(
                     children: [
                       Icon(
-                        CommunityMaterialIcons.google,
+                        EvaIcons.google,
                         size: 20,
                         color: Color(0xFFDC1919),
                       ),

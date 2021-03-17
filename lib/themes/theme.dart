@@ -52,7 +52,7 @@ class GlobalTheme extends StatelessWidget {
   final font1 = TextStyle(fontFamily: 'RobotoCondensed-Bold.ttf');
   final font2 = TextStyle(fontFamily: 'SyneMono-Regular.ttf');
   final Color sideBarColor = Color(0xFF1F1238); //color for the sideBar
-  final Color iconsColor = Color(0xFF000000); //color for all the icons
+  final Color iconsColor = Color(0xFFFFFFFF); //color for all the icons
   final TextStyle menuText = TextStyle(
       color: Color(0xFF757585),
       fontSize: 13,

@@ -17,7 +17,7 @@ class MenuItems extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(right: 10),
+            margin: EdgeInsets.only(left: 100, right: 10, top: 5, bottom: 5),
             child: Icon(
               icon,
               color: globalTheme.iconsColor,
