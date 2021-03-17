@@ -25,12 +25,7 @@ class _HomeScreen extends State<HomeScreen> {
             child: Column(
               children: <Widget>[
                 Expanded(
-                  child: Image.asset(
-                    'lib/assets/icons/app_icon.png',
-                    width: 180,
-                    alignment: AlignmentDirectional(0.0, 0.6),
-                    color: globalTheme.miscellaneous,
-                  ),
+                  child: globalTheme.appLogo
                 ),
                 Container(
                   height: 425,

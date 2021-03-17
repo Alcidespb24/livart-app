@@ -57,6 +57,12 @@ class GlobalTheme extends StatelessWidget {
       color: Color(0xFF757585),
       fontSize: 13,
       fontFamily: 'SyneMono-Regular.ttf'); //style for the items inside the menu
+  final Image appLogo =   Image.asset(
+    'lib/assets/icons/app_icon.png',
+    width: 200,
+    alignment: AlignmentDirectional(0.0, 0.0),
+    color: Colors.white,
+  );
 
   @override
   Widget build(BuildContext context) {

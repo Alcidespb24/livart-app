@@ -24,12 +24,7 @@ class _LandingScreenState extends State<LandingScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset(
-                  'lib/assets/icons/app_icon.png',
-                  width: 200,
-                  alignment: AlignmentDirectional(0.0, 0.0),
-                  color: Colors.white,
-                ),
+                globalTheme.appLogo,
                 Container(
                   margin: EdgeInsets.only(bottom: 10, top: 100),
                   child: Row(

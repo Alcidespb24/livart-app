@@ -7,6 +7,7 @@ import 'package:flutter_app/widgets/PasswordField.dart';
 import 'package:flutter_app/widgets/buttonWidget.dart';
 import 'package:flutter_particles/particle.dart';
 import 'package:flutter_particles/particles.dart';
+import 'package:flutter_app/themes/theme.dart';
 
 import 'CreateAccount.dart';
 
@@ -19,6 +20,8 @@ class _LoginState extends State<LoginPage> {
   final AuthService _authService = AuthService();
   String emailField = '';
   String passwordField = '';
+
+  GlobalTheme globalTheme = GlobalTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +36,7 @@ class _LoginState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Expanded(
-                child: Image.asset(
-                  'lib/assets/icons/app_icon.png',
-                  width: 180,
-                ),
+                child: globalTheme.appLogo,
               ),
               Container(
                 margin: EdgeInsets.only(left: 50, right: 50),
