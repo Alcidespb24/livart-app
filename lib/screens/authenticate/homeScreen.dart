@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/widgets/logInWidget.dart';
 import 'package:flutter_app/widgets/signUpWidget.dart';
+import 'package:flutter_app/themes/theme.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -10,26 +11,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreen extends State<HomeScreen> {
   bool isSignupScreen = true;
-  final Color gradient1 = Color(0xFF000000);
-  final Color gradient2 = Color(0xFF190A43);
+  GlobalTheme globalTheme = GlobalTheme();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: AlignmentDirectional(0.0, -0.7),
-                end: Alignment.bottomCenter,
-                colors: [
-                  gradient1,
-                  gradient2,
-                ],
-              ),
-            ),
-
+            decoration: globalTheme.backgroundGradient,
             child: Column(
               children: <Widget>[
                 Expanded(
@@ -37,7 +28,7 @@ class _HomeScreen extends State<HomeScreen> {
                     'lib/assets/icons/app_icon.png',
                     width: 180,
                     alignment: AlignmentDirectional(0.0, 0.6),
-                    color: Colors.white,
+                    color: globalTheme.miscellaneous,
                   ),
                 ),
                 Container(
@@ -50,8 +41,8 @@ class _HomeScreen extends State<HomeScreen> {
                       begin: AlignmentDirectional(0.0, -2.05),
                       end: Alignment.bottomCenter,
                       colors: [
-                        gradient1,
-                        gradient2,
+                        globalTheme.gradient1,
+                        globalTheme.gradient2,
                       ],
                     ),
                     borderRadius: BorderRadius.only(
@@ -135,7 +126,7 @@ class _HomeScreen extends State<HomeScreen> {
                         ],
                       ),
                       if (!isSignupScreen) LogInWidget(),
-                      SignUpWidget(),
+                      if (isSignupScreen) SignUpWidget(),
                     ],
                   ),
                 ),

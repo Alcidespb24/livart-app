@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/widgets/EmailField.dart';
 import 'package:flutter_app/widgets/PasswordField.dart';
+import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
+import 'package:flutter_app/screens/dashboards/userDashboard.dart';
+import 'package:flutter_app/themes/theme.dart';
 
 class SignUpWidget extends StatefulWidget {
 
@@ -11,6 +14,7 @@ class SignUpWidget extends StatefulWidget {
 
 class _SignUpWidgetState extends State<SignUpWidget> {
   final AuthService _authService = AuthService();
+  GlobalTheme globalTheme = GlobalTheme();
   String emailField = '';
   String passwordField = '';
   String userNameField = '';
@@ -34,7 +38,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
             decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.face_retouching_natural,
-                color: Color(0xFFADADAD),
+                color: globalTheme.iconsColor,
                 size: 13,
               ),
               contentPadding: EdgeInsets.all(5),
@@ -76,11 +80,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
             margin: EdgeInsets.only(left: 35, right: 35, top: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14.0),
-              color: Color(0xFFA400C1),
+              color: globalTheme.buttonColor3,
             ),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                onSurface: Color(0xFFA400C1),
+                primary: globalTheme.buttonColor3,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14.0),
                 ),
@@ -95,9 +99,12 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               ),
               onPressed: () async {
                 _authService.createAccountEmailPwd(emailField, userNameField, passwordField);
-                if(_authService.hasError()){
+                if(!_authService.hasError()){
                   //TODO: Handle Error and display message to user
+                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  SideBarLayout()));
+
                 }
+
               },
             ),
           ),
