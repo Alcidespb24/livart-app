@@ -67,7 +67,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
             top: 0,
             bottom: 0,
             left: isSideBarOpenedAsync.data ? 0 : -screenWidth,
-            right: isSideBarOpenedAsync.data ? 0 : screenWidth - 35,
+            right: isSideBarOpenedAsync.data ? 0 : screenWidth - 39,
             child: Row(
               children: <Widget>[
                 Expanded(
