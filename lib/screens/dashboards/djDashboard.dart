@@ -19,18 +19,45 @@ class _DjDashboardState extends State<DjDashboard> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                globalTheme.appLogo,
+                globalTheme.locationIcon,
                 Container(
-                  margin: EdgeInsets.only(bottom: 10, top: 100),
+                  margin: EdgeInsets.only(bottom: 5, top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        '',
+                        'Tell us where you are: ', style: TextStyle(
+                        fontSize: 25,
+                      ),
                       ),
                     ],
                   ),
                 ), //User
+                SizedBox(height: 15),
+                Container(
+                  height: 38,
+                  width: 250,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary:globalTheme.buttonColor4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14.0),
+                      ),
+                      elevation: 1,
+                    ),
+                    onPressed:(){
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                    },
+                    child: Text(
+                      'Enable Location',
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+                Text('Your location will be used for your fans to request songs to you.', style: TextStyle(fontSize: 9), )
               ],
             ),
           ),
