@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app/themes/theme.dart';
 
 class DjDashboard extends StatefulWidget {
@@ -26,26 +27,27 @@ class _DjDashboardState extends State<DjDashboard> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Tell us where you are: ', style: TextStyle(
-                        fontSize: 25,
-                      ),
+                        'Tell us where you are: ',
+                        style: TextStyle(
+                          fontSize: 25,
+                        ),
                       ),
                     ],
                   ),
                 ), //User
-                SizedBox(height: 15),
+                SizedBox(height: 10),
                 Container(
                   height: 38,
                   width: 250,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary:globalTheme.buttonColor4,
+                      primary: globalTheme.buttonColor4,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14.0),
                       ),
                       elevation: 1,
                     ),
-                    onPressed:(){
+                    onPressed: () {
                       // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                     },
                     child: Text(
@@ -57,7 +59,29 @@ class _DjDashboardState extends State<DjDashboard> {
                   ),
                 ),
                 SizedBox(height: 15),
-                Text('Your location will be used for your fans to request songs to you.', style: TextStyle(fontSize: 9), )
+                Container(
+                  width: 200,
+                  height: 35,
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Minimum price per request:',
+                      hintStyle: TextStyle(fontSize: 12),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
+                    ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  ),
+                ),
               ],
             ),
           ),
