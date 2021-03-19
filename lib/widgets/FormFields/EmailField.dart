@@ -23,7 +23,7 @@ class EmailField extends StatelessWidget {
         return null;
       },
       onChanged: (value) {
-        onChangedEmail('value');
+        onChangedEmail(value);
       },
       decoration: InputDecoration(
         prefixIcon: Icon(
