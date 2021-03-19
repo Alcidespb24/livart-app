@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/services/InputValidator.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 typedef void onChangedCallback(String pwd);
 
@@ -23,7 +22,7 @@ class PasswordField extends StatelessWidget {
         return null;
       },
       onChanged: (value) {
-        onChangedPassword('value');
+        onChangedPassword(value);
       },
       obscureText: true,
       decoration: InputDecoration(
