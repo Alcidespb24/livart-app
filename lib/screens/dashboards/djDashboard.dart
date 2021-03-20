@@ -1,3 +1,4 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/themes/theme.dart';
@@ -59,7 +60,7 @@ class _DjDashboardState extends State<DjDashboard> {
                   ),
                   SizedBox(height: 10),
                   Container(
-                    width: 200,
+                    width: 250,
                     height: 35,
                     child: TextFormField(
                       validator: (value) {
@@ -69,6 +70,7 @@ class _DjDashboardState extends State<DjDashboard> {
                         return null;
                       },
                       decoration: InputDecoration(
+                        prefixIcon: Icon(EvaIcons.creditCardOutline, size: 12,color: Colors.white,),
                         hintText: 'Minimum price per request:',
                         hintStyle: TextStyle(fontSize: 12),
                         enabledBorder: OutlineInputBorder(
