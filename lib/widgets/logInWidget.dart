@@ -1,17 +1,27 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/data_models/AppUser.dart';
+import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
 import 'package:flutter_app/services/AuthService.dart';
+import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
+import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
 import 'package:flutter_app/themes/theme.dart';
-import 'package:flutter_app/widgets/EmailField.dart';
-import 'package:flutter_app/widgets/PasswordField.dart';
+import 'package:flutter_app/widgets/FormFields/EmailField.dart';
+import 'package:flutter_app/widgets/FormFields/PasswordField.dart';
 
 class LogInWidget extends StatefulWidget {
+  LogInWidget({this.userRole});
+
+  final Role userRole;
   @override
   _LogInWidgetState createState() => _LogInWidgetState();
 }
 
 class _LogInWidgetState extends State<LogInWidget> {
+  final FirestoreUserService _userService = FirestoreUserService();
+  final FirestoreRequestService _requestService = FirestoreRequestService();
   final AuthService _authService = AuthService();
+
   GlobalTheme globalTheme = GlobalTheme();
   String emailField = '';
   String passwordField = '';
@@ -151,7 +161,18 @@ class _LogInWidgetState extends State<LogInWidget> {
                   color: Color(0xFFDC1919),
                 ),
                 onPressed: () async {
-                  await _authService.signInWithGoogle();
+                  await _authService.signInWithGoogle(widget.userRole);
+
+                  await _userService
+                      .createUserData(_authService.getCurrentUser());
+
+                  // if the user is a creator create a document to handle requests
+                  if (_authService.getCurrentUser().userRole == Role.CREATOR) {
+                    await _requestService.createCreatorRequestDoc(
+                        _authService.getCurrentUser().uid);
+                  }
+
+                  Navigator.pop(context, SideBarLayout());
                 },
               ),
             ),

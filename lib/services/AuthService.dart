@@ -62,9 +62,8 @@ class AuthService extends Service {
           password: pwd);
 
       _currentUser = _appUserFromFirebaseUser(userCredential.user);
+      _currentUser.userName = userName;
       _currentUser.userRole = userRole;
-
-      _userDataBaseService.createUserData(_currentUser);
 
       if (!userCredential.user.emailVerified) {
         await userCredential.user.sendEmailVerification();
@@ -102,7 +101,7 @@ class AuthService extends Service {
   }
 
   // Sign in with google
-  void signInWithGoogle() async {
+  void signInWithGoogle(Role userRole) async {
     try {
       final GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
@@ -114,6 +113,7 @@ class AuthService extends Service {
 
       UserCredential curr = await _auth.signInWithCredential(credential);
       _currentUser = _appUserFromFirebaseUser(curr.user);
+      _currentUser.userRole = userRole;
 
     } on PlatformException {
       setFailure(Failure(id: EventCodes.SIGN_IN_FAILED));
