@@ -1,11 +1,10 @@
 import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/dashboards/userDashboard.dart';
 import 'package:flutter_app/themes/theme.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:flutter_app/widgets/menuItems.dart';
-import'package:flutter_app/themes/theme.dart';
+import 'package:rxdart/rxdart.dart';
 
 class SideBar extends StatefulWidget {
   @override

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/data_models/DataModelBase.dart';
 import 'package:flutter_app/data_models/SongStruct.dart';
-import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
 
 class Request extends DataModelBase {
   String fromUid;

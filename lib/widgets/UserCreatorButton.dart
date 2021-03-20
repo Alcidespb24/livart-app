@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/screens/authenticate/homeScreen.dart';
 import 'package:flutter_app/themes/theme.dart';
-import 'package:provider/provider.dart';
 
 class UserCreatorButton extends StatelessWidget {
   UserCreatorButton(this.type, this.styleText, this.userRole, this.boxDecoration, this.marginTop, this.primaryColor);
