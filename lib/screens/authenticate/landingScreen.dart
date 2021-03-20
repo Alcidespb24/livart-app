@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/data_models/UserRole.dart';
+import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/widgets/UserCreatorButton.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:provider/provider.dart';

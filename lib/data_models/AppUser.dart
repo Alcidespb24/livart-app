@@ -2,20 +2,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/data_models/DataModelBase.dart';
 
-import 'Request.dart';
+enum Role{
+  CREATOR,
+  USER
+}
 
 class AppUser implements DataModelBase<AppUser>{
   String uid;
   String userName;
   bool isAnonymous;
   bool emailVerified;
-  bool isCreator;
+  Role userRole;
   String profilePicture;
 
   AppUser({
     @required this.uid,
     @required this.userName,
-    @required this.isCreator,
+    @required this.userRole,
     this.isAnonymous,
     this.emailVerified
   });
@@ -31,7 +34,7 @@ class AppUser implements DataModelBase<AppUser>{
     Map <String,dynamic> userDataMap = {
       "uid": this.uid,
       "userName": this.userName,
-      "isCreator": this.isCreator,
+      "userRole": this.userRole,
       "isAnonymous": this.isAnonymous,
       "emailVerified": this.emailVerified
     };
@@ -44,7 +47,7 @@ class AppUser implements DataModelBase<AppUser>{
   AppUser fromMap (Map<String,dynamic> map){
     AppUser user = new AppUser(
     uid: map["uid"],
-    isCreator: map["isCreator"],
+    userRole: map["userRole"],
     userName: map["userName"],
     isAnonymous: map["isAnonymous"],
     emailVerified: map["emailVerified"]);
