@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/dashboards/sideBar.dart';
-import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
-import 'package:slide_drawer/slide_drawer.dart';
-import 'package:flutter_app/screens/authenticate/homeScreen.dart';
 import 'package:flutter_app/themes/theme.dart';
 
 class UserDashboard extends StatefulWidget {

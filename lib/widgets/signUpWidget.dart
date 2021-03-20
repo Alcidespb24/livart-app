@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
+import 'package:flutter_app/themes/theme.dart';
 import 'package:flutter_app/widgets/EmailField.dart';
 import 'package:flutter_app/widgets/PasswordField.dart';
-import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
-import 'package:flutter_app/screens/dashboards/userDashboard.dart';
-import 'package:flutter_app/themes/theme.dart';
 
 class SignUpWidget extends StatefulWidget {
   SignUpWidget({this.userRole});

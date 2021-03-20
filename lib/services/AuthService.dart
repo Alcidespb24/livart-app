@@ -1,11 +1,12 @@
 import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/data_models/EventCodeDatabase.dart';
 import 'package:flutter_app/data_models/Failure.dart';
-import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
 import 'package:flutter_app/services/Service.dart';
+import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService extends Service {
@@ -92,7 +93,7 @@ class AuthService extends Service {
       } else if (error.code == 'wrong-password') {
         setFailure(Failure(id: EventCodes.INVALID_CREDENTIALS));
       }
-    } 
+    }
   }
 
   bool isEmailVerified() {

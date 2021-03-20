@@ -1,6 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 /// https://github.com/dnys1/ios_search_bar/blob/master/lib/ios_search_bar.dart
 /// Creates the Cupertino-style search bar. See the README for an example on how to use.
