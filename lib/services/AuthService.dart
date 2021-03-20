@@ -23,7 +23,6 @@ class AuthService extends Service {
     return user != null ? new AppUser(
         uid: user.uid,
         isAnonymous: user.isAnonymous,
-        isCreator: (user.isAnonymous) ? false : null,
         emailVerified: user.emailVerified,
         userName: user.displayName
     ) : null;
@@ -53,7 +52,7 @@ class AuthService extends Service {
   }
 
   // Create account with email and password
-  void createAccountEmailPwd(String email, String userName, String pwd) async {
+  void createAccountEmailPwd(String email, String userName, String pwd, Role userRole) async {
     try {
       setState(NotifierState.LOADING);
       UserCredential userCredential =
@@ -62,6 +61,7 @@ class AuthService extends Service {
           password: pwd);
 
       _currentUser = _appUserFromFirebaseUser(userCredential.user);
+      _currentUser.userRole = userRole;
 
       _userDataBaseService.createUserData(_currentUser);
 

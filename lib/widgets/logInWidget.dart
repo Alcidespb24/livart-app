@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';
-import 'package:flutter_app/data_models/UserRole.dart';
 import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/widgets/EmailField.dart';
 import 'package:flutter_app/widgets/PasswordField.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LogInWidget extends StatefulWidget {
   @override

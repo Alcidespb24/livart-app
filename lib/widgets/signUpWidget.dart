@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/services/AuthService.dart';
+import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
 import 'package:flutter_app/widgets/EmailField.dart';
 import 'package:flutter_app/widgets/PasswordField.dart';
 import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
@@ -7,6 +9,8 @@ import 'package:flutter_app/screens/dashboards/userDashboard.dart';
 import 'package:flutter_app/themes/theme.dart';
 
 class SignUpWidget extends StatefulWidget {
+  SignUpWidget({this.userRole});
+  final Role userRole;
 
   @override
   _SignUpWidgetState createState() => _SignUpWidgetState();
@@ -14,6 +18,7 @@ class SignUpWidget extends StatefulWidget {
 
 class _SignUpWidgetState extends State<SignUpWidget> {
   final AuthService _authService = AuthService();
+  final FirestoreRequestService _requestService = FirestoreRequestService();
   GlobalTheme globalTheme = GlobalTheme();
   String emailField = '';
   String passwordField = '';
@@ -98,11 +103,14 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 ),
               ),
               onPressed: () async {
-                _authService.createAccountEmailPwd(emailField, userNameField, passwordField);
+                _authService.createAccountEmailPwd(emailField, userNameField, passwordField, widget.userRole);
+
                 if(!_authService.hasError()){
                   //TODO: Handle Error and display message to user
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  SideBarLayout()));
-
+                  //Navigator.push(context, MaterialPageRoute(builder: (context) =>  SideBarLayout()));
+                  if(_authService.getCurrentUser().userRole == Role.CREATOR){
+                    _requestService.createCreatorRequestDoc(_authService.getCurrentUser().uid);
+                  }
                 }
 
               },

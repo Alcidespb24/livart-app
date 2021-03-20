@@ -1,16 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/home/Home.dart';
 import 'package:flutter_app/widgets/logInWidget.dart';
 import 'package:flutter_app/widgets/signUpWidget.dart';
 import 'package:flutter_app/themes/theme.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
+  HomeScreen({this.userRole});
+  final userRole;
   @override
   _HomeScreen createState() => _HomeScreen();
 }
 
 class _HomeScreen extends State<HomeScreen> {
   bool isSignupScreen = true;
+
   GlobalTheme globalTheme = GlobalTheme();
 
   @override
@@ -126,7 +131,7 @@ class _HomeScreen extends State<HomeScreen> {
                         ],
                       ),
                       if (!isSignupScreen) LogInWidget(),
-                      if (isSignupScreen) SignUpWidget(),
+                      if (isSignupScreen) SignUpWidget(userRole: widget.userRole),
                     ],
                   ),
                 ),

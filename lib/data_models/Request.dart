@@ -40,14 +40,20 @@ class Request extends DataModelBase {
 
   @override
   Request fromMap(Map<String, dynamic> map) {
-    return Request(fromUid: map['fromUid'],
+    return Request(
+        fromUid: map['fromUid'],
         toUid: map['toUid'],
         song: SongStruct.songFromMap(map['song']),
         requestTimeMs: map['requestTimeMs'],
         timeRemainingMs: map['timeRemainingMs'],
         triesLeft: map['triesLeft'],
         paymentAmount: map['paymentAmount'],
-        fulfilled: map['fulfilled']
-    );
+        fulfilled: map['fulfilled']);
+  }
+
+  int get getTimeremainingMS => timeRemainingMs;
+
+  void updateTimeRemaining() {
+    timeRemainingMs = requestTimeMs - DateTime.now().millisecondsSinceEpoch;
   }
 }

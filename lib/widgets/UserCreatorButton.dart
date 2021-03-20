@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/data_models/UserRole.dart';
+import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/screens/authenticate/homeScreen.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:provider/provider.dart';
 
-class UserCreatorButton extends StatefulWidget {
+class UserCreatorButton extends StatelessWidget {
   UserCreatorButton(this.type, this.styleText, this.userRole, this.boxDecoration, this.marginTop, this.primaryColor);
 
   final String type;
@@ -14,11 +14,7 @@ class UserCreatorButton extends StatefulWidget {
   final Color primaryColor;
   final Role userRole;
 
-  @override
-  _UserCreatorButtonState createState() => _UserCreatorButtonState();
-}
 
-class _UserCreatorButtonState extends State<UserCreatorButton> {
   GlobalTheme globalTheme = GlobalTheme();
 
   @override
@@ -26,31 +22,23 @@ class _UserCreatorButtonState extends State<UserCreatorButton> {
     return Container(
       height: 38,
       width: 250,
-      margin: EdgeInsets.only(left: 35, right: 35, top: widget.marginTop),
+      margin: EdgeInsets.only(left: 35, right: 35, top: marginTop),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary:widget.primaryColor,
+          primary:primaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14.0),
           ),
           elevation: 1,
         ),
         onPressed:(){
-          _setUserRole(widget.userRole);
-          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(userRole: userRole)));
         },
         child: Text(
-          widget.type,
-          style: widget.styleText,
+          type,
+          style: styleText,
         ),
       ),
     );
-
-
-
-  }
-
-  _setUserRole(Role role){
-    Provider.of<UserRole>(context, listen: false).setRole(role);
   }
 }
