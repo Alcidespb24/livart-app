@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
+import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
+import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
 import 'package:flutter_app/themes/theme.dart';
-import 'package:flutter_app/widgets/EmailField.dart';
-import 'package:flutter_app/widgets/PasswordField.dart';
+import 'package:flutter_app/widgets/FormFields/EmailField.dart';
+import 'package:flutter_app/widgets/FormFields/PasswordField.dart';
+import 'package:flutter_app/widgets/FormFields/UserField.dart';
 
 class SignUpWidget extends StatefulWidget {
   SignUpWidget({this.userRole});
+
   final Role userRole;
 
   @override
@@ -16,11 +20,13 @@ class SignUpWidget extends StatefulWidget {
 
 class _SignUpWidgetState extends State<SignUpWidget> {
   final AuthService _authService = AuthService();
+  final FirestoreUserService _userService = FirestoreUserService();
   final FirestoreRequestService _requestService = FirestoreRequestService();
   GlobalTheme globalTheme = GlobalTheme();
   String emailField = '';
   String passwordField = '';
   String userNameField = '';
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,44 +43,16 @@ class _SignUpWidgetState extends State<SignUpWidget> {
             ),
           ),
           SizedBox(height: 15),
-          TextField(
-            decoration: InputDecoration(
-              prefixIcon: Icon(
-                Icons.face_retouching_natural,
-                color: globalTheme.iconsColor,
-                size: 13,
-              ),
-              contentPadding: EdgeInsets.all(5),
-              filled: true,
-              fillColor: Color(0xFFC4C4C4).withOpacity(0.1),
-              labelText: 'username',
-              labelStyle: TextStyle(
-                color: Color(0xFFADADAD),
-                fontSize: 12,
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(13.0),
-                borderSide: BorderSide(
-                  color: Color(0x3CADADAD),
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(17.0),
-                borderSide: BorderSide.none,
-              ),
-            ),
-          ),
-          SizedBox(height: 15),
-          EmailField(onChangedEmail: (String email){
-            setState(() {
-              emailField = email;
-            });
+          UserField(onChangedUname: (String uName) {
+            userNameField = uName;
           }),
           SizedBox(height: 15),
-          PasswordField(onChangedPassword: (String pwd){
-            setState(() {
-              emailField = pwd;
-            });
+          EmailField(onChangedEmail: (String email) {
+            emailField = email;
+          }),
+          SizedBox(height: 15),
+          PasswordField(onChangedPassword: (String pwd) {
+            passwordField = pwd;
           }),
           SizedBox(height: 15),
           Container(
@@ -101,16 +79,22 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 ),
               ),
               onPressed: () async {
-                _authService.createAccountEmailPwd(emailField, userNameField, passwordField, widget.userRole);
+                await _authService.createAccountEmailPwd(
+                    emailField, userNameField, passwordField, widget.userRole);
 
-                if(!_authService.hasError()){
+                if (!_authService.hasError()) {
                   //TODO: Handle Error and display message to user
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) =>  SideBarLayout()));
-                  if(_authService.getCurrentUser().userRole == Role.CREATOR){
-                    _requestService.createCreatorRequestDoc(_authService.getCurrentUser().uid);
-                  }
-                }
+                  await _userService
+                      .createUserData(_authService.getCurrentUser());
 
+                  // if the user is a creator create a document to handle requests
+                  if (_authService.getCurrentUser().userRole == Role.CREATOR) {
+                    await _requestService.createCreatorRequestDoc(
+                        _authService.getCurrentUser().uid);
+                  }
+
+                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  SideBarLayout()));
+                }
               },
             ),
           ),

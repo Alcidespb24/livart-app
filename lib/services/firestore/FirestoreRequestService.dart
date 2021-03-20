@@ -20,12 +20,6 @@ class FirestoreRequestService extends Service {
   }
 
   Future createCreatorRequestDoc(String creatorUid){
-    Map<String,dynamic> map =  {creatorUid:''};
-    requestCollection.add(map);
+    requestCollection.doc(creatorUid).set({'creatorUid':creatorUid});
   }
-
-  Future getRequests() {
-
-  }
-
 }

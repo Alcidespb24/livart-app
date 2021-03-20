@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:flutter_app/widgets/menuItems.dart';
 import 'package:rxdart/rxdart.dart';
@@ -12,6 +13,7 @@ class SideBar extends StatefulWidget {
 }
 
 class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
+  final AuthService _authService = AuthService();
   final bool isSideBarOpened = true;
   String username = 'username';
   StreamController<bool> isSideBarOpenedStreamController;
@@ -94,14 +96,14 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                           color: globalTheme.miscellaneous,
                         ),
                         SizedBox(height: 15),
-                        MenuItems(Icons.list_rounded, 'Requests'),
+                        MenuItems(icon: Icons.list_rounded,title: 'Requests', onPressedItem: (){},),
                         SizedBox(height: 15),
-                        MenuItems(Icons.qr_code, 'QR Code'),
+                        MenuItems(icon: Icons.qr_code,title: 'QR Code', onPressedItem: (){}),
                         SizedBox(height: 15),
-                        MenuItems(Icons.location_on, 'Change Location'),
+                        MenuItems(icon:Icons.location_on,title: 'Change Location', onPressedItem: (){}),
                         SizedBox(height: 15),
                         MenuItems(
-                            Icons.settings_applications_outlined, 'Settings'),
+                            icon: Icons.settings_applications_outlined,title: 'Settings', onPressedItem: (){}),
                         Divider(
                           height: 25,
                           thickness: 0.1,
@@ -113,7 +115,9 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            MenuItems(Icons.logout, 'Log Out'),
+                            MenuItems(icon: Icons.logout,title: 'Log Out', onPressedItem: () async {
+                              await _authService.signOut();
+                            },),
                           ],
                         ),
                       ],

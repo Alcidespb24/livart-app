@@ -33,7 +33,7 @@ class AppUser implements DataModelBase<AppUser>{
     Map <String,dynamic> userDataMap = {
       "uid": this.uid,
       "userName": this.userName,
-      "userRole": this.userRole,
+      "userRole": this.userRole.index,
       "isAnonymous": this.isAnonymous,
       "emailVerified": this.emailVerified
     };
