@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/screens/authenticate/homeScreen.dart';
-import 'package:flutter_app/widgets/UserCreatorButton.dart';
+import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/themes/theme.dart';
+import 'package:flutter_app/widgets/UserCreatorButton.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -40,6 +40,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 UserCreatorButton(
                     'Creator',
                     globalTheme.textButton1,
+                    Role.CREATOR,
                     globalTheme.buttonDecoration1,
                     35.0,
                     globalTheme.buttonColor1), //Creator
@@ -47,6 +48,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 UserCreatorButton(
                     'User',
                     globalTheme.textButton2,
+                    Role.USER,
                     globalTheme.buttonDecoration2,
                     10.0,
                     globalTheme.buttonColor2),//User
@@ -58,3 +60,5 @@ class _LandingScreenState extends State<LandingScreen> {
     );
   }
 }
+
+

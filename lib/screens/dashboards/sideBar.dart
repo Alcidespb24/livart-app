@@ -1,9 +1,12 @@
 import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_app/widgets/menuItems.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 class SideBar extends StatefulWidget {
@@ -12,6 +15,7 @@ class SideBar extends StatefulWidget {
 }
 
 class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
+  final AuthService _authService = AuthService();
   final bool isSideBarOpened = true;
   String username = 'username';
   StreamController<bool> isSideBarOpenedStreamController;
@@ -83,7 +87,6 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                           radius: 40,
                         ),
                         //will be used for the user to insert an image of himself/herself
-                        SizedBox(height: 15),
                         Text(
                           username,
                         ),
@@ -95,14 +98,14 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                           color: globalTheme.miscellaneous,
                         ),
                         SizedBox(height: 15),
-                        MenuItems(EvaIcons.music, 'Requests'),
+                        MenuItems(icon: Icons.list_rounded,title: 'Requests', onPressedItem: (){},),
                         SizedBox(height: 15),
-                        MenuItems(EvaIcons.code, 'QR Code'),
+                        MenuItems(icon: Icons.qr_code,title: 'QR Code', onPressedItem: (){}),
                         SizedBox(height: 15),
-                        MenuItems(EvaIcons.map, 'Change Location'),
+                        MenuItems(icon:Icons.location_on,title: 'Change Location', onPressedItem: (){}),
                         SizedBox(height: 15),
                         MenuItems(
-                            EvaIcons.settings, 'Settings'),
+                            icon: Icons.settings_applications_outlined,title: 'Settings', onPressedItem: (){}),
                         Divider(
                           height: 25,
                           thickness: 0.1,
@@ -114,7 +117,9 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            MenuItems(EvaIcons.logOut, 'Log Out'),
+                            MenuItems(icon: Icons.logout,title: 'Log Out', onPressedItem: () async {
+                              await _authService.signOut();
+                            },),
                           ],
                         ),
                       ],

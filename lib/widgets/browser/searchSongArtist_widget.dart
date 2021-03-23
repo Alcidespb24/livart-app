@@ -1,15 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-//import 'album.dart';
-import 'Browser_cupertino_search_bar.dart';
+import 'package:flutter/material.dart';
+
+import '../../data_models/Browser_artist.dart';
+import '../../data_models/songDataModel.dart';
 import '../../music_browser_api/search.dart';
 import '../../services/DeezedSearch_musicservice.dart';
-import 'Browser_carousel_song_widget.dart';
 //import 'carousel_album.dart';
 import '../divider_widget.dart';
 import 'Browser_artist_widget.dart';
-import '../../data_models/Browser_artist.dart';
-import '../../data_models/songDataModel.dart';
+import 'Browser_carousel_song_widget.dart';
+//import 'album.dart';
+import 'Browser_cupertino_search_bar.dart';
 
 class SearchWidget extends StatefulWidget {
   @override

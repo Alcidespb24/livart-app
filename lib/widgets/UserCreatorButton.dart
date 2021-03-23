@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/screens/authenticate/homeScreen.dart';
 import 'package:flutter_app/themes/theme.dart';
 
 class UserCreatorButton extends StatelessWidget {
-  UserCreatorButton(this.type, this.styleText, this.boxDecoration, this.marginTop, this.primaryColor);
+  UserCreatorButton(this.type, this.styleText, this.userRole, this.boxDecoration, this.marginTop, this.primaryColor);
 
   final String type;
   final TextStyle styleText;
   final BoxDecoration boxDecoration;
   final double marginTop;
   final Color primaryColor;
+  final Role userRole;
+
 
   GlobalTheme globalTheme = GlobalTheme();
 
@@ -28,7 +31,7 @@ class UserCreatorButton extends StatelessWidget {
           elevation: 1,
         ),
         onPressed:(){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(userRole: userRole)));
         },
         child: Text(
           type,

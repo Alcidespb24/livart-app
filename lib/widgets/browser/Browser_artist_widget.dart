@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../../data_models/songDataModel.dart';
-import '../divider_widget.dart';
+import 'package:flutter/material.dart';
+
+import '../../data_models/Browser_artist.dart';
 import '../../services/DeezedSearch_musicservice.dart';
 //import 'carousel_album.dart';
 import 'Browser_carousel_song_widget.dart';
-import '../../data_models/Browser_artist.dart';
 
 class ArtistWidget extends StatefulWidget {
   final int artistId;

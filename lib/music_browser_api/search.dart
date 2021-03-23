@@ -1,6 +1,6 @@
 //import 'album.dart';
-import '../data_models/songDataModel.dart';
 import '../data_models/Browser_artist.dart';
+import '../data_models/songDataModel.dart';
 // TODO: Remove this class and implement this functionality in a function
 class Search {
   final String term;

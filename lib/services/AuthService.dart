@@ -1,104 +1,107 @@
 import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
-import 'package:flutter_app/services/DataBaseUserService.dart';
+import 'package:flutter_app/data_models/EventCodeDatabase.dart';
+import 'package:flutter_app/data_models/Failure.dart';
+import 'package:flutter_app/services/Service.dart';
+import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthService {
+class AuthService extends Service {
   // This is a private property
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final DataBaseUserService _userDataBaseService = DataBaseUserService();
-  UserCredential _userCredential;
+  final FirestoreUserService _userDataBaseService = FirestoreUserService();
+  static AppUser _currentUser;
 
-
+  AuthService(){
+    setState(NotifierState.INITIAL);
+  }
 
   AppUser _appUserFromFirebaseUser(User user){
     return user != null ? new AppUser(
         uid: user.uid,
         isAnonymous: user.isAnonymous,
-        isCreator: (user.isAnonymous) ? false : null,
         emailVerified: user.emailVerified,
         userName: user.displayName
     ) : null;
   }
 
   // Sign in anonymously
-  Future signInAnonymous() async {
+  void  signInAnonymous() async {
     try {
+      setState(NotifierState.LOADING);
       // TODO: need to access firestore and delete user account if the user decides not to use his Email/Pwd anymore
       if(_auth.currentUser != null && _auth.currentUser.emailVerified == false){
         print('Deleting user'+_auth.currentUser.toString() );
       }
-      print (_auth.currentUser);
-       UserCredential user = await _auth.signInAnonymously();
 
-      await _userDataBaseService.createUserData(_appUserFromFirebaseUser(user.user));
-    } catch (error) {
-      print(error.toString());
-      return null;
+      UserCredential user = await _auth.signInAnonymously();
+      _currentUser = _appUserFromFirebaseUser(user.user);
+
+      super.setState(NotifierState.LOADED);
+    } on  FirebaseAuthException{
+      setFailure(Failure(id: EventCodes.USER_NOT_FOUND_INVALID_UNAME));
     }
   }
 
   // Authentication change for user stream
-  // @return: null if not signed in, UserCredential Object if signed in
   Stream<AppUser> get user {
     return _auth.authStateChanges().map((User user) => _appUserFromFirebaseUser(user));
   }
 
   // Create account with email and password
-  // returns null on success or the error string if any errors occur
-  Future<String> createAccountEmailPwd(String email, String userName, String pwd) async {
+  void createAccountEmailPwd(String email, String userName, String pwd, Role userRole) async {
     try {
-      _userCredential =
+      setState(NotifierState.LOADING);
+      UserCredential userCredential =
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: pwd);
 
-      if (!_userCredential.user.emailVerified) {
-        await _userCredential.user.sendEmailVerification();
+      _currentUser = _appUserFromFirebaseUser(userCredential.user);
+      _currentUser.userName = userName;
+      _currentUser.userRole = userRole;
+
+      if (!userCredential.user.emailVerified) {
+        await userCredential.user.sendEmailVerification();
       }
-      await _userDataBaseService.createUserData(_appUserFromFirebaseUser(_userCredential.user));
 
-      _userDataBaseService.updateUserName(userName);
-
-      return null;
+      setState(NotifierState.LOADED);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'weak-password') {
-        return 'Password is too weak';
+        setFailure(Failure(id: EventCodes.PASSWORD_TOO_WEAK));
       } else if (error.code == 'email-already-in-use') {
-        return 'This email is already in use, you dumbfuck';
+        setFailure(Failure(id: EventCodes.CREDENTIALS_IN_USE));
       }
-    } catch (error) {
-      return error.toString();
     }
-    return null;
   }
 
   // Sign in email pwd
-  Future<String> signInEmailPwd(String email, String pwd) async {
+  void signInEmailPwd(String email, String pwd) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: pwd);
-      //return null;
-
+      setState(NotifierState.LOADING);
+      UserCredential curr = await _auth.signInWithEmailAndPassword(email: email, password: pwd);
+      _currentUser = _appUserFromFirebaseUser(curr.user);
+      setState(NotifierState.LOADED);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'user-not-found') {
-        return 'User not Found, Please verify your Email';
+        setFailure(Failure(id: EventCodes.USER_NOT_FOUND_INVALID_UNAME));
       } else if (error.code == 'wrong-password') {
-        return 'Wrong password provided for that user';
+        setFailure(Failure(id: EventCodes.INVALID_CREDENTIALS));
       }
-    } catch (error) {
-      return error.toString();
     }
   }
 
-  bool emailVerified() {
-    return _auth.currentUser.emailVerified;
+  bool isEmailVerified() {
+    _currentUser.emailVerified = _auth.currentUser.emailVerified;
+    return _currentUser.emailVerified;
   }
 
-  // Sign in google
-  Future signInWithGoogle() async {
+  // Sign in with google
+  void signInWithGoogle(Role userRole) async {
     try {
       final GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
@@ -108,28 +111,36 @@ class AuthService {
         idToken: googleSignInAuthentication.idToken,
       );
 
-      await _auth.signInWithCredential(credential);
-    } on PlatformException catch(error){
-      print (error);
+      UserCredential curr = await _auth.signInWithCredential(credential);
+      _currentUser = _appUserFromFirebaseUser(curr.user);
+      _currentUser.userRole = userRole;
+
+    } on PlatformException {
+      setFailure(Failure(id: EventCodes.SIGN_IN_FAILED));
     }
   }
 
-  Future resetPwd(String email) async{
-    await _auth.sendPasswordResetEmail(email: email);
+  void resetPwd(String email) async{
+    try {
+      setState(NotifierState.LOADING);
+      await _auth.sendPasswordResetEmail(email: email);
+      setState(NotifierState.LOADED);
+    } on FirebaseAuthException catch(e){
+      setFailure(Failure(id: EventCodes.UNABLE_TO_SEND_PASSWORD_EMAIL));
+      print (e.code);
+    }
   }
 
   AppUser getCurrentUser() {
-    AppUser curr = _appUserFromFirebaseUser(_auth.currentUser);
-    return (curr);
+    return  _currentUser;
   }
 
   // User Sign out
-  Future signOut() async {
-    try {
-      _googleSignIn.signOut();
-      return _auth.signOut();
-    } catch (error) {
-      print(error.toString());
-    }
+  void signOut() async {
+    setState(NotifierState.LOADING);
+    _googleSignIn.signOut();
+    _auth.signOut();
+    _currentUser = null;
+    setState(NotifierState.LOADED);
   }
 }
