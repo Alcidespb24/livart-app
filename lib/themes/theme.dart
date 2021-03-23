@@ -20,9 +20,9 @@ class GlobalTheme extends StatelessWidget {
       fontFamily: 'SyneMono-Regular.ttf'); //User Text Button
 
   final TextStyle headText = TextStyle(
-      fontWeight: FontWeight.bold,
+      fontSize: 24,
       color: Color(0xFFFFFFFF),
-      fontSize: 20,
+      height: 3.4,
       fontFamily:
           'SyneMono-Regular.ttf'); //Head Text style for landingScreen, homeScreen
 

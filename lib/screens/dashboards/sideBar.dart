@@ -6,7 +6,6 @@ import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_app/widgets/menuItems.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 class SideBar extends StatefulWidget {
@@ -80,6 +79,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                         horizontal: 20, vertical: 20),
                     color: globalTheme.sideBarColor,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         SizedBox(height: 100),
                         CircleAvatar(
@@ -98,14 +98,14 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                           color: globalTheme.miscellaneous,
                         ),
                         SizedBox(height: 15),
-                        MenuItems(icon: Icons.list_rounded,title: 'Requests', onPressedItem: (){},),
+                        MenuItems(icon: EvaIcons.musicOutline,title: 'Requests', onPressedItem: (){},),
                         SizedBox(height: 15),
-                        MenuItems(icon: Icons.qr_code,title: 'QR Code', onPressedItem: (){}),
+                        MenuItems(icon: EvaIcons.code,title: 'QR Code', onPressedItem: (){}),
                         SizedBox(height: 15),
-                        MenuItems(icon:Icons.location_on,title: 'Change Location', onPressedItem: (){}),
+                        MenuItems(icon:EvaIcons.map,title: 'Change Location', onPressedItem: (){}),
                         SizedBox(height: 15),
                         MenuItems(
-                            icon: Icons.settings_applications_outlined,title: 'Settings', onPressedItem: (){}),
+                            icon: EvaIcons.settings,title: 'Settings', onPressedItem: (){}),
                         Divider(
                           height: 25,
                           thickness: 0.1,
@@ -113,9 +113,8 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                           endIndent: 70,
                           color: globalTheme.miscellaneous,
                         ),
-                        SizedBox(height: 50),
+                        SizedBox(height: 30),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             MenuItems(icon: Icons.logout,title: 'Log Out', onPressedItem: () async {
                               await _authService.signOut();

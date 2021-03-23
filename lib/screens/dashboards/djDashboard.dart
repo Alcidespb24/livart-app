@@ -1,6 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app/screens/dashboards/djRequests.dart';
 import 'package:flutter_app/themes/theme.dart';
 
 class DjDashboard extends StatefulWidget {
@@ -48,7 +49,7 @@ class _DjDashboardState extends State<DjDashboard> {
                         elevation: 1,
                       ),
                       onPressed: () {
-                        // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => DjRequests()));
                       },
                       child: Text(
                         'Enable Location',

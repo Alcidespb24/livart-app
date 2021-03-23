@@ -34,13 +34,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       child: Column(
         children: <Widget>[
           Text(
-            'REGISTER NOW!',
-            style: TextStyle(
-              fontSize: 24,
-              color: Color(0xFFFFFFFF),
-              height: 3.4,
-              fontFamily: 'RobotoCondensed-Bold.ttf',
-            ),
+            'Register Now!',
+            style: TextStyle(fontSize: 24, height: 3),
           ),
           SizedBox(height: 15),
           UserField(onChangedUname: (String uName) {
@@ -75,7 +70,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 "Register Now",
                 style: TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontFamily:'SyneMono-Regular.ttf',
                 ),
               ),
               onPressed: () async {

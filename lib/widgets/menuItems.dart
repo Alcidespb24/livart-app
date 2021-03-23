@@ -13,22 +13,25 @@ class MenuItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [TextButton.icon(
-          label: Text(
-            title,
-            style: globalTheme.menuText,
-          ),
-          icon: Icon(
-            icon,
-            color: globalTheme.iconsColor,
-            size: 25,
-          ),
-          onPressed: (){
-            onPressedItem();
-          },
-        )],
+      child: Container(
+        margin: EdgeInsets.only(left: 100),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [TextButton.icon(
+            label: Text(
+              title,
+              style: TextStyle(color: globalTheme.miscellaneous),
+            ),
+            icon: Icon(
+              icon,
+              color: globalTheme.iconsColor,
+              size: 25,
+            ),
+            onPressed: (){
+              onPressedItem();
+            },
+          )],
+        ),
       ),
     );
   }

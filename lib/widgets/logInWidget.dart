@@ -35,13 +35,8 @@ class _LogInWidgetState extends State<LogInWidget> {
         child: Column(
           children: <Widget>[
             Text(
-              'Welcome Back',
-              style: TextStyle(
-                fontSize: 24,
-                color: Color(0xFFFFFFFF),
-                height: 3.4,
-                fontFamily: 'RobotoCondensed-Bold.ttf',
-              ),
+              'Welcome Back!',
+              style: TextStyle(fontSize: 24, height: 3),
             ),
             SizedBox(height: 15),
             EmailField(onChangedEmail: (String email) {
@@ -56,7 +51,7 @@ class _LogInWidgetState extends State<LogInWidget> {
               });
             }),
             Container(
-              margin: EdgeInsets.only(left: 180, top: 5),
+              margin: EdgeInsets.only(left: 170),
               child: TextButton(
                 child: Text(
                   'Forgot Password?',
@@ -75,14 +70,14 @@ class _LogInWidgetState extends State<LogInWidget> {
             Container(
               height: 38,
               width: 150,
-              margin: EdgeInsets.only(left: 35, right: 35, top: 10),
+              margin: EdgeInsets.only(left: 35, right: 35),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14.0),
-                color: Color(0xFFA400C1),
+                color: globalTheme.buttonColor4,
               ),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  onSurface: Color(0xFF388E3C),
+                  primary: globalTheme.buttonColor4,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14.0),
                   ),
@@ -91,7 +86,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                 child: Text(
                   "Submit",
                   style: TextStyle(
-                    color: Color(0xFFFFFFFF),
+                    color: globalTheme.miscellaneous,
                   ),
                 ),
                 onPressed: () async {
@@ -100,6 +95,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                     //TODO: Handle Error and send information about what went wrong to the user
                     print(_authService.failure.toString());
                   }
+                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  SideBarLayout()));
                 },
               ),
             ),
@@ -111,7 +107,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                     thickness: 0.5,
                     indent: 0,
                     endIndent: 10,
-                    color: Colors.white,
+                    color: globalTheme.miscellaneous,
                   ),
                 ),
                 Text(
@@ -127,34 +123,27 @@ class _LogInWidgetState extends State<LogInWidget> {
                     thickness: 0.5,
                     indent: 10,
                     endIndent: 0,
-                    color: Colors.white,
+                    color: globalTheme.miscellaneous,
                   ),
                 ),
               ],
             ),
             Container(
               height: 30,
-              margin: EdgeInsets.only(left: 40, right: 47),
+              margin: EdgeInsets.only(left: 30, right: 30),
               decoration: BoxDecoration(
-                // gradient: LinearGradient(
-                //   begin: AlignmentDirectional(0.0, -0.8),
-                //   end: Alignment.bottomCenter,
-                //   colors: [
-                //     Color(0xFFDC1919).withOpacity(0.8),
-                //     Color(0xFFE3F509).withOpacity(0.8),
-                //   ],
-                // ),
-                color: Colors.white,
+                color: globalTheme.buttonColor3,
                 borderRadius: BorderRadius.circular(14.0),
               ),
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
+                  primary:globalTheme.buttonColor2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14.0),
                   ),
                   elevation: 1,
                 ),
-                label: Text('Sign in with Google'),
+                label: Text('Sign in with Google', style: TextStyle(color: globalTheme.miscellaneous1),),
                 icon: Icon(
                   CommunityMaterialIcons.google,
                   size: 20,
