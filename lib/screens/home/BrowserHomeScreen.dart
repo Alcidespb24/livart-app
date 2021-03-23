@@ -1,6 +1,7 @@
 
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 //import 'player_widget.dart';
 //import 'browse_widget.dart';
 import '../../widgets/browser/searchSongArtist_widget.dart';

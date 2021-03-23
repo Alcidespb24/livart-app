@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+
 import '../data_models/Listening_deezer_song_model.dart';
 
 //This is to get the song info using the deezer API

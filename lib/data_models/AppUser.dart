@@ -1,32 +1,39 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/data_models/DataModelBase.dart';
 
-import 'Request.dart';
+enum Role{
+  CREATOR,
+  USER
+}
 
-class AppUser {
+class AppUser implements DataModelBase<AppUser>{
   String uid;
   String userName;
   bool isAnonymous;
   bool emailVerified;
-  bool isCreator;
-  List<Request> requestList;
+  Role userRole;
+  String profilePicture;
 
   AppUser({
     @required this.uid,
     @required this.userName,
-    @required this.isCreator,
+    @required this.userRole,
     this.isAnonymous,
     this.emailVerified
   });
 
+  AppUser.fromMap(Map<String,dynamic> map){
+    fromMap(map);
+  }
+
   // Function Used to translate user data to a map
   // This map is used for database operations
-  Map<String,dynamic> userToMap(){
-    Map <String,dynamic> userDataMap;
-    userDataMap = {
+  @override
+  Map< String, dynamic > toMap(){
+    Map <String,dynamic> userDataMap = {
       "uid": this.uid,
       "userName": this.userName,
-      "isCreator": this.isCreator,
+      "userRole": this.userRole.index,
       "isAnonymous": this.isAnonymous,
       "emailVerified": this.emailVerified
     };
@@ -35,14 +42,15 @@ class AppUser {
 
   // Function used to translate a user Document Snapshot
   // to an AppUser object
-  static AppUser userFromMap(Map<String,dynamic> userDocumentSnapshot){
-    AppUser appUser = new AppUser(
-    uid: userDocumentSnapshot["uid"],
-    isCreator: userDocumentSnapshot["isCreator"],
-    userName: userDocumentSnapshot["userName"],
-    isAnonymous: userDocumentSnapshot["isAnonymous"],
-    emailVerified: userDocumentSnapshot["emailVerified"]);
+  @override
+  AppUser fromMap (Map<String,dynamic> map){
+    AppUser user = new AppUser(
+    uid: map["uid"],
+    userRole: map["userRole"],
+    userName: map["userName"],
+    isAnonymous: map["isAnonymous"],
+    emailVerified: map["emailVerified"]);
 
-    return appUser;
+     return user;
   }
 }

@@ -3,14 +3,14 @@ import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/data_models/Request.dart';
 import 'package:flutter_app/data_models/SongStruct.dart';
 import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/services/DataBaseRequestService.dart';
-import 'package:flutter_app/services/DataBaseUserService.dart';
+import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
+import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
 
 String creatorUserName = '';
 AppUser currentUser;
 final AuthService _authService = AuthService();
-final DataBaseRequestService _requestService = DataBaseRequestService();
-final DataBaseUserService _userService = DataBaseUserService();
+final FirestoreRequestService _requestService = FirestoreRequestService();
+final FirestoreUserService _userService = FirestoreUserService();
 
 class Home extends StatefulWidget {
   @override

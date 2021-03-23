@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import '../../data_models/songDataModel.dart';
 import '../divider_widget.dart';
 //import 'player_widget.dart';

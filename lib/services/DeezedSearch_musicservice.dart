@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
-import '../data_models/songDataModel.dart';
+
 import '../data_models/Browser_artist.dart';
+import '../data_models/songDataModel.dart';
 import '../music_browser_api/search.dart';
 
 class AppleMusicStore {
