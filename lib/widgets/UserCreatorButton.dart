@@ -3,7 +3,7 @@ import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/screens/authenticate/homeScreen.dart';
 import 'package:flutter_app/themes/theme.dart';
 
-class UserCreatorButton extends StatelessWidget {
+class UserCreatorButton extends StatefulWidget {
   UserCreatorButton(this.type, this.styleText, this.userRole, this.boxDecoration, this.marginTop, this.primaryColor);
 
   final String type;
@@ -13,7 +13,11 @@ class UserCreatorButton extends StatelessWidget {
   final Color primaryColor;
   final Role userRole;
 
+  @override
+  _UserCreatorButtonState createState() => _UserCreatorButtonState();
+}
 
+class _UserCreatorButtonState extends State<UserCreatorButton> {
   GlobalTheme globalTheme = GlobalTheme();
 
   @override
@@ -21,21 +25,21 @@ class UserCreatorButton extends StatelessWidget {
     return Container(
       height: 38,
       width: 250,
-      margin: EdgeInsets.only(left: 35, right: 35, top: marginTop),
+      margin: EdgeInsets.only(left: 35, right: 35, top: widget.marginTop),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary:primaryColor,
+          primary:widget.primaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14.0),
           ),
           elevation: 1,
         ),
         onPressed:(){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(userRole: userRole)));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(userRole: widget.userRole)));
         },
         child: Text(
-          type,
-          style: styleText,
+          widget.type,
+          style: widget.styleText,
         ),
       ),
     );

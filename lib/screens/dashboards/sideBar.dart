@@ -81,7 +81,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        SizedBox(height: 100),
+                        SizedBox(height: 3),
                         CircleAvatar(
                           backgroundColor: globalTheme.miscellaneous,
                           radius: 40,

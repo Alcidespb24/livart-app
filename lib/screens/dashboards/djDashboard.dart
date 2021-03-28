@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/screens/dashboards/djRequests.dart';
 import 'package:flutter_app/themes/theme.dart';
+import 'package:geolocator/geolocator.dart';
 
 class DjDashboard extends StatefulWidget {
   @override
@@ -11,6 +12,11 @@ class DjDashboard extends StatefulWidget {
 
 class _DjDashboardState extends State<DjDashboard> {
   GlobalTheme globalTheme = GlobalTheme();
+
+  void getLocation() async{
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print(position);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +55,7 @@ class _DjDashboardState extends State<DjDashboard> {
                         elevation: 1,
                       ),
                       onPressed: () {
+                        getLocation();
                         Navigator.push(context, MaterialPageRoute(builder: (context) => DjRequests()));
                       },
                       child: Text(
