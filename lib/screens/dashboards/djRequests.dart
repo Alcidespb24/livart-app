@@ -9,15 +9,13 @@ class DjRequests extends StatefulWidget {
 }
 
 class _DjRequestsState extends State<DjRequests> {
-  GlobalTheme globalTheme = GlobalTheme();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: <Widget>[
           Container(
-            decoration: globalTheme.backgroundGradient,
+            decoration: GlobalTheme.backgroundGradient,
           ),
         ],
       )

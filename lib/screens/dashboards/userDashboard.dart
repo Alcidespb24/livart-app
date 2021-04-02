@@ -7,15 +7,13 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
-  GlobalTheme globalTheme = GlobalTheme();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: <Widget>[
           Container(
-            decoration: globalTheme.backgroundGradient,
+            decoration: GlobalTheme.backgroundGradient,
           ),
         ],
       ),

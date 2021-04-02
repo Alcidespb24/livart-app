@@ -19,7 +19,7 @@ class _LandingScreenState extends State<LandingScreen> {
       body: Stack(
         children: <Widget>[
           Container(
-            decoration: globalTheme.backgroundGradient,
+            decoration: GlobalTheme.backgroundGradient,
             // color: Colors.black,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -32,26 +32,26 @@ class _LandingScreenState extends State<LandingScreen> {
                     children: <Widget>[
                       Text(
                         'I AM A: ',
-                        style: globalTheme.headText,
+                        style: GlobalTheme.headText,
                       ),
                     ],
                   ),
                 ),
                 UserCreatorButton(
                     'Creator',
-                    globalTheme.textButton1,
+                    GlobalTheme.textButton1,
                     Role.CREATOR,
                     globalTheme.buttonDecoration1,
                     35.0,
-                    globalTheme.buttonColor1), //Creator
+                    GlobalTheme.buttonColor1), //Creator
                 SizedBox(height: 5),
                 UserCreatorButton(
                     'User',
-                    globalTheme.textButton2,
+                    GlobalTheme.textButton2,
                     Role.USER,
                     globalTheme.buttonDecoration2,
                     10.0,
-                    globalTheme.buttonColor2),//User
+                    GlobalTheme.buttonColor2),//User
               ],
             ),
           ),

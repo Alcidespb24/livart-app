@@ -86,7 +86,7 @@ class StripeService {
         'currency': currency,
         'payment_method_types[]': 'card'
       };
-      var response = await http.post(
+      var response = await post(
           StripeService.paymentApiUrl,
           body: body,
           headers: StripeService.headers

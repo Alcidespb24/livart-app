@@ -21,8 +21,6 @@ class _LogInWidgetState extends State<LogInWidget> {
   final FirestoreUserService _userService = FirestoreUserService();
   final FirestoreRequestService _requestService = FirestoreRequestService();
   final AuthService _authService = AuthService();
-
-  GlobalTheme globalTheme = GlobalTheme();
   String emailField = '';
   String passwordField = '';
   String userName = '';
@@ -73,11 +71,11 @@ class _LogInWidgetState extends State<LogInWidget> {
               margin: EdgeInsets.only(left: 35, right: 35),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14.0),
-                color: globalTheme.buttonColor4,
+                color: GlobalTheme.buttonColor4,
               ),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: globalTheme.buttonColor4,
+                  primary: GlobalTheme.buttonColor4,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14.0),
                   ),
@@ -86,7 +84,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                 child: Text(
                   "Submit",
                   style: TextStyle(
-                    color: globalTheme.miscellaneous,
+                    color: GlobalTheme.miscellaneous,
                   ),
                 ),
                 onPressed: () async {
@@ -107,7 +105,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                     thickness: 0.5,
                     indent: 0,
                     endIndent: 10,
-                    color: globalTheme.miscellaneous,
+                    color: GlobalTheme.miscellaneous,
                   ),
                 ),
                 Text(
@@ -123,7 +121,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                     thickness: 0.5,
                     indent: 10,
                     endIndent: 0,
-                    color: globalTheme.miscellaneous,
+                    color: GlobalTheme.miscellaneous,
                   ),
                 ),
               ],
@@ -132,18 +130,18 @@ class _LogInWidgetState extends State<LogInWidget> {
               height: 30,
               margin: EdgeInsets.only(left: 30, right: 30),
               decoration: BoxDecoration(
-                color: globalTheme.buttonColor3,
+                color: GlobalTheme.buttonColor3,
                 borderRadius: BorderRadius.circular(14.0),
               ),
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  primary:globalTheme.buttonColor2,
+                  primary:GlobalTheme.buttonColor2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14.0),
                   ),
                   elevation: 1,
                 ),
-                label: Text('Sign in with Google', style: TextStyle(color: globalTheme.miscellaneous1),),
+                label: Text('Sign in with Google', style: TextStyle(color: GlobalTheme.miscellaneous1),),
                 icon: Icon(
                   CommunityMaterialIcons.google,
                   size: 20,

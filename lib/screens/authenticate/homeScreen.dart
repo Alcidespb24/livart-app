@@ -24,7 +24,7 @@ class _HomeScreen extends State<HomeScreen> {
       body: Stack(
         children: <Widget>[
           Container(
-            decoration: globalTheme.backgroundGradient,
+            decoration: GlobalTheme.backgroundGradient,
             child: Column(
               children: <Widget>[
                 Expanded(
@@ -40,8 +40,8 @@ class _HomeScreen extends State<HomeScreen> {
                       begin: AlignmentDirectional(0.0, -2.05),
                       end: Alignment.bottomCenter,
                       colors: [
-                        globalTheme.gradient1,
-                        globalTheme.gradient2,
+                        GlobalTheme.gradient1,
+                        GlobalTheme.gradient2,
                       ],
                     ),
                     borderRadius: BorderRadius.only(

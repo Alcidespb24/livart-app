@@ -11,89 +11,104 @@ class DjDashboard extends StatefulWidget {
 }
 
 class _DjDashboardState extends State<DjDashboard> {
-  GlobalTheme globalTheme = GlobalTheme();
 
-  void getLocation() async{
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  @override
+  void initState() {
+    super.initState();
+    getLocation();
+  }
+
+  void getLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
     print(position);
   }
 
   @override
   Widget build(BuildContext context) {
+    var globalTheme;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
-            Container(
-              decoration: globalTheme.backgroundGradient,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  globalTheme.locationIcon,
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'Tell us where you are: ',
-                          style: TextStyle(
-                            fontSize: 25,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ), //User
-                  SizedBox(height: 10),
-                  Container(
-                    width: 250,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: globalTheme.buttonColor4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14.0),
-                        ),
-                        elevation: 1,
-                      ),
-                      onPressed: () {
-                        getLocation();
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => DjRequests()));
-                      },
-                      child: Text(
-                        'Enable Location',
+          Container(
+            decoration: GlobalTheme.backgroundGradient,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                globalTheme.locationIcon,
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Tell us where you are: ',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 25,
                         ),
+                      ),
+                    ],
+                  ),
+                ), //User
+                SizedBox(height: 10),
+                Container(
+                  width: 250,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: GlobalTheme.buttonColor4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14.0),
+                      ),
+                      elevation: 1,
+                    ),
+                    onPressed: () {
+                      getLocation();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DjRequests()));
+                    },
+                    child: Text(
+                      'Enable Location',
+                      style: TextStyle(
+                        fontSize: 15,
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Container(
-                    width: 250,
-                    height: 35,
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(EvaIcons.creditCardOutline, size: 12,color: Colors.white,),
-                        hintText: 'Minimum price per request:',
-                        hintStyle: TextStyle(fontSize: 12),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  width: 250,
+                  height: 35,
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        EvaIcons.creditCardOutline,
+                        size: 12,
+                        color: Colors.white,
                       ),
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      hintText: 'Minimum price per request:',
+                      hintStyle: TextStyle(fontSize: 12),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      focusedBorder:
+                          OutlineInputBorder(borderSide: BorderSide.none),
                     ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
+          ),
         ],
       ),
     );

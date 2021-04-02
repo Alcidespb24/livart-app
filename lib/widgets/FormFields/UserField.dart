@@ -4,7 +4,6 @@ import 'package:flutter_app/themes/theme.dart';
 typedef void onChangedCallback(String uName);
 
 class UserField extends StatelessWidget {
-  GlobalTheme globalTheme = GlobalTheme();
   final onChangedCallback onChangedUname;
 
   UserField({@required this.onChangedUname});
@@ -25,7 +24,7 @@ class UserField extends StatelessWidget {
       decoration: InputDecoration(
         prefixIcon: Icon(
           Icons.face_retouching_natural,
-          color: globalTheme.iconsColor,
+          color: GlobalTheme.iconsColor,
           size: 13,
         ),
         contentPadding: EdgeInsets.all(5),

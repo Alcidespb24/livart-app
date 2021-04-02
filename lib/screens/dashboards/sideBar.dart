@@ -23,8 +23,6 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   final _animationDuration = Duration(milliseconds: 500);
 
-  GlobalTheme globalTheme = GlobalTheme();
-
   @override
   void initState() {
     super.initState();
@@ -77,13 +75,13 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 20),
-                    color: globalTheme.sideBarColor,
+                    color: GlobalTheme.sideBarColor,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         SizedBox(height: 3),
                         CircleAvatar(
-                          backgroundColor: globalTheme.miscellaneous,
+                          backgroundColor: GlobalTheme.miscellaneous,
                           radius: 40,
                         ),
                         //will be used for the user to insert an image of himself/herself
@@ -95,7 +93,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                           thickness: 0.1,
                           indent: 70,
                           endIndent: 70,
-                          color: globalTheme.miscellaneous,
+                          color: GlobalTheme.miscellaneous,
                         ),
                         SizedBox(height: 15),
                         MenuItems(icon: EvaIcons.musicOutline,title: 'Requests', onPressedItem: (){},),
@@ -111,7 +109,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                           thickness: 0.1,
                           indent: 70,
                           endIndent: 70,
-                          color: globalTheme.miscellaneous,
+                          color: GlobalTheme.miscellaneous,
                         ),
                         SizedBox(height: 30),
                         Row(
@@ -136,12 +134,12 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                       child: Container(
                         width: 35,
                         height: 110,
-                        color: globalTheme.sideBarColor,
+                        color: GlobalTheme.sideBarColor,
                         alignment: Alignment.centerLeft,
                         child: AnimatedIcon(
                             icon: AnimatedIcons.menu_close,
                             progress: _animationController.view,
-                            color: globalTheme.miscellaneous,
+                            color: GlobalTheme.miscellaneous,
                             size: 30),
                       ),
                     ),

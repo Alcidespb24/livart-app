@@ -7,7 +7,6 @@ class MenuItems extends StatelessWidget {
   final onPressedCallback onPressedItem;
 
   MenuItems({this.icon, this.title, @required this.onPressedItem});
-  GlobalTheme globalTheme = GlobalTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +19,11 @@ class MenuItems extends StatelessWidget {
           children: [TextButton.icon(
             label: Text(
               title,
-              style: TextStyle(color: globalTheme.miscellaneous),
+              style: TextStyle(color: GlobalTheme.miscellaneous),
             ),
             icon: Icon(
               icon,
-              color: globalTheme.iconsColor,
+              color: GlobalTheme.iconsColor,
               size: 25,
             ),
             onPressed: (){
