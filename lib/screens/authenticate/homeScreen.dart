@@ -5,6 +5,7 @@ import 'package:flutter_app/widgets/logInWidget.dart';
 import 'package:flutter_app/widgets/signUpWidget.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const String id = 'home_screen';
   HomeScreen({this.userRole});
   final userRole;
   @override

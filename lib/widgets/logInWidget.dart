@@ -49,7 +49,7 @@ class _LogInWidgetState extends State<LogInWidget> {
               });
             }),
             Container(
-              margin: EdgeInsets.only(left: 170),
+              margin: EdgeInsets.only(left: 120),
               child: TextButton(
                 child: Text(
                   'Forgot Password?',
@@ -128,7 +128,6 @@ class _LogInWidgetState extends State<LogInWidget> {
             ),
             Container(
               height: 30,
-              margin: EdgeInsets.only(left: 30, right: 30),
               decoration: BoxDecoration(
                 color: GlobalTheme.buttonColor3,
                 borderRadius: BorderRadius.circular(14.0),

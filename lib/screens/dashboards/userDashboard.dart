@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/themes/theme.dart';
 
 class UserDashboard extends StatefulWidget {
+  static const String id = 'userDashboard_screen';
   @override
   _UserDashboardState createState() => _UserDashboardState();
 }

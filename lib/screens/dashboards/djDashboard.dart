@@ -6,6 +6,7 @@ import 'package:flutter_app/themes/theme.dart';
 import 'package:geolocator/geolocator.dart';
 
 class DjDashboard extends StatefulWidget {
+  static const String id = 'djDashboard_screen';
   @override
   _DjDashboardState createState() => _DjDashboardState();
 }
@@ -24,6 +25,8 @@ class _DjDashboardState extends State<DjDashboard> {
     print(position);
   }
 
+  GlobalTheme globalTheme = GlobalTheme();
+
   @override
   Widget build(BuildContext context) {
     var globalTheme;
@@ -36,7 +39,7 @@ class _DjDashboardState extends State<DjDashboard> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                globalTheme.locationIcon,
+                GlobalTheme().locationIcon,
                 Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -63,10 +66,7 @@ class _DjDashboardState extends State<DjDashboard> {
                     ),
                     onPressed: () {
                       getLocation();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DjRequests()));
+                  Navigator.pushNamed(context, DjRequests.id);
                     },
                     child: Text(
                       'Enable Location',

@@ -6,6 +6,7 @@ import 'package:flutter_app/themes/theme.dart';
 import 'package:flutter_app/widgets/UserCreatorButton.dart';
 
 class LandingScreen extends StatefulWidget {
+  static const String id = 'landing_screen';
   @override
   _LandingScreenState createState() => _LandingScreenState();
 }
