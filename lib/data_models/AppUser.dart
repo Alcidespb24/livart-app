@@ -9,15 +9,19 @@ enum Role{
 class AppUser implements DataModelBase<AppUser>{
   String uid;
   String userName;
+  Role userRole;
+  // Stores location identifier as provided by Maps API
+  String userLocation;
   bool isAnonymous;
   bool emailVerified;
-  Role userRole;
-  String profilePicture;
+
+
 
   AppUser({
     @required this.uid,
     @required this.userName,
     @required this.userRole,
+    this.userLocation,
     this.isAnonymous,
     this.emailVerified
   });
@@ -34,6 +38,7 @@ class AppUser implements DataModelBase<AppUser>{
       "uid": this.uid,
       "userName": this.userName,
       "userRole": this.userRole.index,
+      "userLocation": this.userLocation,
       "isAnonymous": this.isAnonymous,
       "emailVerified": this.emailVerified
     };
@@ -46,11 +51,12 @@ class AppUser implements DataModelBase<AppUser>{
   AppUser fromMap (Map<String,dynamic> map){
     AppUser user = new AppUser(
     uid: map["uid"],
-    userRole: map["userRole"],
     userName: map["userName"],
+    userRole: map["userRole"],
+    userLocation: map["userLocation"],
     isAnonymous: map["isAnonymous"],
     emailVerified: map["emailVerified"]);
 
-     return user;
+    return user;
   }
 }
