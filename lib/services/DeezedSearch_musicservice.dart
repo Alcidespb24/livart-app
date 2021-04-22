@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 import '../data_models/Browser_artist.dart';
@@ -21,7 +20,7 @@ class AppleMusicStore {
 
   Future<dynamic> _fetchJSON(String url) async {
     final response =
-    await get(url, headers: {'Authorization': "Bearer $JWT_KEY"});
+    await get(Uri.parse(url), headers: {'Authorization': "Bearer $JWT_KEY"});
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
