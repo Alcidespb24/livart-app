@@ -57,6 +57,9 @@ dependencies:
   dio: ^4.0.0-prev3
   eva_icons_flutter: ^3.0.0
 
+  #Google Maps API
+  google_maps_flutter: ^2.0.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
