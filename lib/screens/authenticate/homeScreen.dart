@@ -5,6 +5,7 @@ import 'package:flutter_app/widgets/logInWidget.dart';
 import 'package:flutter_app/widgets/signUpWidget.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const String id = 'home_screen';
   HomeScreen({this.userRole});
   final userRole;
   @override
@@ -24,16 +25,11 @@ class _HomeScreen extends State<HomeScreen> {
       body: Stack(
         children: <Widget>[
           Container(
-            decoration: globalTheme.backgroundGradient,
+            decoration: GlobalTheme.backgroundGradient,
             child: Column(
               children: <Widget>[
                 Expanded(
-                  child: Image.asset(
-                    'lib/assets/icons/app_icon.png',
-                    width: 180,
-                    alignment: AlignmentDirectional(0.0, 0.6),
-                    color: globalTheme.miscellaneous,
-                  ),
+                  child: globalTheme.appLogo
                 ),
                 Container(
                   height: 425,
@@ -45,8 +41,8 @@ class _HomeScreen extends State<HomeScreen> {
                       begin: AlignmentDirectional(0.0, -2.05),
                       end: Alignment.bottomCenter,
                       colors: [
-                        globalTheme.gradient1,
-                        globalTheme.gradient2,
+                        GlobalTheme.gradient1,
+                        GlobalTheme.gradient2,
                       ],
                     ),
                     borderRadius: BorderRadius.only(

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
 class StripeTransactionResponse {
@@ -86,8 +86,8 @@ class StripeService {
         'currency': currency,
         'payment_method_types[]': 'card'
       };
-      var response = await http.post(
-          StripeService.paymentApiUrl,
+      var response = await post(
+          Uri.parse(StripeService.paymentApiUrl),
           body: body,
           headers: StripeService.headers
       );

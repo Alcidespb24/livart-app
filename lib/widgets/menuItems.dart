@@ -7,28 +7,30 @@ class MenuItems extends StatelessWidget {
   final onPressedCallback onPressedItem;
 
   MenuItems({this.icon, this.title, @required this.onPressedItem});
-  GlobalTheme globalTheme = GlobalTheme();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [TextButton.icon(
-          label: Text(
-            title,
-            style: globalTheme.menuText,
-          ),
-          icon: Icon(
-            icon,
-            color: globalTheme.iconsColor,
-            size: 25,
-          ),
-          onPressed: (){
-            onPressedItem();
-          },
-        )],
+      child: Container(
+        margin: EdgeInsets.only(left: 100),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [TextButton.icon(
+            label: Text(
+              title,
+              style: TextStyle(color: GlobalTheme.miscellaneous),
+            ),
+            icon: Icon(
+              icon,
+              color: GlobalTheme.iconsColor,
+              size: 25,
+            ),
+            onPressed: (){
+              onPressedItem();
+            },
+          )],
+        ),
       ),
     );
   }

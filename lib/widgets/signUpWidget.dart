@@ -22,7 +22,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   final AuthService _authService = AuthService();
   final FirestoreUserService _userService = FirestoreUserService();
   final FirestoreRequestService _requestService = FirestoreRequestService();
-  GlobalTheme globalTheme = GlobalTheme();
   String emailField = '';
   String passwordField = '';
   String userNameField = '';
@@ -34,13 +33,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       child: Column(
         children: <Widget>[
           Text(
-            'REGISTER NOW!',
-            style: TextStyle(
-              fontSize: 24,
-              color: Color(0xFFFFFFFF),
-              height: 3.4,
-              fontFamily: 'RobotoCondensed-Bold.ttf',
-            ),
+            'Register Now!',
+            style: TextStyle(fontSize: 24, height: 3),
           ),
           SizedBox(height: 15),
           UserField(onChangedUname: (String uName) {
@@ -61,11 +55,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
             margin: EdgeInsets.only(left: 35, right: 35, top: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14.0),
-              color: globalTheme.buttonColor3,
+              color: GlobalTheme.buttonColor3,
             ),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: globalTheme.buttonColor3,
+                primary: GlobalTheme.buttonColor3,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14.0),
                 ),
@@ -75,7 +69,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 "Register Now",
                 style: TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontFamily:'SyneMono-Regular.ttf',
                 ),
               ),
               onPressed: () async {

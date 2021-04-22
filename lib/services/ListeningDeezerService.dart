@@ -24,7 +24,7 @@ class SongService {
       //result will hold the song we get from deezer
       return result;
     } on DioError catch (e) {
-      if (e.request != null) {
+      if (e.requestOptions != null) {
         throw 'An error has occured';
       } else {
         print(e.error);

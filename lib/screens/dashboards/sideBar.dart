@@ -4,8 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/themes/theme.dart';
-import 'package:flutter_app/widgets/menuItems.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:flutter_app/widgets/menuItems.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 class SideBar extends StatefulWidget {
   @override
@@ -21,8 +22,6 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
   StreamSink<bool> isSideBarOpenedSink;
   AnimationController _animationController;
   final _animationDuration = Duration(milliseconds: 500);
-
-  GlobalTheme globalTheme = GlobalTheme();
 
   @override
   void initState() {
@@ -69,19 +68,20 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
             top: 0,
             bottom: 0,
             left: isSideBarOpenedAsync.data ? 0 : -screenWidth,
-            right: isSideBarOpenedAsync.data ? 0 : screenWidth - 35,
+            right: isSideBarOpenedAsync.data ? 0 : screenWidth - 39,
             child: Row(
               children: <Widget>[
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 20),
-                    color: globalTheme.sideBarColor,
+                    color: GlobalTheme.sideBarColor,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        SizedBox(height: 100),
+                        SizedBox(height: 3),
                         CircleAvatar(
-                          backgroundColor: globalTheme.miscellaneous,
+                          backgroundColor: GlobalTheme.miscellaneous,
                           radius: 40,
                         ),
                         //will be used for the user to insert an image of himself/herself
@@ -93,27 +93,26 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                           thickness: 0.1,
                           indent: 70,
                           endIndent: 70,
-                          color: globalTheme.miscellaneous,
+                          color: GlobalTheme.miscellaneous,
                         ),
                         SizedBox(height: 15),
-                        MenuItems(icon: Icons.list_rounded,title: 'Requests', onPressedItem: (){},),
+                        MenuItems(icon: EvaIcons.musicOutline,title: 'Requests', onPressedItem: (){},),
                         SizedBox(height: 15),
-                        MenuItems(icon: Icons.qr_code,title: 'QR Code', onPressedItem: (){}),
+                        MenuItems(icon: EvaIcons.code,title: 'QR Code', onPressedItem: (){}),
                         SizedBox(height: 15),
-                        MenuItems(icon:Icons.location_on,title: 'Change Location', onPressedItem: (){}),
+                        MenuItems(icon:EvaIcons.map,title: 'Change Location', onPressedItem: (){}),
                         SizedBox(height: 15),
                         MenuItems(
-                            icon: Icons.settings_applications_outlined,title: 'Settings', onPressedItem: (){}),
+                            icon: EvaIcons.settings,title: 'Settings', onPressedItem: (){}),
                         Divider(
                           height: 25,
                           thickness: 0.1,
                           indent: 70,
                           endIndent: 70,
-                          color: globalTheme.miscellaneous,
+                          color: GlobalTheme.miscellaneous,
                         ),
-                        SizedBox(height: 50),
+                        SizedBox(height: 30),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             MenuItems(icon: Icons.logout,title: 'Log Out', onPressedItem: () async {
                               await _authService.signOut();
@@ -135,12 +134,12 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                       child: Container(
                         width: 35,
                         height: 110,
-                        color: globalTheme.sideBarColor,
+                        color: GlobalTheme.sideBarColor,
                         alignment: Alignment.centerLeft,
                         child: AnimatedIcon(
                             icon: AnimatedIcons.menu_close,
                             progress: _animationController.view,
-                            color: globalTheme.miscellaneous,
+                            color: GlobalTheme.miscellaneous,
                             size: 30),
                       ),
                     ),
