@@ -66,7 +66,7 @@ class _DjDashboardState extends State<DjDashboard> {
                     ),
                     onPressed: () {
                       getLocation();
-                  Navigator.pushNamed(context, DjRequests.id);
+                      Navigator.pushNamed(context, DjRequests.id);
                     },
                     child: Text(
                       'Enable Location',

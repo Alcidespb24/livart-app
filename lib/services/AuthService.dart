@@ -7,6 +7,7 @@ import 'package:flutter_app/data_models/EventCodeDatabase.dart';
 import 'package:flutter_app/data_models/Failure.dart';
 import 'package:flutter_app/services/Service.dart';
 import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService extends Service {

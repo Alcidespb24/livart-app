@@ -7,40 +7,26 @@ import 'package:flutter_app/screens/dashboards/djDashboard.dart';
 import 'package:flutter_app/screens/dashboards/djRequests.dart';
 import 'package:flutter_app/screens/dashboards/userDashboard.dart';
 import 'package:flutter_app/services/AuthService.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/all.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp();
-  runApp(PlayThis());
+  runApp(ProviderScope(child: PlayThis()));
 }
 
 // App init
-class PlayThis extends StatelessWidget {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-
-
-
+class PlayThis extends HookWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _initialization,
+        future: Firebase.initializeApp(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {}
 
           if (snapshot.connectionState == ConnectionState.done) {
-            return StreamProvider<AppUser>.value(
-              value: AuthService().user,
-              child: MaterialApp(
-                initialRoute: LandingScreen.id,
-                routes: {
-                  LandingScreen.id: (context) => LandingScreen(),
-                  HomeScreen.id: (context) => HomeScreen(),
-                  DjDashboard.id: (context) => DjDashboard(),
-                  UserDashboard.id: (context) => UserDashboard(),
-                  DjRequests.id: (context) => DjRequests(),
-                },
-              ),
+            return MaterialApp(
+              home: Wrapper(),
             );
           }
 
@@ -53,3 +39,29 @@ class PlayThis extends StatelessWidget {
   }
 }
 
+class Wrapper extends HookWidget {
+  @override
+  Widget build(BuildContext context) {
+    final userAuthStream = useStream<AppUser>(AuthService().user);
+    if(userAuthStream.hasError){
+      print("has errror");
+    }
+
+    userAuthStream
+    // No user currently signed in
+    if (!userAuthStream.hasData) {
+      print("user equals null");
+      return LandingScreen();
+    }
+
+    // A user has already signed in
+    else {
+      if (userAuthStream.data.userRole == Role.CREATOR) {
+        print("user equals creator");
+        return DjDashboard();
+      }
+
+      return UserDashboard();
+    }
+  }
+}
