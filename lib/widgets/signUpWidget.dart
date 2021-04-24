@@ -34,7 +34,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
         children: <Widget>[
           Text(
             'Register Now!',
-            style: TextStyle(fontSize: 24, height: 3),
+            style: TextStyle(fontSize: 24, height: 3, color: Colors.white),
           ),
           SizedBox(height: 15),
           UserField(onChangedUname: (String uName) {
@@ -68,7 +68,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               child: Text(
                 "Register Now",
                 style: TextStyle(
-                  color: Colors.white,
+                  color:GlobalTheme.buttonColor2,
                   fontFamily:'SyneMono-Regular.ttf',
                 ),
               ),

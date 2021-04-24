@@ -22,6 +22,8 @@ class _DjDashboardState extends State<DjDashboard> {
   void getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
+    Position lastLocation = await Geolocator.getLastKnownPosition();
+    print(lastLocation);
     print(position);
   }
 
@@ -39,46 +41,7 @@ class _DjDashboardState extends State<DjDashboard> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                GlobalTheme().locationIcon,
                 Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Tell us where you are: ',
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
-                      ),
-                    ],
-                  ),
-                ), //User
-                SizedBox(height: 10),
-                Container(
-                  width: 250,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: GlobalTheme.buttonColor4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14.0),
-                      ),
-                      elevation: 1,
-                    ),
-                    onPressed: () {
-                      getLocation();
-                  Navigator.pushNamed(context, DjRequests.id);
-                    },
-                    child: Text(
-                      'Enable Location',
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  width: 250,
                   height: 35,
                   child: TextFormField(
                     validator: (value) {
