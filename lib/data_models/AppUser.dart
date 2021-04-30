@@ -12,7 +12,6 @@ class AppUser implements DataModelBase<AppUser>{
   Role userRole;
   // Stores location identifier as provided by Maps API
   String userLocation;
-  bool isAnonymous;
   bool emailVerified;
 
 
@@ -22,13 +21,22 @@ class AppUser implements DataModelBase<AppUser>{
     @required this.userName,
     @required this.userRole,
     this.userLocation,
-    this.isAnonymous,
     this.emailVerified
   });
 
-  AppUser.fromMap(Map<String,dynamic> map){
-    fromMap(map);
+  AppUser.fromMap(Map<String,dynamic> map) {
+    int role = map["userRole"];
+    Role finalRole = Role.values[role];
+    uid = map["uid"];
+    userName = map["userName"];
+    userRole = finalRole;
+    userLocation = map["userLocation"];
+    emailVerified = map["emailVerified"];
+
   }
+
+
+
 
   // Function Used to translate user data to a map
   // This map is used for database operations
@@ -39,7 +47,6 @@ class AppUser implements DataModelBase<AppUser>{
       "userName": this.userName,
       "userRole": this.userRole.index,
       "userLocation": this.userLocation,
-      "isAnonymous": this.isAnonymous,
       "emailVerified": this.emailVerified
     };
     return userDataMap;
@@ -49,14 +56,6 @@ class AppUser implements DataModelBase<AppUser>{
   // to an AppUser object
   @override
   AppUser fromMap (Map<String,dynamic> map){
-    AppUser user = new AppUser(
-    uid: map["uid"],
-    userName: map["userName"],
-    userRole: map["userRole"],
-    userLocation: map["userLocation"],
-    isAnonymous: map["isAnonymous"],
-    emailVerified: map["emailVerified"]);
 
-    return user;
   }
 }

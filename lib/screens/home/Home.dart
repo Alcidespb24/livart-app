@@ -20,7 +20,8 @@ class Home extends StatefulWidget {
 class _State extends State<Home> {
   Home() {
     _authService.user.first.then((value) {
-      currentUser = value;
+    //  currentUser = value;
+
     });
   }
 
@@ -98,7 +99,9 @@ class _State extends State<Home> {
           fromUid: _authService.getCurrentUser().uid,
           toUid: creator.uid,
           song: song,
-          requestTimeMs: DateTime.now().millisecondsSinceEpoch);
+          requestTimeMs: DateTime.now().millisecondsSinceEpoch,
+          triesLeft: 0,
+          timeRemainingMs: 0);
       print("reached here");
       return req;
     }
