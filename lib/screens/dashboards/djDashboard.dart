@@ -7,12 +7,12 @@ import 'package:geolocator/geolocator.dart';
 
 class DjDashboard extends StatefulWidget {
   static const String id = 'djDashboard_screen';
+
   @override
   _DjDashboardState createState() => _DjDashboardState();
 }
 
 class _DjDashboardState extends State<DjDashboard> {
-
   @override
   void initState() {
     super.initState();
@@ -22,7 +22,7 @@ class _DjDashboardState extends State<DjDashboard> {
   void getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    print(position);
+    Position lastLocation = await Geolocator.getLastKnownPosition();
   }
 
   GlobalTheme globalTheme = GlobalTheme();
@@ -30,83 +30,39 @@ class _DjDashboardState extends State<DjDashboard> {
   @override
   Widget build(BuildContext context) {
     var globalTheme;
+    int money = 15;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Container(
             decoration: GlobalTheme.backgroundGradient,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                GlobalTheme().locationIcon,
-                Container(
+            child: ButtonTheme(
+              child: Container(
+                alignment: Alignment.center,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.transparent),
+                  onLongPress: () {},
+                  onPressed: () {},
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Text(
-                        'Tell us where you are: ',
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
+                        money.toString(),
+                      ),
+                      Text(
+                        'Song',
+                      ),
+                      Text(
+                        'Artist',
+                      ),
+                      Text(
+                        'Timer',
                       ),
                     ],
                   ),
-                ), //User
-                SizedBox(height: 10),
-                Container(
-                  width: 250,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: GlobalTheme.buttonColor4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14.0),
-                      ),
-                      elevation: 1,
-                    ),
-                    onPressed: () {
-                      getLocation();
-                      Navigator.pushNamed(context, DjRequests.id);
-                    },
-                    child: Text(
-                      'Enable Location',
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
                 ),
-                SizedBox(height: 10),
-                Container(
-                  width: 250,
-                  height: 35,
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        EvaIcons.creditCardOutline,
-                        size: 12,
-                        color: Colors.white,
-                      ),
-                      hintText: 'Minimum price per request:',
-                      hintStyle: TextStyle(fontSize: 12),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      focusedBorder:
-                          OutlineInputBorder(borderSide: BorderSide.none),
-                    ),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ],

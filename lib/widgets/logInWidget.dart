@@ -1,6 +1,7 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
+import 'package:flutter_app/screens/dashboards/djDashboard.dart';
 import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
@@ -34,7 +35,7 @@ class _LogInWidgetState extends State<LogInWidget> {
           children: <Widget>[
             Text(
               'Welcome Back!',
-              style: TextStyle(fontSize: 24, height: 3),
+              style: TextStyle(fontSize: 24, height: 3, color: Colors.white),
             ),
             SizedBox(height: 15),
             EmailField(onChangedEmail: (String email) {
@@ -93,7 +94,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                     //TODO: Handle Error and send information about what went wrong to the user
                     print(_authService.failure.toString());
                   }
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  SideBarLayout()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  DjDashboard()));
                 },
               ),
             ),

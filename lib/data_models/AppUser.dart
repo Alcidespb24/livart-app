@@ -9,18 +9,17 @@ enum Role{
 class AppUser implements DataModelBase<AppUser>{
   String uid;
   String userName;
-  Role userRole;
-  // Stores location identifier as provided by Maps API
-  String userLocation;
+  bool isAnonymous;
   bool emailVerified;
-
-
+  Role userRole;
+  String profilePicture;
+  String userLocation;
 
   AppUser({
     @required this.uid,
     @required this.userName,
     @required this.userRole,
-    this.userLocation,
+    this.isAnonymous,
     this.emailVerified
   });
 
@@ -52,10 +51,10 @@ class AppUser implements DataModelBase<AppUser>{
     return userDataMap;
   }
 
-  // Function used to translate a user Document Snapshot
-  // to an AppUser object
   @override
-  AppUser fromMap (Map<String,dynamic> map){
-
+  AppUser fromMap(Map<String, dynamic> map) {
+    // TODO: implement fromMap
+    throw UnimplementedError();
   }
+
 }

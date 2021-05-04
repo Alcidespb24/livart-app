@@ -7,62 +7,37 @@ import 'package:flutter_app/data_models/EventCodeDatabase.dart';
 import 'package:flutter_app/data_models/Failure.dart';
 import 'package:flutter_app/services/Service.dart';
 import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'GlobalProviders.dart';
 
 class AuthService extends Service {
   // This is a private property
-  static final AuthService _instance = AuthService._();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirestoreUserService _userDataBaseService = FirestoreUserService();
-  static AppUser _currentUser;
+  static AppUser _currentUser = null;
 
-  AuthService._() {
+  AuthService() {
     setState(NotifierState.INITIAL);
   }
 
-  factory AuthService() {
-    return _instance;
-  }
-
-  AppUser _appUserFromFirebaseUser(User user) {
-    _userDataBaseService.getUserFromUid(user.uid).then((value){
-      return value;
-    });
-
-/*    return user != null
-        ? AppUser(
-            uid: user.uid,
-            emailVerified: user.emailVerified,
-            userName: user.displayNGgame,
-          )
-        : null;*/
-  }
-
-  // Sign in anonymously
-  void signInAnonymous() async {
-    try {
-      setState(NotifierState.LOADING);
-      // TODO: need to access firestore and delete user account if the user decides not to use his Email/Pwd anymore
-      if (_auth.currentUser != null &&
-          _auth.currentUser.emailVerified == false) {
-        print('Deleting user' + _auth.currentUser.toString());
-      }
-
-      UserCredential user = await _auth.signInAnonymously();
-      _currentUser = _appUserFromFirebaseUser(user.user);
-
-      super.setState(NotifierState.LOADED);
-    } on FirebaseAuthException {
-      setFailure(Failure(id: EventCodes.USER_NOT_FOUND_INVALID_UNAME));
-    }
-  }
-
   // Authentication change for user stream
-  Stream<AppUser> get user {
-    return _auth.authStateChanges().map((User user) => _appUserFromFirebaseUser(user));
-    //return _auth.authStateChanges();
+/*  Stream<User> get user {
+    return _auth.authStateChanges();
+  }*/
+
+  Stream<AppUser> getAppUser() {
+    return _auth.authStateChanges().map((User user) {
+      getFirestoreUser(user);
+      return _currentUser;
+    });
+  }
+
+  void getFirestoreUser(User user) async {
+    _currentUser = await _userDataBaseService.getUserFromUid(user.uid);
   }
 
   // Create account with email and password
@@ -72,10 +47,6 @@ class AuthService extends Service {
       setState(NotifierState.LOADING);
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: pwd);
-
-      _currentUser = _appUserFromFirebaseUser(userCredential.user);
-      _currentUser.userName = userName;
-      _currentUser.userRole = userRole;
 
       if (!userCredential.user.emailVerified) {
         await userCredential.user.sendEmailVerification();
@@ -97,7 +68,6 @@ class AuthService extends Service {
       setState(NotifierState.LOADING);
       UserCredential curr =
           await _auth.signInWithEmailAndPassword(email: email, password: pwd);
-      _currentUser = _appUserFromFirebaseUser(curr.user);
       setState(NotifierState.LOADED);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'user-not-found') {
@@ -127,8 +97,6 @@ class AuthService extends Service {
       );
 
       UserCredential curr = await _auth.signInWithCredential(credential);
-      _currentUser = _appUserFromFirebaseUser(curr.user);
-      _currentUser.userRole = userRole;
     } on PlatformException {
       setFailure(Failure(id: EventCodes.SIGN_IN_FAILED));
     }

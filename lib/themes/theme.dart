@@ -57,14 +57,8 @@ class GlobalTheme extends StatelessWidget {
       fontSize: 13,
       fontFamily: 'SyneMono-Regular.ttf'); //style for the items inside the menu
   final Image appLogo =   Image.asset(
-    'lib/assets/icons/app_icon.png',
+    'lib/assets/icons/logo.png',
     width: 200,
-    alignment: AlignmentDirectional(0.0, 0.0),
-    color: Colors.white,
-  );
-  final Image locationIcon =   Image.asset(
-    'lib/assets/icons/location-icon.png',
-    width: 150,
     alignment: AlignmentDirectional(0.0, 0.0),
   );
 
