@@ -13,6 +13,7 @@ class AppUser implements DataModelBase<AppUser>{
   bool emailVerified;
   Role userRole;
   String profilePicture;
+  String userLocation;
 
   AppUser({
     @required this.uid,
@@ -22,9 +23,19 @@ class AppUser implements DataModelBase<AppUser>{
     this.emailVerified
   });
 
-  AppUser.fromMap(Map<String,dynamic> map){
-    fromMap(map);
+  AppUser.fromMap(Map<String,dynamic> map) {
+    int role = map["userRole"];
+    Role finalRole = Role.values[role];
+    uid = map["uid"];
+    userName = map["userName"];
+    userRole = finalRole;
+    userLocation = map["userLocation"];
+    emailVerified = map["emailVerified"];
+
   }
+
+
+
 
   // Function Used to translate user data to a map
   // This map is used for database operations
@@ -34,23 +45,16 @@ class AppUser implements DataModelBase<AppUser>{
       "uid": this.uid,
       "userName": this.userName,
       "userRole": this.userRole.index,
-      "isAnonymous": this.isAnonymous,
+      "userLocation": this.userLocation,
       "emailVerified": this.emailVerified
     };
     return userDataMap;
   }
 
-  // Function used to translate a user Document Snapshot
-  // to an AppUser object
   @override
-  AppUser fromMap (Map<String,dynamic> map){
-    AppUser user = new AppUser(
-    uid: map["uid"],
-    userRole: map["userRole"],
-    userName: map["userName"],
-    isAnonymous: map["isAnonymous"],
-    emailVerified: map["emailVerified"]);
-
-     return user;
+  AppUser fromMap(Map<String, dynamic> map) {
+    // TODO: implement fromMap
+    throw UnimplementedError();
   }
+
 }
