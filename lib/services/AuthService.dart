@@ -11,7 +11,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'GlobalProviders.dart';
 
 class AuthService extends Service {
   // This is a private property
@@ -25,19 +24,22 @@ class AuthService extends Service {
   }
 
   // Authentication change for user stream
-/*  Stream<User> get user {
+Stream<User> get user {
     return _auth.authStateChanges();
-  }*/
+  }
 
-  Stream<AppUser> getAppUser() {
+/*
+Stream<AppUser> getAppUser() {
     return _auth.authStateChanges().map((User user) {
       getFirestoreUser(user);
       return _currentUser;
     });
   }
+*/
 
-  void getFirestoreUser(User user) async {
+  Future<AppUser> getFirestoreUser(User user) async {
     _currentUser = await _userDataBaseService.getUserFromUid(user.uid);
+    return _currentUser;
   }
 
   // Create account with email and password
