@@ -9,12 +9,12 @@ class Song {
 
   Song(
       {this.id,
-        this.type,
-        this.link,
-        this.title,
-        this.previewUrl,
-        this.artworkRawUrl,
-        this.artistName});
+      this.type,
+      this.link,
+      this.title,
+      this.previewUrl,
+      this.artworkRawUrl,
+      this.artistName});
 
   factory Song.fromJson(Map<String, dynamic> json) {
     return Song(

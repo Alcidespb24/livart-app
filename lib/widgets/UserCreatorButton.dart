@@ -4,7 +4,8 @@ import 'package:flutter_app/screens/authenticate/homeScreen.dart';
 import 'package:flutter_app/themes/theme.dart';
 
 class UserCreatorButton extends StatefulWidget {
-  UserCreatorButton(this.type, this.styleText, this.userRole, this.boxDecoration, this.marginTop, this.primaryColor);
+  UserCreatorButton(this.type, this.styleText, this.userRole,
+      this.boxDecoration, this.marginTop, this.primaryColor);
 
   final String type;
   final TextStyle styleText;
@@ -28,14 +29,17 @@ class _UserCreatorButtonState extends State<UserCreatorButton> {
       margin: EdgeInsets.only(left: 35, right: 35, top: widget.marginTop),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary:widget.primaryColor,
+          primary: widget.primaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14.0),
           ),
           elevation: 1,
         ),
-        onPressed:(){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(userRole: widget.userRole)));
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomeScreen(userRole: widget.userRole)));
         },
         child: Text(
           widget.type,

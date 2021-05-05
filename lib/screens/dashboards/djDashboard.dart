@@ -1,7 +1,4 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_app/screens/dashboards/djRequests.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:geolocator/geolocator.dart';
 

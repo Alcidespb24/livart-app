@@ -6,14 +6,16 @@ import 'package:flutter_app/widgets/signUpWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
+
   HomeScreen({this.userRole});
+
   final userRole;
+
   @override
   _HomeScreen createState() => _HomeScreen();
 }
 
 class _HomeScreen extends State<HomeScreen> {
-
   bool isSignupScreen = true;
 
   GlobalTheme globalTheme = GlobalTheme();
@@ -28,9 +30,7 @@ class _HomeScreen extends State<HomeScreen> {
               decoration: GlobalTheme.backgroundGradient,
               child: Column(
                 children: <Widget>[
-                  Expanded(
-                    child: globalTheme.appLogo
-                  ),
+                  Expanded(child: globalTheme.appLogo),
                   Container(
                     height: 420,
                     padding: EdgeInsets.all(20),
@@ -77,7 +77,8 @@ class _HomeScreen extends State<HomeScreen> {
                                         fontSize: 12,
                                         color: !isSignupScreen
                                             ? Color(0xFFFFFFFF)
-                                            : Color(0xFFFFFFFF).withOpacity(0.5),
+                                            : Color(0xFFFFFFFF)
+                                                .withOpacity(0.5),
                                       ),
                                     ),
                                   ),
@@ -109,7 +110,8 @@ class _HomeScreen extends State<HomeScreen> {
                                         fontSize: 12,
                                         color: isSignupScreen
                                             ? Color(0xFFFFFFFF)
-                                            : Color(0xFFFFFFFF).withOpacity(0.5),
+                                            : Color(0xFFFFFFFF)
+                                                .withOpacity(0.5),
                                       ),
                                     ),
                                   ),
@@ -126,7 +128,8 @@ class _HomeScreen extends State<HomeScreen> {
                           ],
                         ),
                         if (!isSignupScreen) LogInWidget(),
-                        if (isSignupScreen) SignUpWidget(userRole: widget.userRole),
+                        if (isSignupScreen)
+                          SignUpWidget(userRole: widget.userRole),
                       ],
                     ),
                   ),

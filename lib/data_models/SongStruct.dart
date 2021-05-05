@@ -9,11 +9,7 @@ class SongStruct {
   // added just in case
   String songUid;
 
-  SongStruct({
-    @required this.songName,
-    @required this.artist,
-    this.songUid
-  });
+  SongStruct({@required this.songName, @required this.artist, this.songUid});
 
   Map<String, dynamic> songToMap() {
     return {
@@ -21,12 +17,11 @@ class SongStruct {
       "artist": this.artist,
       "songUid": this.songUid
     };
-
   }
+
   static SongStruct songFromMap(Map<String, dynamic> songMap) {
     SongStruct songStruct = new SongStruct(
-        songName: songMap['songName'],
-        artist: songMap['artist']);
+        songName: songMap['songName'], artist: songMap['artist']);
 
     return songStruct;
   }

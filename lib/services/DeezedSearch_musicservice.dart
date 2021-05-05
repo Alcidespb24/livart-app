@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:http/http.dart';
+
 import '../data_models/Browser_artist.dart';
 import '../data_models/songDataModel.dart';
 import '../music_browser_api/search.dart';
@@ -17,8 +19,8 @@ class AppleMusicStore {
   static const JWT_KEY = 'fraHqOefFZ2zYgsfC1nRPcNBONGxaehnNR5RGwv3wiWOxG5vUqB';
 
   Future<dynamic> _fetchJSON(String url) async {
-    final response =
-    await get(Uri.parse(url), headers: {'Authorization': "Bearer $JWT_KEY"});
+    final response = await get(Uri.parse(url),
+        headers: {'Authorization': "Bearer $JWT_KEY"});
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
@@ -35,7 +37,7 @@ class AppleMusicStore {
     final jsonArtist = await _fetchJSON("$_ARTIST_URL/$id");
     final trackLink = jsonArtist['tracklist'];
     final jsonSong = await _fetchJSON("$trackLink");
-    return Artist.fromJson(jsonArtist,jsonSong);
+    return Artist.fromJson(jsonArtist, jsonSong);
   }
 
   Future<Search> search(String query) async {
@@ -53,8 +55,7 @@ class AppleMusicStore {
 
     final artistJSON = jsonArtist['data'] as List;
     if (artistJSON != null) {
-      artists
-          .addAll((artistJSON).map((a) => Artist.fromJson(a,null)));
+      artists.addAll((artistJSON).map((a) => Artist.fromJson(a, null)));
     }
 
     final songJSON = jsonTrack['data'] as List;
@@ -64,5 +65,4 @@ class AppleMusicStore {
 
     return Search(songs: songs, artists: artists, term: query);
   }
-
 }

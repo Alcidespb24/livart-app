@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +22,6 @@ class MyApp extends StatelessWidget {
                   icon: Icon(Icons.search), title: Text('Search'))
             ],
           ),
-
           tabBuilder: (context, index) {
             switch (index) {
               case 0:
@@ -38,8 +36,6 @@ class MyApp extends StatelessWidget {
                 break;
             }
           },
-
-
         ));
   }
 }
