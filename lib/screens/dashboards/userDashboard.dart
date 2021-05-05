@@ -4,12 +4,12 @@ import 'package:geolocator/geolocator.dart';
 
 class UserDashboard extends StatefulWidget {
   static const String id = 'userDashboard_screen';
+
   @override
   _UserDashboardState createState() => _UserDashboardState();
 }
 
 class _UserDashboardState extends State<UserDashboard> {
-
   void initState() {
     super.initState();
     getLocation();

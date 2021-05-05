@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/dashboards/djDashboard.dart';
 import 'package:flutter_app/screens/dashboards/sideBar.dart';
-import 'package:flutter_app/screens/dashboards/userDashboard.dart';
 
 class SideBarLayout extends StatelessWidget {
   @override

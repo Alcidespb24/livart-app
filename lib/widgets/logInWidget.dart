@@ -14,6 +14,7 @@ class LogInWidget extends StatefulWidget {
   LogInWidget({this.userRole});
 
   final Role userRole;
+
   @override
   _LogInWidgetState createState() => _LogInWidgetState();
 }
@@ -94,7 +95,8 @@ class _LogInWidgetState extends State<LogInWidget> {
                     //TODO: Handle Error and send information about what went wrong to the user
                     print(_authService.failure.toString());
                   }
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  DjDashboard()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => DjDashboard()));
                 },
               ),
             ),
@@ -135,13 +137,16 @@ class _LogInWidgetState extends State<LogInWidget> {
               ),
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  primary:GlobalTheme.buttonColor2,
+                  primary: GlobalTheme.buttonColor2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14.0),
                   ),
                   elevation: 1,
                 ),
-                label: Text('Sign in with Google', style: TextStyle(color: GlobalTheme.miscellaneous1),),
+                label: Text(
+                  'Sign in with Google',
+                  style: TextStyle(color: GlobalTheme.miscellaneous1),
+                ),
                 icon: Icon(
                   CommunityMaterialIcons.google,
                   size: 20,

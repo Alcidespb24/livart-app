@@ -10,7 +10,8 @@ class Artist {
 
   Artist({this.id, this.type, this.link, this.name, this.songs});
 
-  factory Artist.fromJson(Map<String, dynamic> json,Map<String, dynamic> jsonSong) {
+  factory Artist.fromJson(
+      Map<String, dynamic> json, Map<String, dynamic> jsonSong) {
     final List<Song> songs = [];
 
     final relationshipJSON = jsonSong != null ? jsonSong['data'] as List : null;
@@ -19,7 +20,6 @@ class Artist {
       if (songsJSON != null) {
         songs.addAll((songsJSON).map((s) => Song.fromJson(s)));
       }
-
     }
 
     return Artist(

@@ -17,7 +17,7 @@ class Home extends StatefulWidget {
 }
 
 class _State extends State<Home> {
-  Home() { }
+  Home() {}
 
   @override
   Widget build(BuildContext context) {

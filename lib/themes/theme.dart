@@ -43,11 +43,14 @@ class GlobalTheme extends StatelessWidget {
       Color(0xFF000000); //primaryColor for the creator button
   static const Color buttonColor2 =
       Color(0xFFFFFFFF); //primaryColor for the user button
-  static const Color buttonColor3 = Color(0xFFA400C1); //color for the sign up button
-  static const Color buttonColor4 = Color(0xFF000000); //color for the submit button
+  static const Color buttonColor3 =
+      Color(0xFFA400C1); //color for the sign up button
+  static const Color buttonColor4 =
+      Color(0xFF000000); //color for the submit button
   static const Color gradient1 = Color(0xFF000000); //gradient color 1
   static const Color gradient2 = Color(0xFF1F1238); //gradient color 2
-  static const Color textColor1 = Color(0xFFDBDBD); //TextField Color for homeScreen
+  static const Color textColor1 =
+      Color(0xFFDBDBD); //TextField Color for homeScreen
   static const font1 = TextStyle(fontFamily: 'RobotoCondensed-Bold.ttf');
   static const font2 = TextStyle(fontFamily: 'SyneMono-Regular.ttf');
   static const Color sideBarColor = Color(0xFF1F1238); //color for the sideBar
@@ -56,7 +59,7 @@ class GlobalTheme extends StatelessWidget {
       color: Color(0xFF757585),
       fontSize: 13,
       fontFamily: 'SyneMono-Regular.ttf'); //style for the items inside the menu
-  final Image appLogo =   Image.asset(
+  final Image appLogo = Image.asset(
     'lib/assets/icons/logo.png',
     width: 200,
     alignment: AlignmentDirectional(0.0, 0.0),

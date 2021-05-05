@@ -11,9 +11,7 @@ class HomePage extends HookWidget {
     final vm = useProvider(homeViewModel);
     return ProviderListener<HomeViewModel>(
       provider: homeViewModel,
-
       onChange: (context, vm) {
-
         /*
         if (vm.success) {
           Navigator.push(
@@ -25,7 +23,6 @@ class HomePage extends HookWidget {
         }
 
          */
-
       },
       child: Scaffold(
         backgroundColor: Color(0xFF042442),

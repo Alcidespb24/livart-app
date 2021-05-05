@@ -13,6 +13,7 @@ class SongService {
         baseUrl: 'https://api.deezer.com/track/');
     _dio = Dio(options);
   }
+
   Future<DeezerSongModel> getTrack(id) async {
     try {
       final response = await _dio.get('$id',

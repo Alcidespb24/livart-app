@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/themes/theme.dart';
+
 typedef void onPressedCallback();
+
 class MenuItems extends StatelessWidget {
   final String title;
   final IconData icon;
@@ -16,20 +18,22 @@ class MenuItems extends StatelessWidget {
         margin: EdgeInsets.only(left: 100),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: [TextButton.icon(
-            label: Text(
-              title,
-              style: TextStyle(color: GlobalTheme.miscellaneous),
-            ),
-            icon: Icon(
-              icon,
-              color: GlobalTheme.iconsColor,
-              size: 25,
-            ),
-            onPressed: (){
-              onPressedItem();
-            },
-          )],
+          children: [
+            TextButton.icon(
+              label: Text(
+                title,
+                style: TextStyle(color: GlobalTheme.miscellaneous),
+              ),
+              icon: Icon(
+                icon,
+                color: GlobalTheme.iconsColor,
+                size: 25,
+              ),
+              onPressed: () {
+                onPressedItem();
+              },
+            )
+          ],
         ),
       ),
     );

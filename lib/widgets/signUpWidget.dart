@@ -68,8 +68,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               child: Text(
                 "Register Now",
                 style: TextStyle(
-                  color:GlobalTheme.buttonColor2,
-                  fontFamily:'SyneMono-Regular.ttf',
+                  color: GlobalTheme.buttonColor2,
+                  fontFamily: 'SyneMono-Regular.ttf',
                 ),
               ),
               onPressed: () async {
@@ -87,7 +87,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                         _authService.getCurrentUser().uid);
                   }
 
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  SideBarLayout()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SideBarLayout()));
                 }
               },
             ),

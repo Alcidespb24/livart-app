@@ -9,9 +9,6 @@ import 'package:flutter_app/services/Service.dart';
 import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-
 class AuthService extends Service {
   // This is a private property
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -24,7 +21,7 @@ class AuthService extends Service {
   }
 
   // Authentication change for user stream
-Stream<User> get user {
+  Stream<User> get user {
     return _auth.authStateChanges();
   }
 
