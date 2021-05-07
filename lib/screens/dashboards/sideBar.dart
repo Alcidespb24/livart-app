@@ -84,17 +84,13 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                           backgroundColor: GlobalTheme.miscellaneous,
                           radius: 40,
                         ),
+                        SizedBox(height: 8,),
                         //will be used for the user to insert an image of himself/herself
                         Text(
                           username,
+                          style: TextStyle(color: Colors.white),
                         ),
-                        Divider(
-                          height: 25,
-                          thickness: 0.1,
-                          indent: 70,
-                          endIndent: 70,
-                          color: GlobalTheme.miscellaneous,
-                        ),
+                        GlobalTheme.globalDivider,
                         SizedBox(height: 15),
                         MenuItems(icon: EvaIcons.musicOutline,title: 'Requests', onPressedItem: (){},),
                         SizedBox(height: 15),

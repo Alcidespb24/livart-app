@@ -1,7 +1,4 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_app/screens/dashboards/djRequests.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -29,43 +26,85 @@ class _DjDashboardState extends State<DjDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    var globalTheme;
-    int money = 15;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: <Widget>[
-          Container(
-            decoration: GlobalTheme.backgroundGradient,
-            child: ButtonTheme(
-              child: Container(
-                alignment: Alignment.center,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.transparent),
-                  onLongPress: () {},
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Text(
-                        money.toString(),
-                      ),
-                      Text(
-                        'Song',
-                      ),
-                      Text(
-                        'Artist',
-                      ),
-                      Text(
-                        'Timer',
-                      ),
-                    ],
+      backgroundColor: Colors.black,
+      body: getBody(),
+    );
+  }
+
+  Widget getBody() {
+    var size = MediaQuery.of(context).size;
+    List songsRequested;
+    var header = Text(
+      'Requests',
+      style: TextStyle(color: Colors.white, fontSize: 35),
+    );
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Stack(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(top: 100),
+              child: Column(
+                children: [
+                  header,
+                  GlobalTheme.globalDivider,
+                  Column(
+                    children: List.generate(
+                      10,
+                      (index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                              right: 40, left: 40, bottom: 10),
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    width: (size.width - 80) * 0.23,
+                                    height: 50,
+                                    decoration:
+                                        BoxDecoration(color: Colors.green), //Amount paid for the song
+                                  ),
+                                  Container(
+                                    width: (size.width - 80) * 0.40,
+                                    height: 50,
+                                    // child: Text(
+                                    //   'Song',
+                                    //   style: GlobalTheme.requestsStyle,
+                                    // ),
+                                    decoration:
+                                        BoxDecoration(color: Colors.white), //Title of the song
+                                  ),
+                                  Container(
+                                    width: (size.width - 80) * 0.23,
+                                    height: 50,
+                                    decoration:
+                                        BoxDecoration(color: Colors.green), //Time left for the request to be filled
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ),
+                  ElevatedButton(
+                    style: globalTheme.signUpButton,
+                    onPressed: () {},
+                    child: Text(
+                      'Go Offline',
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

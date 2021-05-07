@@ -1,7 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
-import 'package:flutter_app/screens/dashboards/djDashboard.dart';
 import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
@@ -14,6 +13,7 @@ class LogInWidget extends StatefulWidget {
   LogInWidget({this.userRole});
 
   final Role userRole;
+
   @override
   _LogInWidgetState createState() => _LogInWidgetState();
 }
@@ -25,6 +25,7 @@ class _LogInWidgetState extends State<LogInWidget> {
   String emailField = '';
   String passwordField = '';
   String userName = '';
+  GlobalTheme globalTheme = GlobalTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +95,8 @@ class _LogInWidgetState extends State<LogInWidget> {
                     //TODO: Handle Error and send information about what went wrong to the user
                     print(_authService.failure.toString());
                   }
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  DjDashboard()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SideBarLayout()));
                 },
               ),
             ),
@@ -134,14 +136,11 @@ class _LogInWidgetState extends State<LogInWidget> {
                 borderRadius: BorderRadius.circular(14.0),
               ),
               child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  primary:GlobalTheme.buttonColor2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14.0),
-                  ),
-                  elevation: 1,
+                style: globalTheme.loginButton,
+                label: Text(
+                  'Sign in with Google',
+                  style: TextStyle(color: GlobalTheme.miscellaneous1),
                 ),
-                label: Text('Sign in with Google', style: TextStyle(color: GlobalTheme.miscellaneous1),),
                 icon: Icon(
                   CommunityMaterialIcons.google,
                   size: 20,

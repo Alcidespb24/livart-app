@@ -14,6 +14,8 @@ class SignUpWidget extends StatefulWidget {
 
   final Role userRole;
 
+
+
   @override
   _SignUpWidgetState createState() => _SignUpWidgetState();
 }
@@ -25,6 +27,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   String emailField = '';
   String passwordField = '';
   String userNameField = '';
+  GlobalTheme globalTheme = GlobalTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -58,13 +61,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               color: GlobalTheme.buttonColor3,
             ),
             child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: GlobalTheme.buttonColor3,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14.0),
-                ),
-                elevation: 1,
-              ),
+              style: globalTheme.signUpButton,
               child: Text(
                 "Register Now",
                 style: TextStyle(

@@ -38,7 +38,28 @@ class GlobalTheme extends StatelessWidget {
   ); //BoxDecoration for the background used in every screen
 
   static const Color miscellaneous = Color(0xFFFFFFFF);
+  static const Divider globalDivider = Divider(
+    height: 25,
+    thickness: 0.1,
+    indent: 70,
+    endIndent: 70,
+    color: GlobalTheme.miscellaneous,
+  );
   static const Color miscellaneous1 = Color(0xFF000000);
+  var loginButton = ElevatedButton.styleFrom(
+    primary:GlobalTheme.buttonColor2,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(14.0),
+    ),
+    elevation: 1,
+  );
+  var signUpButton = ElevatedButton.styleFrom(
+    primary: GlobalTheme.buttonColor3,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(14.0),
+    ),
+    elevation: 1,
+  );
   static const Color buttonColor1 =
       Color(0xFF000000); //primaryColor for the creator button
   static const Color buttonColor2 =
@@ -47,7 +68,8 @@ class GlobalTheme extends StatelessWidget {
   static const Color buttonColor4 = Color(0xFF000000); //color for the submit button
   static const Color gradient1 = Color(0xFF000000); //gradient color 1
   static const Color gradient2 = Color(0xFF1F1238); //gradient color 2
-  static const Color textColor1 = Color(0xFFDBDBD); //TextField Color for homeScreen
+  static const Color textColor1 = Color(0xFFDBDBD);
+  static const requestsStyle = TextStyle(color: Colors.white, fontSize: 15, fontFamily:'RobotoCondensed-Bold.ttf');//TextField Color for homeScreen
   static const font1 = TextStyle(fontFamily: 'RobotoCondensed-Bold.ttf');
   static const font2 = TextStyle(fontFamily: 'SyneMono-Regular.ttf');
   static const Color sideBarColor = Color(0xFF1F1238); //color for the sideBar
