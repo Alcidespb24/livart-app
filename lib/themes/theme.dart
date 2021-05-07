@@ -47,7 +47,7 @@ class GlobalTheme extends StatelessWidget {
   );
   static const Color miscellaneous1 = Color(0xFF000000);
   var loginButton = ElevatedButton.styleFrom(
-    primary:GlobalTheme.buttonColor2,
+    primary:GlobalTheme.buttonColor4,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(14.0),
     ),

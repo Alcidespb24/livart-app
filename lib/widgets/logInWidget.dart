@@ -76,13 +76,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                 color: GlobalTheme.buttonColor4,
               ),
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: GlobalTheme.buttonColor4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14.0),
-                  ),
-                  elevation: 1,
-                ),
+                style: globalTheme.loginButton,
                 child: Text(
                   "Submit",
                   style: TextStyle(
@@ -139,7 +133,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                 style: globalTheme.loginButton,
                 label: Text(
                   'Sign in with Google',
-                  style: TextStyle(color: GlobalTheme.miscellaneous1),
+                  style: TextStyle(color: GlobalTheme.miscellaneous),
                 ),
                 icon: Icon(
                   CommunityMaterialIcons.google,
