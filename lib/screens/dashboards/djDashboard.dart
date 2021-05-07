@@ -94,10 +94,10 @@ class _DjDashboardState extends State<DjDashboard> {
                       ),
                     ),
                     ElevatedButton(
-                      style: globalTheme.signUpButton,
+                      style: globalTheme.offlineButton,
                       onPressed: () {},
                       child: Text(
-                        'Go Offline',
+                        'Go Offline', style: TextStyle(color: GlobalTheme.miscellaneous1),
                       ),
                     ),
                   ],

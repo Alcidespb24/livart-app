@@ -60,6 +60,13 @@ class GlobalTheme extends StatelessWidget {
     ),
     elevation: 1,
   );
+  var offlineButton = ElevatedButton.styleFrom(
+    primary: GlobalTheme.buttonColor2,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(14.0),
+    ),
+    elevation: 1,
+  );
   static const Color buttonColor1 =
       Color(0xFF000000); //primaryColor for the creator button
   static const Color buttonColor2 =
