@@ -4,7 +4,7 @@ import 'package:flutter_app/services/AuthService.dart';
 AuthService authService = authService;
 
 class RegisterAccount extends StatelessWidget {
-  RegisterAccount(this.labeltext,this.icon);
+  RegisterAccount(this.labeltext, this.icon);
 
   final String labeltext;
   final Icon icon;

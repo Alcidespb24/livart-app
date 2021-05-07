@@ -50,11 +50,11 @@ class IOSSearchBar extends AnimatedWidget {
           new Expanded(
             child: new Container(
               padding:
-              const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
               decoration: new BoxDecoration(
                 color: CupertinoColors.white,
                 border:
-                new Border.all(width: 0.0, color: CupertinoColors.white),
+                    new Border.all(width: 0.0, color: CupertinoColors.white),
                 borderRadius: new BorderRadius.circular(10.0),
               ),
               child: new Stack(

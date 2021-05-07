@@ -5,17 +5,14 @@ import 'package:flutter_app/data_models/Failure.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/services/Service.dart';
 
-
-
-class FirestoreUserService extends Service{
-  final CollectionReference userCollection = FirebaseFirestore.instance.collection('Users');
+class FirestoreUserService extends Service {
+  final CollectionReference userCollection =
+      FirebaseFirestore.instance.collection('Users');
   AuthService _authService;
 
-  FirestoreUserService(){
+  FirestoreUserService() {
     setState(NotifierState.INITIAL);
   }
-
-
 
   bool userExists(String userName) {
     setState(NotifierState.LOADING);
@@ -62,7 +59,7 @@ class FirestoreUserService extends Service{
       setState(NotifierState.LOADED);
       return currUserInfo;
     } on FirebaseException {
-       setFailure(Failure(id: EventCodes.UNABLE_TO_WRITE_TO_DB));
+      setFailure(Failure(id: EventCodes.UNABLE_TO_WRITE_TO_DB));
     } on AssertionError {
       setFailure(Failure(id: EventCodes.USER_NOT_FOUND_IN_DB));
     }
@@ -122,5 +119,4 @@ class FirestoreUserService extends Service{
       setFailure(Failure(id: EventCodes.USER_NOT_FOUND_IN_DB));
     }
   }
-
 }

@@ -5,8 +5,8 @@ import 'package:flutter_app/data_models/Request.dart';
 import 'package:flutter_app/services/Service.dart';
 
 class FirestoreRequestService extends Service {
-  final CollectionReference requestCollection = FirebaseFirestore.instance.collection('Requests');
-
+  final CollectionReference requestCollection =
+      FirebaseFirestore.instance.collection('Requests');
 
   void makeRequest(Request request) {
     setState(NotifierState.LOADING);
@@ -19,7 +19,7 @@ class FirestoreRequestService extends Service {
     setState(NotifierState.LOADED);
   }
 
-  Future createCreatorRequestDoc(String creatorUid){
-    requestCollection.doc(creatorUid).set({'creatorUid':creatorUid});
+  Future createCreatorRequestDoc(String creatorUid) {
+    requestCollection.doc(creatorUid).set({'creatorUid': creatorUid});
   }
 }

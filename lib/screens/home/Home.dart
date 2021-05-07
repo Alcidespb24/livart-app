@@ -7,7 +7,6 @@ import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
 import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
 
 String creatorUserName = '';
-AppUser currentUser;
 final AuthService _authService = AuthService();
 final FirestoreRequestService _requestService = FirestoreRequestService();
 final FirestoreUserService _userService = FirestoreUserService();
@@ -18,11 +17,7 @@ class Home extends StatefulWidget {
 }
 
 class _State extends State<Home> {
-  Home() {
-    _authService.user.first.then((value) {
-      currentUser = value;
-    });
-  }
+  Home() {}
 
   @override
   Widget build(BuildContext context) {
