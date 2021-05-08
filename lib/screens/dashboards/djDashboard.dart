@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:sliver_tools/sliver_tools.dart';
 
 class DjDashboard extends StatefulWidget {
   static const String id = 'djDashboard_screen';
@@ -33,6 +33,10 @@ class _DjDashboardState extends State<DjDashboard> {
       'REQUESTS',
       style: TextStyle(color: Colors.white, fontSize: 25),
     );
+    int amount = 15;
+    String money = '\$$amount';
+    String timer = 30.toString();
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -58,32 +62,41 @@ class _DjDashboardState extends State<DjDashboard> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: <Widget>[
                                   Container(
+                                    padding: EdgeInsets.only(top: 15),
                                     width: (size.width - 80) * 0.23,
                                     height: 50,
                                     decoration: BoxDecoration(
-                                        color: Colors
-                                            .green), //Amount paid for the song
+                                        shape: BoxShape.circle,
+                                        color: Colors.lightGreenAccent),
+                                    child: Text(
+                                      money,
+                                      style: TextStyle(color: Colors.black),
+                                      textAlign: TextAlign.center,
+                                    ), //Time left for the request to be filled
                                   ),
                                   Container(
+                                    padding: EdgeInsets.only(top: 15),
                                     width: (size.width - 80) * 0.40,
                                     height: 50,
-                                    // child: Text(
-                                    //   'Song',
-                                    //   style: GlobalTheme.requestsStyle,
-                                    // ),
-                                    decoration: BoxDecoration(
-                                        color:
-                                            Colors.white), //Title of the song
+                                    child: Text(
+                                      'Song',
+                                      style: GlobalTheme.requestsStyle,
+                                      textAlign: TextAlign.center,
+                                    ), //Title of the song
                                   ),
                                   Container(
+                                    padding: EdgeInsets.only(top: 15),
                                     width: (size.width - 80) * 0.23,
                                     height: 50,
-                                    decoration: BoxDecoration(
-                                        color: Colors
-                                            .blue), //Time left for the request to be filled
+                                    child: Text(
+                                      timer,
+                                      style: GlobalTheme.requestsStyle,
+                                      textAlign: TextAlign.center,
+                                    ), //Time left for the request to be filled
                                   ),
                                 ],
                               ),
@@ -93,6 +106,7 @@ class _DjDashboardState extends State<DjDashboard> {
                       },
                     ),
                   ),
+                  GlobalTheme.globalDivider,
                   ElevatedButton(
                     style: globalTheme.offlineButton,
                     onPressed: () {},
