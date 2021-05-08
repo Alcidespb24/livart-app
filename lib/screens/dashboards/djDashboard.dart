@@ -26,22 +26,18 @@ class _DjDashboardState extends State<DjDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: getBody(),
-    );
-  }
-
-  Widget getBody() {
     var size = MediaQuery.of(context).size;
     List songsRequested;
     var header = Text(
       'Requests',
       style: TextStyle(color: Colors.white, fontSize: 35),
     );
-    return SafeArea(
-      child: Stack(
+    return Scaffold(
+      body: Stack(
         children: <Widget>[
+          Container(
+            decoration: GlobalTheme.backgroundGradient,
+          ),
           Container(
             margin: EdgeInsets.only(top: 150),
             child: SingleChildScrollView(
