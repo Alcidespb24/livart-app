@@ -29,6 +29,7 @@ dependencies:
   community_material_icon: ^5.9.55
   slide_drawer: ^1.0.1
   rxdart: ^0.26.0
+  sliver_tools: ^0.2.2
 
 
   # The following adds the Cupertino Icons font to your application.

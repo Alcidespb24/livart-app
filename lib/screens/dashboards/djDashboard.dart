@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
 class DjDashboard extends StatefulWidget {
   static const String id = 'djDashboard_screen';
@@ -29,8 +30,8 @@ class _DjDashboardState extends State<DjDashboard> {
     var size = MediaQuery.of(context).size;
     List songsRequested;
     var header = Text(
-      'Requests',
-      style: TextStyle(color: Colors.white, fontSize: 35),
+      'REQUESTS',
+      style: TextStyle(color: Colors.white, fontSize: 25),
     );
     return Scaffold(
       body: Stack(
