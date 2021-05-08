@@ -4,7 +4,6 @@ import 'package:flutter_app/screens/authenticate/AuthenticationWrapper.dart';
 import 'package:flutter_app/screens/authenticate/homeScreen.dart';
 import 'package:flutter_app/screens/authenticate/landingScreen.dart';
 import 'package:flutter_app/screens/dashboards/djDashboard.dart';
-import 'package:flutter_app/screens/dashboards/djRequests.dart';
 import 'package:flutter_app/screens/dashboards/userDashboard.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -26,7 +25,6 @@ class PlayThis extends StatelessWidget {
         HomeScreen.id: (context) => HomeScreen(),
         DjDashboard.id: (context) => DjDashboard(),
         UserDashboard.id: (context) => UserDashboard(),
-        DjRequests.id: (context) => DjRequests(),
       },
     );
     ;

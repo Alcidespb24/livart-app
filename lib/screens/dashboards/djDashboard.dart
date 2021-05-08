@@ -40,72 +40,76 @@ class _DjDashboardState extends State<DjDashboard> {
       style: TextStyle(color: Colors.white, fontSize: 35),
     );
     return SafeArea(
-        child: Stack(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(top: 150),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    header,
-                    GlobalTheme.globalDivider,
-                    Column(
-                      children: List.generate(
-                        5,
-                        (index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                                right: 40, left: 45, bottom: 10),
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Container(
-                                      width: (size.width - 80) * 0.23,
-                                      height: 50,
-                                      decoration:
-                                          BoxDecoration(color: Colors.green), //Amount paid for the song
-                                    ),
-                                    Container(
-                                      width: (size.width - 80) * 0.40,
-                                      height: 50,
-                                      // child: Text(
-                                      //   'Song',
-                                      //   style: GlobalTheme.requestsStyle,
-                                      // ),
-                                      decoration:
-                                          BoxDecoration(color: Colors.white), //Title of the song
-                                    ),
-                                    Container(
-                                      width: (size.width - 80) * 0.23,
-                                      height: 50,
-                                      decoration:
-                                          BoxDecoration(color: Colors.blue), //Time left for the request to be filled
-                                    ),
-                                  ],
-                                ),
+      child: Stack(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(top: 150),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  header,
+                  GlobalTheme.globalDivider,
+                  Column(
+                    children: List.generate(
+                      5,
+                      (index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                              right: 40, left: 45, bottom: 10),
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    width: (size.width - 80) * 0.23,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: Colors
+                                            .green), //Amount paid for the song
+                                  ),
+                                  Container(
+                                    width: (size.width - 80) * 0.40,
+                                    height: 50,
+                                    // child: Text(
+                                    //   'Song',
+                                    //   style: GlobalTheme.requestsStyle,
+                                    // ),
+                                    decoration: BoxDecoration(
+                                        color:
+                                            Colors.white), //Title of the song
+                                  ),
+                                  Container(
+                                    width: (size.width - 80) * 0.23,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: Colors
+                                            .blue), //Time left for the request to be filled
+                                  ),
+                                ],
                               ),
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
                     ),
-                    ElevatedButton(
-                      style: globalTheme.offlineButton,
-                      onPressed: () {},
-                      child: Text(
-                        'Go Offline', style: TextStyle(color: GlobalTheme.miscellaneous1),
-                      ),
+                  ),
+                  ElevatedButton(
+                    style: globalTheme.offlineButton,
+                    onPressed: () {},
+                    child: Text(
+                      'Go Offline',
+                      style: TextStyle(color: GlobalTheme.miscellaneous1),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
+      ),
     );
   }
 }
