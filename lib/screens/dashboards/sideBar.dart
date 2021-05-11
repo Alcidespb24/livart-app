@@ -126,6 +126,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                               title: 'Log Out',
                               onPressedItem: () async {
                                 await _authService.signOut();
+                                Navigator.pushNamed(context, '/');
                               },
                             ),
                           ],
