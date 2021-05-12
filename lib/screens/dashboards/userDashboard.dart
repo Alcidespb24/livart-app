@@ -77,6 +77,9 @@ class _UserDashboardState extends State<UserDashboard> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        // onTap: (){setState(() {
+        //
+        // });},
         unselectedItemColor: Colors.white,
         selectedItemColor: Colors.white,
         backgroundColor: Color(0xFF262223),
