@@ -95,8 +95,9 @@ class _LogInWidgetState extends State<LogInWidget> {
                     //TODO: Handle Error and send information about what went wrong to the user
                     print(_authService.failure.toString());
                   }
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SideBarLayout()));
+                  Navigator.pushReplacementNamed(context, '/');
+                  //Navigator.pushNamed(context, '/');
+                 // Navigator.pushNamed(context,'/');
                 },
               ),
             ),
@@ -158,7 +159,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                         _authService.getCurrentUser().uid);
                   }
 
-                  Navigator.pop(context, SideBarLayout());
+                  //Navigator.pop(context, SideBarLayout());
                 },
               ),
             ),

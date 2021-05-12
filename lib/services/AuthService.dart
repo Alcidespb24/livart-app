@@ -14,7 +14,7 @@ class AuthService extends Service {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirestoreUserService _userDataBaseService = FirestoreUserService();
-  static AppUser _currentUser = null;
+  static AppUser _currentUser;
 
   AuthService() {
     setState(NotifierState.INITIAL);
@@ -40,7 +40,7 @@ Stream<AppUser> getAppUser() {
   }
 
   // Create account with email and password
-  void createAccountEmailPwd(
+  Future createAccountEmailPwd(
       String email, String userName, String pwd, Role userRole) async {
     try {
       setState(NotifierState.LOADING);
@@ -51,28 +51,32 @@ Stream<AppUser> getAppUser() {
         await userCredential.user.sendEmailVerification();
       }
 
+      _currentUser = AppUser(
+        uid: userCredential.user.uid,
+        userName: userName,
+        userRole: userRole,
+      );
       setState(NotifierState.LOADED);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'weak-password') {
-        setFailure(Failure(id: EventCodes.PASSWORD_TOO_WEAK));
+        throw Failure(id: EventCodes.PASSWORD_TOO_WEAK);
       } else if (error.code == 'email-already-in-use') {
-        setFailure(Failure(id: EventCodes.CREDENTIALS_IN_USE));
+        throw Failure(id: EventCodes.CREDENTIALS_IN_USE);
       }
     }
   }
 
   // Sign in email pwd
-  void signInEmailPwd(String email, String pwd) async {
+  Future signInEmailPwd(String email, String pwd) async {
     try {
       setState(NotifierState.LOADING);
-      UserCredential curr =
-          await _auth.signInWithEmailAndPassword(email: email, password: pwd);
+      await _auth.signInWithEmailAndPassword(email: email, password: pwd);
       setState(NotifierState.LOADED);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'user-not-found') {
-        setFailure(Failure(id: EventCodes.USER_NOT_FOUND_INVALID_UNAME));
+        throw Failure(id: EventCodes.USER_NOT_FOUND_INVALID_UNAME);
       } else if (error.code == 'wrong-password') {
-        setFailure(Failure(id: EventCodes.INVALID_CREDENTIALS));
+        throw (Failure(id: EventCodes.INVALID_CREDENTIALS));
       }
     }
   }
@@ -107,7 +111,7 @@ Stream<AppUser> getAppUser() {
       await _auth.sendPasswordResetEmail(email: email);
       setState(NotifierState.LOADED);
     } on FirebaseAuthException catch (e) {
-      setFailure(Failure(id: EventCodes.UNABLE_TO_SEND_PASSWORD_EMAIL));
+      throw Failure(id: EventCodes.UNABLE_TO_SEND_PASSWORD_EMAIL);
       print(e.code);
     }
   }

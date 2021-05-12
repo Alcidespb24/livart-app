@@ -29,6 +29,5 @@ class PlayThis extends StatelessWidget {
         DjRequests.id: (context) => DjRequests(),
       },
     );
-    ;
   }
 }

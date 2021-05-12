@@ -70,8 +70,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 ),
               ),
               onPressed: () async {
-                await _authService.createAccountEmailPwd(
-                    emailField, userNameField, passwordField, widget.userRole);
+                await _authService.createAccountEmailPwd(emailField, userNameField, passwordField, widget.userRole);
 
                 if (!_authService.hasError()) {
                   //TODO: Handle Error and display message to user
@@ -83,9 +82,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                     await _requestService.createCreatorRequestDoc(
                         _authService.getCurrentUser().uid);
                   }
-
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SideBarLayout()));
+                  Navigator.pushReplacementNamed(context, '/');
+                //  Navigator.push(context,
+               //       MaterialPageRoute(builder: (context) => SideBarLayout()));
                 }
               },
             ),
