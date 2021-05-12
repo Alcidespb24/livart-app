@@ -1,7 +1,7 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
-import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
+import 'package:flutter_app/screens/dashboards/Side_Bar/sideBarLayout.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
 import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
