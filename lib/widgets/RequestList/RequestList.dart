@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_app/data_models/Request.dart';
 import 'package:flutter_app/services/ProvidersService.dart';
+import 'package:flutter_app/widgets/RequestList/RequestListTile.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class RequestList extends ConsumerWidget {
@@ -32,11 +33,7 @@ class RequestList extends ConsumerWidget {
       child: ListView.builder(
         itemCount: counterVal,
         itemBuilder: (context, int index) {
-          return ListTile(
-              title: Text(
-            requestList[index].song.title,
-            style: TextStyle(color: Colors.white),
-          ));
+          return RequestListTile(requestList[index]);
         },
       ),
     );

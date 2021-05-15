@@ -6,7 +6,7 @@ import 'package:flutter_app/services/ProvidersService.dart';
 import 'package:flutter_app/services/firestore/CreatorRequestService.dart';
 import 'package:flutter_app/services/firestore/UserRequestService.dart';
 import 'package:flutter_app/themes/theme.dart';
-import 'package:flutter_app/widgets/RequestList.dart';
+import 'package:flutter_app/widgets/RequestList/RequestList.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/all.dart';
 
