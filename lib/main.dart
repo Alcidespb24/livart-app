@@ -21,13 +21,6 @@ class PlayThis extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: AuthenticationWrapper(),
-      routes: {
-        LandingScreen.id: (context) => LandingScreen(),
-        HomeScreen.id: (context) => HomeScreen(),
-        DjDashboard.id: (context) => DjDashboard(),
-        UserDashboard.id: (context) => UserDashboard(),
-        DjRequests.id: (context) => DjRequests(),
-      },
     );
   }
 }

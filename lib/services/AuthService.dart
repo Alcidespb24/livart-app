@@ -25,15 +25,6 @@ class AuthService extends Service {
     return _auth.authStateChanges();
   }
 
-/*
-Stream<AppUser> getAppUser() {
-    return _auth.authStateChanges().map((User user) {
-      getFirestoreUser(user);
-      return _currentUser;
-    });
-  }
-*/
-
   Future<AppUser> getFirestoreUser(User user) async {
     _currentUser = await _userDataBaseService.getUserFromUid(user.uid);
     return _currentUser;
@@ -66,7 +57,7 @@ Stream<AppUser> getAppUser() {
     }
   }
 
-  // Sign in email pwd
+
   Future signInEmailPwd(String email, String pwd) async {
     try {
       setState(NotifierState.LOADING);
@@ -86,7 +77,7 @@ Stream<AppUser> getAppUser() {
     return _currentUser.emailVerified;
   }
 
-  // Sign in with google
+
   void signInWithGoogle(Role userRole) async {
     try {
       final GoogleSignInAccount googleSignInAccount =

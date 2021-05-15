@@ -5,7 +5,7 @@ import '../data_models/songDataModel.dart';
 // TODO: Remove this class and implement this functionality in a function
 class Search {
   final String term;
-  final List<Song> songs;
+  final List<SongModel> songs;
   final List<Artist> artists;
 
   Search({this.songs, this.artists, this.term});

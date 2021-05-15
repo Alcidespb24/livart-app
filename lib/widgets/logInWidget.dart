@@ -1,10 +1,11 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
+import 'package:flutter_app/screens/authenticate/AuthenticationWrapper.dart';
 import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
 import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
 import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
+import 'package:flutter_app/services/firestore/UserRequestService.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:flutter_app/widgets/FormFields/EmailField.dart';
 import 'package:flutter_app/widgets/FormFields/PasswordField.dart';
@@ -20,7 +21,7 @@ class LogInWidget extends StatefulWidget {
 
 class _LogInWidgetState extends State<LogInWidget> {
   final FirestoreUserService _userService = FirestoreUserService();
-  final FirestoreRequestService _requestService = FirestoreRequestService();
+  final UserRequestService _userRequestService = UserRequestService();
   final AuthService _authService = AuthService();
   String emailField = '';
   String passwordField = '';
@@ -96,8 +97,6 @@ class _LogInWidgetState extends State<LogInWidget> {
                     print(_authService.failure.toString());
                   }
                   Navigator.pushReplacementNamed(context, '/');
-                  //Navigator.pushNamed(context, '/');
-                 // Navigator.pushNamed(context,'/');
                 },
               ),
             ),
@@ -152,14 +151,7 @@ class _LogInWidgetState extends State<LogInWidget> {
 
                   await _userService
                       .createUserData(_authService.getCurrentUser());
-
-                  // if the user is a creator create a document to handle requests
-                  if (_authService.getCurrentUser().userRole == Role.CREATOR) {
-                    await _requestService.createCreatorRequestDoc(
-                        _authService.getCurrentUser().uid);
-                  }
-
-                  //Navigator.pop(context, SideBarLayout());
+                  Navigator.pushReplacement(context,   MaterialPageRoute(builder: (context)=>AuthenticationWrapper()));
                 },
               ),
             ),

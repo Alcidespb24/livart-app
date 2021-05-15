@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/data_models/Request.dart';
+import 'package:flutter_app/data_models/songDataModel.dart';
+import 'package:flutter_app/services/AuthService.dart';
+import 'package:flutter_app/services/ProvidersService.dart';
+import 'package:flutter_app/services/firestore/CreatorRequestService.dart';
+import 'package:flutter_app/services/firestore/UserRequestService.dart';
 import 'package:flutter_app/themes/theme.dart';
+import 'package:flutter_app/widgets/RequestList.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:hooks_riverpod/all.dart';
 
 class DjDashboard extends StatefulWidget {
   static const String id = 'djDashboard_screen';
@@ -10,6 +18,9 @@ class DjDashboard extends StatefulWidget {
 }
 
 class _DjDashboardState extends State<DjDashboard> {
+  AuthService _authService = AuthService();
+  UserRequestService _userRequestService = UserRequestService();
+
   @override
   void initState() {
     super.initState();
@@ -26,86 +37,47 @@ class _DjDashboardState extends State<DjDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: getBody(),
-    );
-  }
-
-  Widget getBody() {
-    var size = MediaQuery.of(context).size;
-    List songsRequested;
     var header = Text(
       'Requests',
       style: TextStyle(color: Colors.white, fontSize: 35),
     );
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Stack(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(top: 100),
-              child: Column(
-                children: [
-                  header,
-                  GlobalTheme.globalDivider,
-                  Column(
-                    children: List.generate(
-                      10,
-                      (index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                              right: 40, left: 40, bottom: 10),
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    width: (size.width - 80) * 0.23,
-                                    height: 50,
-                                    decoration:
-                                        BoxDecoration(color: Colors.green), //Amount paid for the song
-                                  ),
-                                  Container(
-                                    width: (size.width - 80) * 0.40,
-                                    height: 50,
-                                    // child: Text(
-                                    //   'Song',
-                                    //   style: GlobalTheme.requestsStyle,
-                                    // ),
-                                    decoration:
-                                        BoxDecoration(color: Colors.white), //Title of the song
-                                  ),
-                                  Container(
-                                    width: (size.width - 80) * 0.23,
-                                    height: 50,
-                                    decoration:
-                                        BoxDecoration(color: Colors.green), //Time left for the request to be filled
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  ElevatedButton(
-                    style: globalTheme.signUpButton,
-                    onPressed: () {},
-                    child: Text(
-                      'Go Offline',
-                    ),
-                  ),
-                ],
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: //getBody(watcher),
+      SafeArea(
+        child: Column(
+          children: [
+            header,
+            GlobalTheme.globalDivider,
+            ElevatedButton(
+                onPressed: () async {
+                  SongModel sampleSong = SongModel(
+                      uid: 78945,
+                      album: 'testAlbum',
+                      title: 'testTigle',
+                      artistName: 'testArtist');
+                  Request sampleRequest = Request(
+                      fromUid: '456',
+                      toUid: _authService.getCurrentUser().uid,
+                      song: sampleSong,
+                      requestTimeMs: DateTime.now().millisecondsSinceEpoch,
+                      timeRemainingMs: 5,
+                      triesLeft: 5,
+                      paymentAmount: 5);
+                  await _userRequestService.makeRequest(sampleRequest);
+                },
+                child: Text('createRequest')),
+            ElevatedButton(
+              style: globalTheme.signUpButton,
+              onPressed: () {},
+              child: Text(
+                'Go Offline',
               ),
             ),
+            RequestList()
           ],
         ),
-      ),
+      )
     );
   }
 }

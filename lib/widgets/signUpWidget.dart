@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
 import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
 import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
+import 'package:flutter_app/services/firestore/UserRequestService.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:flutter_app/widgets/FormFields/EmailField.dart';
 import 'package:flutter_app/widgets/FormFields/PasswordField.dart';
@@ -23,7 +23,7 @@ class SignUpWidget extends StatefulWidget {
 class _SignUpWidgetState extends State<SignUpWidget> {
   final AuthService _authService = AuthService();
   final FirestoreUserService _userService = FirestoreUserService();
-  final FirestoreRequestService _requestService = FirestoreRequestService();
+  final UserRequestService _userRequestService = UserRequestService();
   String emailField = '';
   String passwordField = '';
   String userNameField = '';
@@ -76,15 +76,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   //TODO: Handle Error and display message to user
                   await _userService
                       .createUserData(_authService.getCurrentUser());
-
-                  // if the user is a creator create a document to handle requests
-                  if (_authService.getCurrentUser().userRole == Role.CREATOR) {
-                    await _requestService.createCreatorRequestDoc(
-                        _authService.getCurrentUser().uid);
-                  }
                   Navigator.pushReplacementNamed(context, '/');
-                //  Navigator.push(context,
-               //       MaterialPageRoute(builder: (context) => SideBarLayout()));
                 }
               },
             ),

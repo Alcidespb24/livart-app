@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/data_models/DataModelBase.dart';
 import 'package:flutter_app/data_models/SongStruct.dart';
+import 'package:flutter_app/data_models/songDataModel.dart';
 
-class Request extends DataModelBase {
+class Request {
   String fromUid;
   String toUid;
-  SongStruct song;
+  SongModel song;
   int requestTimeMs;
   int timeRemainingMs;
   int triesLeft;
@@ -28,7 +29,7 @@ class Request extends DataModelBase {
     return {
       "fromUid": this.fromUid,
       "toUid": this.toUid,
-      "song": this.song.songToMap(),
+      "song": this.song.toJson(),
       "requestTimeMs": this.requestTimeMs,
       "timeRemaining": this.timeRemainingMs,
       "triesLeft": this.triesLeft,
@@ -37,18 +38,29 @@ class Request extends DataModelBase {
     };
   }
 
+  Request.fromMap(Map<String, dynamic> map) {
+        fromUid = map['fromUid'];
+        toUid = map['toUid'];
+        song = SongModel.fromJson(map['song']);
+        requestTimeMs = map['requestTimeMs'];
+        timeRemainingMs = map['timeRemainingMs'];
+        triesLeft = map['triesLeft'];
+        paymentAmount = map['paymentAmount'];
+        fulfilled = map['fulfilled'];
+  }
+
   @override
-  Request fromMap(Map<String, dynamic> map) {
-    return Request(
+ /* Request.fromMap(Map<String, dynamic> map) {
+      Request(
         fromUid: map['fromUid'],
         toUid: map['toUid'],
-        song: SongStruct.songFromMap(map['song']),
+        song: SongModel.fromJson(map['song']),
         requestTimeMs: map['requestTimeMs'],
         timeRemainingMs: map['timeRemainingMs'],
         triesLeft: map['triesLeft'],
         paymentAmount: map['paymentAmount'],
         fulfilled: map['fulfilled']);
-  }
+  }*/
 
   int get getTimeremainingMS => timeRemainingMs;
 

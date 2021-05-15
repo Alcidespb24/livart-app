@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/data_models/Request.dart';
 import 'package:flutter_app/data_models/SongStruct.dart';
+import 'package:flutter_app/data_models/songDataModel.dart';
 import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
 import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
+import 'package:flutter_app/services/firestore/UserRequestService.dart';
 
 String creatorUserName = '';
 final AuthService _authService = AuthService();
-final FirestoreRequestService _requestService = FirestoreRequestService();
+final UserRequestService _requestService = UserRequestService();
 final FirestoreUserService _userService = FirestoreUserService();
 
 class Home extends StatefulWidget {
@@ -81,7 +82,7 @@ class _State extends State<Home> {
 
   Future<Request> createRequest(
       String songName, String artist, String dj) async {
-    SongStruct song = new SongStruct(songName: songName, artist: artist);
+    SongModel song = new SongModel(title: songName, artistName: artist);
 
     if (_userService.userExists(creatorUserName)) {
       AppUser creator =
