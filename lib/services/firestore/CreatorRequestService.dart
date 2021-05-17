@@ -19,4 +19,8 @@ class CreatorRequestService {
   Stream<QuerySnapshot> get creatorRequestList {
     return currentCreatorRequestCollection.snapshots();
   }
+
+  Future removeRequestFromDataBase(){
+
+  }
 }

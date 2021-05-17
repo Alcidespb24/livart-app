@@ -1,19 +1,25 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/data_models/DataModelBase.dart';
 import 'package:flutter_app/data_models/SongStruct.dart';
 import 'package:flutter_app/data_models/songDataModel.dart';
+import 'package:flutter_app/global_resources/Constants.dart';
 
 class Request {
+  String requestUuid;
   String fromUid;
   String toUid;
   SongModel song;
   int requestTimeMs;
-  int timeRemainingMs;
+  int timeRemainingMs = 0;
   int triesLeft;
   int paymentAmount;
   bool fulfilled;
 
+
   Request({
+    @required this.requestUuid,
     @required this.fromUid,
     @required this.toUid,
     @required this.song,
@@ -27,6 +33,7 @@ class Request {
   @override
   Map<String, dynamic> toMap() {
     return {
+      "requestUuid": this.requestUuid,
       "fromUid": this.fromUid,
       "toUid": this.toUid,
       "song": this.song.toJson(),
@@ -39,6 +46,7 @@ class Request {
   }
 
   Request.fromMap(Map<String, dynamic> map) {
+        requestUuid = map['requestUuid'];
         fromUid = map['fromUid'];
         toUid = map['toUid'];
         song = SongModel.fromJson(map['song']);
@@ -48,6 +56,10 @@ class Request {
         paymentAmount = map['paymentAmount'];
         fulfilled = map['fulfilled'];
   }
+
+
+
+  get remainingTime => timeRemainingMs;
 
   @override
  /* Request.fromMap(Map<String, dynamic> map) {
