@@ -19,47 +19,18 @@ final creatorRequestProvider = StreamProvider<QuerySnapshot>((ref) {
   return ref.watch(requestServiceProvider).creatorRequestList;
 });
 
-/*final requestListServiceProvider = Provider((ref)=>RequestListService());
-final requestSnapshotListProvider = StreamProvider.autoDispose<List<Request>>((ref){
-  return ref.watch(requestListServiceProvider).getRequestListStream();
-});*/
-
 final requestListFilter =
     StateProvider((_) => RequestListFilter.TIME_REMAINING);
 
-final requestListUpdateWatcher = Provider<List<Request>>((ref) {
-  final requestUpdateWatcher = ref.watch(creatorRequestProvider);
-  //var list = ref.read(requestListProvider.notifier);
-  List<Request> updatedReqs = [];
 
-  requestUpdateWatcher.when(
-      data: (value) {
-        if (value.docs.isEmpty) {
-          updatedReqs.clear();
-         // list.clearList();
-        } else {
-          for (int i = 0; i < value.docChanges.length; i++) {
-            QueryDocumentSnapshot currentQuery = value.docs[i];
-            Request currentReq = Request.fromMap(currentQuery.data());
-            updatedReqs.add(currentReq);
-           // list.add(currentReq);
-          }
-        }
-      },
-      loading: () {},
-      error: (err, stack) {});
-
-  return updatedReqs;
-});
-
-/// This is your StateNotifierProvider
 final requestListProvider = StateNotifierProvider.autoDispose<RequestListService, List<Request>>((ref) {
   //Listen to the stream itself instead of the value hold by the provider
   final firestoreListStream = ref.watch(creatorRequestProvider.stream);
 
-  //Create the instance of your StateNotifier
+  //Create the instance StateNotifier
   final requestListProvider = RequestListService([]);
 
+  List<Request> curList = [];
   /// subscribe to the stream to change the state accordingly
   final subscription = firestoreListStream.listen((value) {
     if (value.docChanges.isEmpty)
@@ -71,21 +42,20 @@ final requestListProvider = StateNotifierProvider.autoDispose<RequestListService
       Request item = Request.fromMap(currentQuery.data());
 
       //add current item to the ListService
-      requestListProvider.add(item);
+      curList.add(item);
     }
+    requestListProvider.addAll(curList);
   });
-  /// When you stop using this porvider cancel the subscription to the stream, to avoid memory leaks
+  /// cancel subscription after provider is disposed to avoid memory leaks
   ref.onDispose(subscription.cancel);
   return requestListProvider;
 });
 
-//final requestTimerProvider = Provider<>
+final filteredRequestsProvider = Provider.autoDispose<List<Request>>((ref) {
+  final filter = ref.watch(requestListFilter);
+  final reqList = ref.watch(requestListProvider);
 
-final filteredRequestsProvider = Provider<List<Request>>((ref) {
- // final filter = ref.watch(requestListFilter);
-  //final reqList = ref.watch(requestListProvider);
-
-/*  switch (filter.state) {
+  switch (filter.state) {
     case RequestListFilter.AMOUNT_PAID:
       reqList.sort((a, b) {
         return a.paymentAmount.compareTo(b.paymentAmount);
@@ -99,5 +69,5 @@ final filteredRequestsProvider = Provider<List<Request>>((ref) {
     case RequestListFilter.TIME_REMAINING:
     default:
       return reqList;
-  }*/
+  }
 });

@@ -8,7 +8,7 @@ class RequestListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final updatedReqs = watch(requestListProvider);
+    final updatedReqs = watch(filteredRequestsProvider);
 
 
     return Expanded(

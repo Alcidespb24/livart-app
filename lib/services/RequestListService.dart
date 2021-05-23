@@ -22,10 +22,8 @@ class RequestListService extends StateNotifier<List<Request>> {
     state = [...state, req];
   }
 
-  void addList (List<Request> reqs){
-    for (int i = 0; i < reqs.length; i++){
-      state = [...state,reqs[i]];
-    }
+  void addAll (Iterable<Request> reqs){
+    state = [...state, ...reqs];
   }
 
   void remove(Request req) {
