@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/Request.dart';
 import 'package:flutter_app/data_models/songDataModel.dart';
 import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/services/ProvidersService.dart';
-import 'package:flutter_app/services/firestore/CreatorRequestService.dart';
 import 'package:flutter_app/services/firestore/UserRequestService.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:flutter_app/widgets/RequestList/RequestListWidget.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:hooks_riverpod/all.dart';
 
 class DjDashboard extends StatefulWidget {
   static const String id = 'djDashboard_screen';

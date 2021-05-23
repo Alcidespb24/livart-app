@@ -18,10 +18,14 @@ class RequestListService extends StateNotifier<List<Request>> {
 
   RequestListService(List<Request> userRequestList):super(userRequestList ?? []);
 
- // RequestListService():super([]);
-
   void add(Request req) {
     state = [...state, req];
+  }
+
+  void addList (List<Request> reqs){
+    for (int i = 0; i < reqs.length; i++){
+      state = [...state,reqs[i]];
+    }
   }
 
   void remove(Request req) {
