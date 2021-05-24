@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
+
 class TimerModel{
   String timeLeft;
-  TimerModel(this.timeLeft);
+  MaterialColor color;
+  TimerModel({this.timeLeft, this.color});
 }

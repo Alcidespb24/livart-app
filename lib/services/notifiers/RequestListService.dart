@@ -6,7 +6,7 @@ import 'package:flutter_app/services/firestore/CreatorRequestService.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
-import 'ProvidersService.dart';
+import '../ProvidersService.dart';
 
 enum RequestListFilter{
   TIME_REMAINING,
@@ -24,11 +24,17 @@ class RequestListService extends StateNotifier<List<Request>> {
 
   void addAll (Iterable<Request> reqs){
     state = [...state, ...reqs];
+    updateRequestRemainingTime();
   }
 
   void remove(Request req) {
     state = state.where((listItem) => listItem.requestUuid != req.requestUuid)
         .toList();
+
+    if(state.isEmpty){
+
+    }
+
   }
 
   void removeRequestAt(int index) {

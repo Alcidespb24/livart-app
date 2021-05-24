@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/data_models/Request.dart';
+import 'package:flutter_app/data_models/TimerModel.dart';
 import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/services/RequestListService.dart';
+import 'package:flutter_app/services/notifiers/RequestListService.dart';
 import 'package:flutter_app/services/firestore/CreatorRequestService.dart';
+import 'package:flutter_app/services/notifiers/TimerNotifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -27,6 +29,8 @@ final requestListProvider = StateNotifierProvider.autoDispose<RequestListService
   //Listen to the stream itself instead of the value hold by the provider
   final firestoreListStream = ref.watch(creatorRequestProvider.stream);
 
+  final timerListener = ref.watch(requestTimerProvider);
+
   //Create the instance StateNotifier
   final requestListProvider = RequestListService([]);
 
@@ -48,9 +52,12 @@ final requestListProvider = StateNotifierProvider.autoDispose<RequestListService
   });
   /// cancel subscription after provider is disposed to avoid memory leaks
   ref.onDispose(subscription.cancel);
+
+
+
+
   return requestListProvider;
 });
-
 final filteredRequestsProvider = Provider.autoDispose<List<Request>>((ref) {
   final filter = ref.watch(requestListFilter);
   final reqList = ref.watch(requestListProvider);
@@ -71,3 +78,9 @@ final filteredRequestsProvider = Provider.autoDispose<List<Request>>((ref) {
       return reqList;
   }
 });
+
+
+final requestTimerProvider = StateNotifierProvider.autoDispose<TimerNotifier,TimerModel>((ref){
+
+}
+);
