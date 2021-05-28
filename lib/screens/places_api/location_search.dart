@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'bloc.dart';
 
 
-class Home extends StatefulWidget {
-  const Home({Key key}) : super(key: key);
+class LocationSearch extends StatefulWidget {
+  const LocationSearch({Key key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _LocationSearchState createState() => _LocationSearchState();
 }
 
-class _HomeState extends State<Home> {
+class _LocationSearchState extends State<LocationSearch> {
   final bloc = Bloc();
 
   @override
