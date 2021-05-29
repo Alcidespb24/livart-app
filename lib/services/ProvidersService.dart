@@ -24,21 +24,19 @@ final creatorRequestProvider = StreamProvider<QuerySnapshot>((ref) {
 final requestListFilter =
     StateProvider((_) => RequestListFilter.TIME_REMAINING);
 
-
-final requestListProvider = StateNotifierProvider.autoDispose<RequestListService, List<Request>>((ref) {
+final requestListProvider =
+    StateNotifierProvider.autoDispose<RequestListService, List<Request>>((ref) {
   //Listen to the stream itself instead of the value hold by the provider
   final firestoreListStream = ref.watch(creatorRequestProvider.stream);
-
-  final timerListener = ref.watch(requestTimerProvider);
 
   //Create the instance StateNotifier
   final requestListProvider = RequestListService([]);
 
   List<Request> curList = [];
+
   /// subscribe to the stream to change the state accordingly
   final subscription = firestoreListStream.listen((value) {
-    if (value.docChanges.isEmpty)
-      requestListProvider.clearList();
+    if (value.docChanges.isEmpty) requestListProvider.clearList();
 
     for (int i = 0; i < value.docChanges.length; i++) {
       QueryDocumentSnapshot currentQuery = value.docs[i];
@@ -47,14 +45,12 @@ final requestListProvider = StateNotifierProvider.autoDispose<RequestListService
 
       //add current item to the ListService
       curList.add(item);
+      requestListProvider.add(item);
     }
-    requestListProvider.addAll(curList);
   });
+
   /// cancel subscription after provider is disposed to avoid memory leaks
   ref.onDispose(subscription.cancel);
-
-
-
 
   return requestListProvider;
 });
@@ -78,9 +74,3 @@ final filteredRequestsProvider = Provider.autoDispose<List<Request>>((ref) {
       return reqList;
   }
 });
-
-
-final requestTimerProvider = StateNotifierProvider.autoDispose<TimerNotifier,TimerModel>((ref){
-
-}
-);

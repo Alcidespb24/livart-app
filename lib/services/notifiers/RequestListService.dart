@@ -8,64 +8,59 @@ import 'package:uuid/uuid.dart';
 
 import '../ProvidersService.dart';
 
-enum RequestListFilter{
+enum RequestListFilter {
   TIME_REMAINING,
   ARTIST,
   AMOUNT_PAID,
 }
 
 class RequestListService extends StateNotifier<List<Request>> {
-
-  RequestListService(List<Request> userRequestList):super(userRequestList ?? []);
+  RequestListService(List<Request> userRequestList)
+      : super(userRequestList ?? []) {
+    startTimer();
+  }
 
   void add(Request req) {
     state = [...state, req];
   }
 
-  void addAll (Iterable<Request> reqs){
+  void addAll(Iterable<Request> reqs) {
     state = [...state, ...reqs];
-    updateRequestRemainingTime();
   }
 
   void remove(Request req) {
-    state = state.where((listItem) => listItem.requestUuid != req.requestUuid)
+    state = state
+        .where((listItem) => listItem.requestUuid != req.requestUuid)
         .toList();
 
-    if(state.isEmpty){
-
-    }
-
+    if (state.isEmpty) {}
   }
 
-  void removeRequestAt(int index) {
-  }
+  void removeRequestAt(int index) {}
 
-  get length =>
-      state.length;
-
-  void updateRequestRemainingTime() {
-    state.forEach((element) {
-      Timer.periodic(Duration(seconds: 5), (timer) {
-        DateTime currentTime = DateTime.now();
-        Duration elapsedTime = currentTime
-            .difference(
-            DateTime.fromMillisecondsSinceEpoch(element.requestTimeMs));
-
-        int _timeLeft = REQUEST_TIME_OUT_MIN - elapsedTime.inMinutes;
-
-
-        if (_timeLeft < 0) {
-          remove(element);
-          if (state.length == 0) {
-            timer.cancel();
-          }
-        }
-        else {
-          element.timeRemainingMs = _timeLeft;
-        }
-      });
+  void startTimer() {
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      if (state.isNotEmpty) timerTick();
     });
   }
+
+  void timerTick() {
+    state.forEach((element) {
+      DateTime currentTime = DateTime.now();
+      Duration elapsedTime = currentTime.difference(
+          DateTime.fromMillisecondsSinceEpoch(element.requestTimeMs));
+
+      int _timeLeft = elapsedTime.inMinutes;
+
+      if (_timeLeft <= 0) {
+        remove(element);
+      } else {
+        element.timeRemainingMs = _timeLeft;
+      }
+    });
+  }
+
+  get length => state.length;
 
   Request getRequestAt(int index) {
     return state[index];

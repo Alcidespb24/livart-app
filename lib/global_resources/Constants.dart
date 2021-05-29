@@ -1,1 +1,1 @@
-const REQUEST_TIME_OUT_MIN = 1;
+const REQUEST_TIME_OUT_MIN = 10;
