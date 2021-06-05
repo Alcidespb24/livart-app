@@ -39,43 +39,40 @@ class _DjDashboardState extends State<DjDashboard> {
       style: TextStyle(color: Colors.white, fontSize: 35),
     );
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: //getBody(watcher),
-      SafeArea(
-        child: Column(
-          children: [
-            header,
-            GlobalTheme.globalDivider,
-            ElevatedButton(
-                onPressed: () async {
-                  SongModel sampleSong = SongModel(
-                      uid: 78945,
-                      album: 'testAlbum',
-                      title: 'testTigle',
-                      artistName: 'testArtist');
-                  Request sampleRequest = Request(
-                      fromUid: '456',
-                      toUid: _authService.getCurrentUser().uid,
-                      song: sampleSong,
-                      requestTimeMs: DateTime.now().millisecondsSinceEpoch,
-                      timeRemainingMs: 5,
-                      triesLeft: 5,
-                      paymentAmount: 5);
-                  await _userRequestService.makeRequest(sampleRequest);
-                },
-                child: Text('createRequest')),
-            ElevatedButton(
-              style: globalTheme.signUpButton,
-              onPressed: () {},
-              child: Text(
-                'Go Offline',
+        backgroundColor: Colors.black,
+        body: //getBody(watcher),
+            SafeArea(
+          child: Column(
+            children: [
+              header,
+              GlobalTheme.globalDivider,
+              ElevatedButton(
+                  onPressed: () async {
+                    SongModel sampleSong = SongModel(
+                        uid: 78945,
+                        album: 'testAlbum',
+                        title: 'testTigle',
+                        artistName: 'testArtist');
+                    Request sampleRequest = Request(
+                        fromUid: '456',
+                        toUid: _authService.getCurrentUser().uid,
+                        song: sampleSong,
+                        requestTimeMs: DateTime.now().millisecondsSinceEpoch,
+                        triesLeft: 5,
+                        paymentAmount: 5);
+                    await _userRequestService.makeRequest(sampleRequest);
+                  },
+                  child: Text('createRequest')),
+              ElevatedButton(
+                style: globalTheme.signUpButton,
+                onPressed: () {},
+                child: Text(
+                  'Go Offline',
+                ),
               ),
-            ),
               RequestListWidget(),
-
-          ],
-        ),
-      )
-    );
+            ],
+          ),
+        ));
   }
 }

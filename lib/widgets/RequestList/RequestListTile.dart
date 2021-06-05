@@ -10,7 +10,7 @@ class RequestListTile extends StatefulWidget {
   String _songTitle;
   String _artistName;
   int _paymentAmount;
-  int _timeLeft;
+  String _timeLeft;
   int _requestTime;
 
   RequestListTile(Request request) {
@@ -26,13 +26,14 @@ class RequestListTile extends StatefulWidget {
 }
 
 class _RequestListTileState extends State<RequestListTile> {
-
-
+  Timer timer;
   @override
   void initState() {
     // TODO: implement initStat
 
     super.initState();
+
+    new Timer.periodic(Duration(seconds: 1), (Timer t) => setState(() {}));
   }
 
   @override

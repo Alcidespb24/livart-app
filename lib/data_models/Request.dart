@@ -15,7 +15,7 @@ class Request {
   String toUid;
   SongModel song;
   int requestTimeMs;
-  int timeRemainingMs = 0;
+  String timeRemainingMs;
   int triesLeft;
   int paymentAmount;
   bool fulfilled;
@@ -30,8 +30,8 @@ class Request {
     @required this.triesLeft,
     @required this.paymentAmount,
     this.fulfilled,
-  }){
-   requestUuid = uuid.v4();
+  }) {
+    requestUuid = uuid.v4();
   }
 
   @override
@@ -42,7 +42,6 @@ class Request {
       "toUid": this.toUid,
       "song": this.song.toJson(),
       "requestTimeMs": this.requestTimeMs,
-      "timeRemaining": this.timeRemainingMs,
       "triesLeft": this.triesLeft,
       "paymentAmount": this.paymentAmount,
       "fulfilled": this.fulfilled,
@@ -50,24 +49,17 @@ class Request {
   }
 
   Request.fromMap(Map<String, dynamic> map) {
-        requestUuid = map['requestUuid'];
-        fromUid = map['fromUid'];
-        toUid = map['toUid'];
-        song = SongModel.fromJson(map['song']);
-        requestTimeMs = map['requestTimeMs'];
-        timeRemainingMs = map['timeRemainingMs'];
-        triesLeft = map['triesLeft'];
-        paymentAmount = map['paymentAmount'];
-        fulfilled = map['fulfilled'];
+    requestUuid = map['requestUuid'];
+    fromUid = map['fromUid'];
+    toUid = map['toUid'];
+    song = SongModel.fromJson(map['song']);
+    requestTimeMs = map['requestTimeMs'];
+    triesLeft = map['triesLeft'];
+    paymentAmount = map['paymentAmount'];
+    fulfilled = map['fulfilled'];
   }
-
-
 
   get remainingTime => timeRemainingMs;
 
-  int get getTimeremainingMS => timeRemainingMs;
-
-  void updateTimeRemaining() {
-    timeRemainingMs = requestTimeMs - DateTime.now().millisecondsSinceEpoch;
-  }
+  String get getTimeremainingMS => timeRemainingMs;
 }
