@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter_app/data_models/Request.dart';
 import 'package:flutter_app/global_resources/Constants.dart';
 import 'package:flutter_app/services/firestore/CreatorRequestService.dart';
+import 'package:flutter_app/services/firestore/RequestServiceBase.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:uuid/uuid.dart';
 
 import '../ProvidersService.dart';
 
@@ -15,8 +15,9 @@ enum RequestListFilter {
 }
 
 class RequestListService extends StateNotifier<List<Request>> {
-  RequestListService(List<Request> userRequestList)
-      : super(userRequestList ?? []) {
+  final RequestServiceBase reqService;
+  RequestListService(List<Request> userRequestList, RequestServiceBase reqService)
+      : this.reqService = reqService, super(userRequestList ?? []) {
     startTimer();
   }
 
@@ -29,14 +30,15 @@ class RequestListService extends StateNotifier<List<Request>> {
   }
 
   void remove(Request req) {
+
+    reqService.deleteRequest(req);
+
     state = state
         .where((listItem) => listItem.requestUuid != req.requestUuid)
         .toList();
 
-    if (state.isEmpty) {}
-  }
 
-  void removeRequestAt(int index) {}
+  }
 
   void startTimer() {
     Timer.periodic(Duration(seconds: 1), (timer) {
@@ -52,11 +54,11 @@ class RequestListService extends StateNotifier<List<Request>> {
 
       int _timeLeft = elapsedTime.inMinutes;
 
-      if (_timeLeft <= 0) {
-        remove(element);
-      } else {
-        element.timeRemainingMs = _timeLeft;
-      }
+      //if (_timeLeft <= 0) {
+        //remove(element);
+      //} else {
+       // element.timeRemainingMs = DateTime.now().millisecondsSinceEpoch;
+     // }
     });
   }
 
@@ -67,6 +69,7 @@ class RequestListService extends StateNotifier<List<Request>> {
   }
 
   void clearList() {
+    state.forEach((element) {remove(element);});
     state.clear();
   }
 }
