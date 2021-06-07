@@ -1,19 +1,16 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-
 import 'bloc.dart';
 
 
-class LocationSearch extends StatefulWidget {
-  const LocationSearch({Key key}) : super(key: key);
+class Home extends StatefulWidget {
 
   @override
-  _LocationSearchState createState() => _LocationSearchState();
+  _HomeState createState() => _HomeState();
 }
 
-class _LocationSearchState extends State<LocationSearch> {
+class _HomeState extends State<Home> {
   final bloc = Bloc();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,10 +53,8 @@ class _LocationSearchState extends State<LocationSearch> {
                 Expanded(
                   child: Stack(
                     children: <Widget>[
-                      if (bloc.searchResults != null &&
-                          bloc.searchResults.length != 0)
+                      if (bloc.searchResults.length != 0)
                         Container(
-                          color: Colors.red,
                           height: 200,
                           child: ListView.builder(
                             itemCount: bloc.searchResults.length,

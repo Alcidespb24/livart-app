@@ -8,3 +8,4 @@ class PlaceSearch {
     return PlaceSearch(json['description'], json['place_id']);
   }
 }
+

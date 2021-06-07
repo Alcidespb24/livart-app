@@ -4,15 +4,17 @@ import 'dart:convert' as convert;
 
 
 class PlacesService {
-  final apiKey = 'AIzaSyD2fA2PHgCrKEbg7JqcVWvXAihJYWS8DtM';
+  final apiKey = 'AIzaSyBapr3lgmiIOvyhFDxcdL-q5unUm5g3Fec';
 
   Future<List<PlaceSearch>> getAutocomplete(String search) async {
     var url =
-        'https://maps.googleapis.com/maps/api/place/autocomplete/xml?input=$search&types=establishment&location=37.76999,-122.44696&key=$apiKey';
+        'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$search&types=establishment&location=37.76999,-122.44696&key=$apiKey';
     var response = await http.get(Uri.parse(url));
     var json = convert.jsonDecode(response.body);
-    var jsonResults = json['predictions'] as List;
-    return jsonResults.map((place) => PlaceSearch.fromJson(place)).toList();
+    var result = (json['predictions'] as List)
+        .map((place) => PlaceSearch.fromJson(place))
+        .toList();
+    return result;
   }
 
   Future<PlaceSearch> getPlace(String placeId) async {
