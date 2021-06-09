@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/themes/theme.dart';
-import 'package:geolocator/geolocator.dart';
 
 class DjDashboard extends StatefulWidget {
   static const String id = 'djDashboard_screen';
@@ -11,17 +10,6 @@ class DjDashboard extends StatefulWidget {
 }
 
 class _DjDashboardState extends State<DjDashboard> {
-  @override
-  void initState() {
-    super.initState();
-    getLocation();
-  }
-
-  void getLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    Position lastLocation = await Geolocator.getLastKnownPosition();
-  }
 
   GlobalTheme globalTheme = GlobalTheme();
 
