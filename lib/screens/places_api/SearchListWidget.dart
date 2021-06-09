@@ -9,7 +9,7 @@ class SearchListWidget extends ConsumerWidget {
       children: <Widget>[
         if (list.length != 0)
           Container(
-            height: 200,
+            height: 500,
             child: ListView.builder(
               itemCount: list.length,
               itemBuilder: (context, index) {

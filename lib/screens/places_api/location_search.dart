@@ -2,12 +2,9 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/places_api/SearchListWidget.dart';
 import 'package:flutter_app/services/ProvidersService.dart';
-import 'package:hooks_riverpod/all.dart';
-import 'package:flutter_app/screens/places_api/place_search.dart';
-
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomePlaces extends StatefulWidget {
-
   @override
   _HomePlacesState createState() => _HomePlacesState();
 }
@@ -20,7 +17,8 @@ class _HomePlacesState extends State<HomePlaces> {
       body: Stack(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 100),
+            padding: EdgeInsets.all(25),
+            margin: EdgeInsets.only(top: 100, bottom: 50),
             child: Column(
               children: [
                 Text(
@@ -28,34 +26,36 @@ class _HomePlacesState extends State<HomePlaces> {
                   style: TextStyle(color: Colors.white, fontSize: 35),
                   textAlign: TextAlign.start,
                 ),
-                SizedBox(
-                  height: 25,
-                ),
+                SizedBox(height: 5,),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(1.0),
                   child: Consumer(
-
-                    builder: (context,watch,child) {
-
-
-                    return TextField(
-                      onChanged: (value) => context.read(placeListServiceProvider.notifier).searchPlace(value),
-                      decoration: InputDecoration(
-                        suffixIcon: Icon(EvaIcons.search, color: Colors.white,),
-                        filled: true,
-                        fillColor: Colors.grey.withOpacity(0.4),
-                        hintText: 'Search Places ...',
-                        hintStyle: TextStyle(color: Colors.white, fontSize: 15),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(17.0),
-                          borderSide: BorderSide.none,
+                    builder: (context, watch, child) {
+                      return TextField(
+                        onChanged: (value) => context
+                            .read(placeListServiceProvider.notifier)
+                            .searchPlace(value),
+                        decoration: InputDecoration(
+                          suffixIcon: Icon(
+                            EvaIcons.search,
+                            color: Colors.white,
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey.withOpacity(0.4),
+                          hintText: 'Search Places ...',
+                          hintStyle:
+                              TextStyle(color: Colors.white, fontSize: 15),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(17.0),
+                            borderSide: BorderSide.none,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                    );},
+                      );
+                    },
                   ),
                 ),
                 Expanded(
