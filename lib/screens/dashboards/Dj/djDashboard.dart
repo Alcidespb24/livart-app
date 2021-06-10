@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_app/screens/places_api/location_search.dart';
 import 'package:flutter_app/themes/theme.dart';
 
 class DjDashboard extends StatefulWidget {
@@ -10,7 +11,6 @@ class DjDashboard extends StatefulWidget {
 }
 
 class _DjDashboardState extends State<DjDashboard> {
-
   GlobalTheme globalTheme = GlobalTheme();
 
   @override
@@ -97,7 +97,12 @@ class _DjDashboardState extends State<DjDashboard> {
                   GlobalTheme.globalDivider,
                   ElevatedButton(
                     style: globalTheme.offlineButton,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomePlaces()));
+                    },
                     child: Text(
                       'Go Offline',
                       style: TextStyle(color: GlobalTheme.miscellaneous1),
