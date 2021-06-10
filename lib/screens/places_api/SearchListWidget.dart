@@ -14,6 +14,7 @@ class SearchListWidget extends ConsumerWidget {
               itemCount: list.length,
               itemBuilder: (context, index) {
                 return ListTile(
+                  onTap: () {},
                   title: Text(
                     list[index].name,
                     style: TextStyle(color: Colors.white),
