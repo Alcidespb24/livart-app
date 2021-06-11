@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/data_models/Request.dart';
@@ -94,8 +95,7 @@ class _State extends State<Home> {
           fromUid: _authService.getCurrentUser().uid,
           toUid: creator.uid,
           song: song,
-          requestTimeMs: DateTime.now().millisecondsSinceEpoch);
-      print("reached here");
+          requestTimeMs: Timestamp.fromDate(DateTime.now()));
       return req;
     }
   }

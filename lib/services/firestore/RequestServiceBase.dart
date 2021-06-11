@@ -6,3 +6,13 @@ abstract class RequestServiceBase extends Service {
   Future<void> deleteRequest(Request request);
   Stream<QuerySnapshot> get requestList;
 }
+
+class RequestServiceInitial extends RequestServiceBase{
+  @override
+  Future<void> deleteRequest(Request request) {
+  }
+
+  @override
+  Stream<QuerySnapshot> get requestList => throw UnimplementedError();
+
+}

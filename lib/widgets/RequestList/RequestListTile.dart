@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/Request.dart';
 import 'package:flutter_app/global_resources/Constants.dart';
@@ -11,14 +12,12 @@ class RequestListTile extends StatefulWidget {
   String _artistName;
   int _paymentAmount;
   String _timeLeft;
-  int _requestTime;
 
   RequestListTile(Request request) {
     _songTitle = request.song.title;
     _artistName = request.song.artistName;
     _paymentAmount = request.paymentAmount;
-    _timeLeft = request.timeRemainingMs;
-    _requestTime = request.requestTimeMs;
+    _timeLeft = request.timeRemaining;
   }
 
   @override
@@ -26,15 +25,6 @@ class RequestListTile extends StatefulWidget {
 }
 
 class _RequestListTileState extends State<RequestListTile> {
-  Timer timer;
-  @override
-  void initState() {
-    // TODO: implement initStat
-
-    super.initState();
-
-    new Timer.periodic(Duration(seconds: 1), (Timer t) => setState(() {}));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +32,7 @@ class _RequestListTileState extends State<RequestListTile> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
       margin: EdgeInsets.all(3),
       child: ListTile(
-        leading: Text(
-          widget._timeLeft.toString(),
-          style: TextStyle(color: Colors.white),
-        ),
+        leading: getTextWidget(widget._timeLeft),
         title: getTextWidget(widget._songTitle),
         subtitle: getTextWidget(widget._artistName),
         trailing: getTextWidget(widget._paymentAmount),

@@ -4,7 +4,7 @@ import 'package:flutter_app/screens/authenticate/landingScreen.dart';
 import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
 import 'package:flutter_app/screens/dashboards/userDashboard.dart';
 import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/services/ProvidersService.dart';
+import 'package:flutter_app/services/providers/AuthProvider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

@@ -1,13 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter_app/data_models/Request.dart';
-import 'package:flutter_app/global_resources/Constants.dart';
-import 'package:flutter_app/services/firestore/CreatorRequestService.dart';
 import 'package:flutter_app/services/firestore/RequestServiceBase.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
-
-import '../ProvidersService.dart';
 
 enum RequestListFilter {
   TIME_REMAINING,
@@ -16,6 +10,7 @@ enum RequestListFilter {
 }
 
 class RequestListService extends StateNotifier<List<Request>> {
+  Timer requestUpdateTimer;
   final RequestServiceBase reqService;
   RequestListService(
       List<Request> userRequestList, RequestServiceBase reqService)
@@ -25,14 +20,21 @@ class RequestListService extends StateNotifier<List<Request>> {
   }
 
   void add(Request req) {
+    if(state.isEmpty && req != null)
+      startTimer();
+
     state = [...state, req];
   }
 
   void addAll(Iterable<Request> reqs) {
+    if(state.isEmpty && reqs.isNotEmpty)
+      startTimer();
+
     state = [...state, ...reqs];
   }
 
   void remove(Request req) {
+    // Delete Request from firestore
     reqService.deleteRequest(req);
 
     state = state
@@ -41,27 +43,29 @@ class RequestListService extends StateNotifier<List<Request>> {
   }
 
   void startTimer() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      if (state.isNotEmpty) timerTick();
-    });
+      requestUpdateTimer = new Timer.periodic(Duration(seconds: 1), (timer) {
+        if (state.isNotEmpty)
+          timerTick();
+        else
+          timer.cancel();
+      });
   }
 
   void timerTick() {
-    state.forEach((element) {
-      DateTime currentTime = DateTime.now();
-      Duration elapsedTime = currentTime.difference(
-          DateTime.fromMillisecondsSinceEpoch(element.requestTimeMs));
-      Duration timeLeft = Duration(REQUEST_TIME_OUT_MIN - elapsedTime);
-
-      String formattedTimeLeft = DateFormat('mm:ss')
-          .format(DateTime.fromMillisecondsSinceEpoch(timeLeft.inMilliseconds));
-
-      //if (_timeLeft <= 0) {
-      //remove(element);
-      //} else {
-      element.timeRemainingMs = formattedTimeLeft;
-      // }
+    final prevState = state;
+    var removeList = [];
+    prevState.forEach((element) {
+      if (element.updateTimeRemaining()) {
+        removeList.add(element);
+      }
     });
+
+    removeList.forEach((element) {
+      prevState.remove(element);
+      remove(element);
+    });
+
+    state = prevState;
   }
 
   get length => state.length;
@@ -75,5 +79,11 @@ class RequestListService extends StateNotifier<List<Request>> {
       remove(element);
     });
     state.clear();
+  }
+
+  @override
+  void dispose() {
+    requestUpdateTimer.cancel();
+    super.dispose();
   }
 }
