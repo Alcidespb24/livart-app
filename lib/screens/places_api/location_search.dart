@@ -2,9 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/places_api/SearchListWidget.dart';
 import 'package:flutter_app/services/ProvidersService.dart';
-import 'package:flutter_app/themes/theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 
 class HomePlaces extends StatefulWidget {
   @override

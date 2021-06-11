@@ -16,7 +16,6 @@ class _DjDashboardState extends State<DjDashboard> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    List songsRequested;
     var header = Text(
       'REQUESTS',
       style: TextStyle(color: Colors.white, fontSize: 25),
