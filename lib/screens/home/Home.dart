@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/data_models/Request.dart';
-import 'package:flutter_app/data_models/SongStruct.dart';
 import 'package:flutter_app/data_models/songDataModel.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
@@ -19,8 +18,6 @@ class Home extends StatefulWidget {
 }
 
 class _State extends State<Home> {
-  Home() {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +69,7 @@ class _State extends State<Home> {
             ElevatedButton(
                 onPressed: () async {
                   _requestService.makeRequest(
-                      await createRequest("lla", "mahartist", "djUname"));
+                      await createRequest('lla', 'mahartist', 'djUname', 'album'));
                 },
                 child: Text('create request'))
           ],
@@ -82,8 +79,8 @@ class _State extends State<Home> {
   }
 
   Future<Request> createRequest(
-      String songName, String artist, String dj) async {
-    SongModel song = new SongModel(title: songName, artistName: artist);
+      String songName, String artist, String dj, String album) async {
+    SongModel song = new SongModel(title: songName, artistName: artist, album: album);
 
     if (_userService.userExists(creatorUserName)) {
       AppUser creator =

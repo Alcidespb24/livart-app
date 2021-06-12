@@ -6,8 +6,8 @@ import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/data_models/EventCodeDatabase.dart';
 import 'package:flutter_app/data_models/Failure.dart';
 import 'package:flutter_app/data_models/Request.dart';
-import 'package:flutter_app/services/Service.dart';
 import 'package:flutter_app/services/AuthService.dart';
+import 'package:flutter_app/services/Service.dart';
 import 'package:flutter_app/services/firestore/RequestServiceBase.dart';
 
 class UserRequestService extends RequestServiceBase{

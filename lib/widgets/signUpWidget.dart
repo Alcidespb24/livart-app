@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
-import 'package:flutter_app/screens/dashboards/Side_Bar/sideBarLayout.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
-import 'package:flutter_app/services/firestore/UserRequestService.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:flutter_app/widgets/FormFields/EmailField.dart';
 import 'package:flutter_app/widgets/FormFields/PasswordField.dart';
@@ -23,7 +21,6 @@ class SignUpWidget extends StatefulWidget {
 class _SignUpWidgetState extends State<SignUpWidget> {
   final AuthService _authService = AuthService();
   final FirestoreUserService _userService = FirestoreUserService();
-  final UserRequestService _userRequestService = UserRequestService();
   String emailField = '';
   String passwordField = '';
   String userNameField = '';

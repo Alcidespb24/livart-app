@@ -3,7 +3,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_app/data_models/Request.dart';
 import 'package:flutter_app/services/firestore/RequestServiceBase.dart';
 import 'package:flutter_app/services/notifiers/RequestListService.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'RequestProvider.dart';
 
 final requestListProvider =

@@ -78,7 +78,7 @@ class AuthService extends Service {
   }
 
 
-  void signInWithGoogle(Role userRole) async {
+  Future<void> signInWithGoogle(Role userRole) async {
     try {
       final GoogleSignInAccount googleSignInAccount =
           await _googleSignIn.signIn();
@@ -103,7 +103,6 @@ class AuthService extends Service {
       setState(NotifierState.LOADED);
     } on FirebaseAuthException catch (e) {
       throw Failure(id: EventCodes.UNABLE_TO_SEND_PASSWORD_EMAIL);
-      print(e.code);
     }
   }
 
@@ -112,7 +111,7 @@ class AuthService extends Service {
   }
 
   // User Sign out
-  void signOut() async {
+  Future<void> signOut() async {
     setState(NotifierState.LOADING);
     _googleSignIn.signOut();
     _auth.signOut();

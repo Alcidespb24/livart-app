@@ -1,6 +1,7 @@
+import 'dart:convert' as convert;
+
 import 'package:flutter_app/data_models/place_search.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
 
 
 class PlacesService {

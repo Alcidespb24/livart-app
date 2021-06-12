@@ -1,13 +1,10 @@
-import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app/data_models/DataModelBase.dart';
-import 'package:flutter_app/data_models/SongStruct.dart';
 import 'package:flutter_app/data_models/songDataModel.dart';
+import 'package:flutter_app/global_resources/Constants.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
-import 'package:flutter_app/global_resources/Constants.dart';
 
 class Request {
   final uuid = Uuid();
@@ -37,7 +34,6 @@ class Request {
     requestUuid = uuid.v4();
   }
 
-  @override
   Map<String, dynamic> toMap() {
     return {
       "requestUuid": this.requestUuid,

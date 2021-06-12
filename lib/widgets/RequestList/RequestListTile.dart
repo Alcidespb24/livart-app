@@ -1,9 +1,6 @@
-import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/Request.dart';
-import 'package:flutter_app/global_resources/Constants.dart';
 
 //TODO: Make the tile look better jesus im bad at making things look good
 
