@@ -6,15 +6,15 @@ class SearchListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, watch) {
     final list = watch(placeListServiceProvider);
+    final divider = Divider(
+      indent: 25,
+      endIndent: 25,
+      color: Colors.white.withOpacity(0.5),
+      height: 35,
+    );
     return Stack(
       children: <Widget>[
-        if (list.length != 0)
-          Divider(
-            indent: 25,
-            endIndent: 25,
-            color: Colors.white.withOpacity(0.5),
-            height: 35,
-          ),
+        if (list.length != 0) divider,
         Container(
           margin: EdgeInsets.only(top: 25),
           height: double.infinity,
