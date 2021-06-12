@@ -15,9 +15,9 @@ class SearchListWidget extends ConsumerWidget {
     return Stack(
       children: <Widget>[
         if (list.length != 0) divider,
-        Container(
+        if (list.length != 0)Card(
+          color: Colors.transparent,
           margin: EdgeInsets.only(top: 25),
-          height: double.infinity,
           child: Scrollbar(
             isAlwaysShown: false,
             child: ListView.builder(
