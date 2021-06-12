@@ -25,10 +25,12 @@ dependencies:
     sdk: flutter
 
   font_awesome_flutter: ^9.0.0
+  google_fonts: ^2.1.0
   flutter_particles: ^1.0.0+7
   community_material_icon: ^5.9.55
   slide_drawer: ^1.0.1
   rxdart: ^0.26.0
+  sliver_tools: ^0.2.2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -59,7 +61,7 @@ dependencies:
   #Google Maps API
   google_maps_flutter: ^2.0.3
   flutter_google_places: ^0.3.0
-  geolocator: ^7.0.1
+  geolocator: ^7.0.3
 
   #unique IDs
   uuid: 3.0.4
