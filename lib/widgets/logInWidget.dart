@@ -1,7 +1,7 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
-import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
+import 'package:flutter_app/screens/dashboards/Side_Bar/sideBarLayout.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
 import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
@@ -76,13 +76,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                 color: GlobalTheme.buttonColor4,
               ),
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: GlobalTheme.buttonColor4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14.0),
-                  ),
-                  elevation: 1,
-                ),
+                style: globalTheme.loginButton,
                 child: Text(
                   "Submit",
                   style: TextStyle(
@@ -139,7 +133,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                 style: globalTheme.loginButton,
                 label: Text(
                   'Sign in with Google',
-                  style: TextStyle(color: GlobalTheme.miscellaneous1),
+                  style: TextStyle(color: GlobalTheme.miscellaneous),
                 ),
                 icon: Icon(
                   CommunityMaterialIcons.google,
