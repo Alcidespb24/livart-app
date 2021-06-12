@@ -79,6 +79,5 @@ class HomePageState extends State<HomePage> {
             itemCount: 2),
       ),
     );
-    ;
   }
 }

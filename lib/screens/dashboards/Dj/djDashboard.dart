@@ -1,7 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_app/screens/places_api/location_search.dart';
+import 'package:flutter_app/data_models/Request.dart';
+import 'package:flutter_app/data_models/songDataModel.dart';
+import 'package:flutter_app/services/AuthService.dart';
+import 'package:flutter_app/services/firestore/UserRequestService.dart';
+import 'package:flutter_app/services/providers/RequestProvider.dart';
 import 'package:flutter_app/themes/theme.dart';
+import 'package:flutter_app/widgets/RequestList/RequestListWidget.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class DjDashboard extends StatefulWidget {
   static const String id = 'djDashboard_screen';
@@ -11,108 +18,68 @@ class DjDashboard extends StatefulWidget {
 }
 
 class _DjDashboardState extends State<DjDashboard> {
+  AuthService _authService = AuthService();
+  UserRequestService _userRequestService = UserRequestService();
+
+  @override
+  void initState() {
+    super.initState();
+    getLocation();
+  }
+
+  void getLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    Position lastLocation = await Geolocator.getLastKnownPosition();
+  }
+
   GlobalTheme globalTheme = GlobalTheme();
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     var header = Text(
-      'REQUESTS',
-      style: TextStyle(color: Colors.white, fontSize: 25),
+      'Requests',
+      style: TextStyle(color: Colors.white, fontSize: 35),
     );
-    int amount = 15;
-    String money = '\$$amount';
-    String timer = 30.toString();
-
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Container(
-            decoration: GlobalTheme.backgroundGradient,
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 150),
-            child: SingleChildScrollView(
+    return Consumer(
+      builder: (context, watch, err) {
+        watch(reqServiceProv);
+        return Scaffold(
+            backgroundColor: Colors.black,
+            body: //getBody(watcher),
+                SafeArea(
               child: Column(
                 children: [
                   header,
                   GlobalTheme.globalDivider,
-                  Column(
-                    children: List.generate(
-                      5,
-                      (index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                              right: 40, left: 45, bottom: 10),
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-                                  Container(
-                                    padding: EdgeInsets.only(top: 15),
-                                    width: (size.width - 80) * 0.23,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.lightGreenAccent),
-                                    child: Text(
-                                      money,
-                                      style: TextStyle(color: Colors.black),
-                                      textAlign: TextAlign.center,
-                                    ), //Time left for the request to be filled
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.only(top: 15),
-                                    width: (size.width - 80) * 0.40,
-                                    height: 50,
-                                    child: Text(
-                                      'Song',
-                                      style: GlobalTheme.requestsStyle,
-                                      textAlign: TextAlign.center,
-                                    ), //Title of the song
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.only(top: 15),
-                                    width: (size.width - 80) * 0.23,
-                                    height: 50,
-                                    child: Text(
-                                      timer,
-                                      style: GlobalTheme.requestsStyle,
-                                      textAlign: TextAlign.center,
-                                    ), //Time left for the request to be filled
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  GlobalTheme.globalDivider,
                   ElevatedButton(
-                    style: globalTheme.offlineButton,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomePlaces()));
-                    },
+                      onPressed: () async {
+                        SongModel sampleSong = SongModel(
+                            uid: 78945,
+                            album: 'testAlbum',
+                            title: 'testTigle',
+                            artistName: 'testArtist');
+                        Request sampleRequest = Request(
+                            fromUid: '456',
+                            toUid: _authService.getCurrentUser().uid,
+                            song: sampleSong,
+                            requestTimeMs: Timestamp.fromDate(DateTime.now()),
+                            paymentAmount: 5);
+                        await _userRequestService.makeRequest(sampleRequest);
+                      },
+                      child: Text('createRequest')),
+                  ElevatedButton(
+                    style: globalTheme.signUpButton,
+                    onPressed: () {},
                     child: Text(
                       'Go Offline',
-                      style: TextStyle(color: GlobalTheme.miscellaneous1),
                     ),
                   ),
+                  RequestListWidget()
                 ],
               ),
-            ),
-          ),
-        ],
-      ),
+            ));
+      },
     );
   }
 }

@@ -31,7 +31,7 @@ class FirestoreUserService extends Service {
     try {
       await userCollection.doc(user.uid).update(user.toMap());
     } on FirebaseException {
-      setFailure(Failure(id: EventCodes.UNABLE_TO_WRITE_TO_DB));
+      throw Failure(id: EventCodes.UNABLE_TO_WRITE_TO_DB);
     }
     setState(NotifierState.LOADED);
   }
@@ -43,7 +43,7 @@ class FirestoreUserService extends Service {
     try {
       await userCollection.doc(user.uid).set(user.toMap());
     } on FirebaseException {
-      setFailure(Failure(id: EventCodes.UNABLE_TO_WRITE_TO_DB));
+      throw Failure(id: EventCodes.UNABLE_TO_WRITE_TO_DB);
     }
     setState(NotifierState.LOADED);
   }
@@ -59,9 +59,9 @@ class FirestoreUserService extends Service {
       setState(NotifierState.LOADED);
       return currUserInfo;
     } on FirebaseException {
-      setFailure(Failure(id: EventCodes.UNABLE_TO_WRITE_TO_DB));
+      throw Failure (id: EventCodes.UNABLE_TO_WRITE_TO_DB);
     } on AssertionError {
-      setFailure(Failure(id: EventCodes.USER_NOT_FOUND_IN_DB));
+      throw Failure(id: EventCodes.USER_NOT_FOUND_IN_DB);
     }
   }
 

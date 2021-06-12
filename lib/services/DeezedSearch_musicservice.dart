@@ -28,9 +28,9 @@ class AppleMusicStore {
     }
   }
 
-  Future<Song> fetchSongById(String id) async {
+  Future<SongModel> fetchSongById(String id) async {
     final json = await _fetchJSON("$_SONG_URL/$id");
-    return Song.fromJson(json['data'][0]);
+    return SongModel.fromJson(json['data'][0]);
   }
 
   Future<Artist> fetchArtistById(int id) async {
@@ -50,7 +50,7 @@ class AppleMusicStore {
     final jsonArtist = await _fetchJSON(encodedArtist);
     final jsonTrack = await _fetchJSON(encodedTrack);
 
-    final List<Song> songs = [];
+    final List<SongModel> songs = [];
     final List<Artist> artists = [];
 
     final artistJSON = jsonArtist['data'] as List;
@@ -60,7 +60,7 @@ class AppleMusicStore {
 
     final songJSON = jsonTrack['data'] as List;
     if (songJSON != null) {
-      songs.addAll((songJSON).map((a) => Song.fromJson(a)));
+      songs.addAll((songJSON).map((a) => SongModel.fromJson(a)));
     }
 
     return Search(songs: songs, artists: artists, term: query);

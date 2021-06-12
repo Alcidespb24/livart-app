@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CircleImage extends StatelessWidget {
-  Widget child;
-  Size size;
+  final Widget child;
+  final Size size;
 
-  CircleImage({Key key, Widget this.child, Size this.size}) : super(key: key);
+  CircleImage({Key key,this.child, this.size}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,5 @@ class CircleImage extends StatelessWidget {
         child: child,
       ),
     );
-
-    // TODO: implement build
-    throw UnimplementedError();
   }
 }

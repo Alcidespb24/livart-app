@@ -1,9 +1,8 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
-import 'package:flutter_app/screens/dashboards/Side_Bar/sideBarLayout.dart';
+import 'package:flutter_app/screens/authenticate/AuthenticationWrapper.dart';
 import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
 import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:flutter_app/widgets/FormFields/EmailField.dart';
@@ -20,7 +19,6 @@ class LogInWidget extends StatefulWidget {
 
 class _LogInWidgetState extends State<LogInWidget> {
   final FirestoreUserService _userService = FirestoreUserService();
-  final FirestoreRequestService _requestService = FirestoreRequestService();
   final AuthService _authService = AuthService();
   String emailField = '';
   String passwordField = '';
@@ -89,8 +87,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                     //TODO: Handle Error and send information about what went wrong to the user
                     print(_authService.failure.toString());
                   }
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SideBarLayout()));
+                  Navigator.pushReplacementNamed(context, '/');
                 },
               ),
             ),
@@ -145,14 +142,7 @@ class _LogInWidgetState extends State<LogInWidget> {
 
                   await _userService
                       .createUserData(_authService.getCurrentUser());
-
-                  // if the user is a creator create a document to handle requests
-                  if (_authService.getCurrentUser().userRole == Role.CREATOR) {
-                    await _requestService.createCreatorRequestDoc(
-                        _authService.getCurrentUser().uid);
-                  }
-
-                  Navigator.pop(context, SideBarLayout());
+                  Navigator.pushReplacement(context,   MaterialPageRoute(builder: (context)=>AuthenticationWrapper()));
                 },
               ),
             ),
