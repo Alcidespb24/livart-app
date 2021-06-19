@@ -86,41 +86,45 @@ class _DjDashboardState extends State<DjDashboard> {
                       ),
                     ),
                   ),
-                  Divider(indent: 5, endIndent: 5,color: Colors.white.withOpacity(0.4),height: 5,),
+                  Divider(indent: 5, endIndent: 5,color: Colors.white.withOpacity(0.4),height: 1,),
                 ],
               ),
             ],
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            // onTap: (){setState(() {
-            //
-            // });},
-            unselectedItemColor: Colors.white,
-            selectedItemColor: Colors.white,
-            backgroundColor: Color(0xff27272a).withOpacity(0.3),
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.all(0.5),
+            child: BottomNavigationBar(
+              // onTap: (){setState(() {
+              //
+              // });},
+              unselectedItemColor: Colors.white,
+              selectedItemColor: Colors.white,
+              backgroundColor: Color(0xff27272a).withOpacity(0.3),
+              iconSize: 15,
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      EvaIcons.homeOutline,
+                      color: Colors.white,
+                    ),
+                    label: 'Home'),
+                BottomNavigationBarItem(
                   icon: Icon(
-                    EvaIcons.homeOutline,
+                    EvaIcons.music,
                     color: Colors.white,
                   ),
-                  label: 'Home'),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  EvaIcons.music,
-                  color: Colors.white,
+                  label: 'Requests Made',
                 ),
-                label: 'Requests Made',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  EvaIcons.settings,
-                  color: Colors.white,
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    EvaIcons.settings,
+                    color: Colors.white,
+                  ),
+                  label: 'Settings',
                 ),
-                label: 'Settings',
-              ),
-            ],
-            // onTap: (){},
+              ],
+              // onTap: (){},
+            ),
           ),
         );
       },
