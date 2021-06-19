@@ -9,7 +9,6 @@ class SideBarLayout extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           DjDashboard(),
-          SideBar(),
         ],
       ),
     );

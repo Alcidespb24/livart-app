@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/Request.dart';
 import 'package:flutter_app/data_models/songDataModel.dart';
@@ -45,13 +46,12 @@ class _DjDashboardState extends State<DjDashboard> {
       builder: (context, watch, err) {
         watch(reqServiceProv);
         return Scaffold(
-            backgroundColor: Colors.black,
-            body: //getBody(watcher),
-                SafeArea(
-              child: Column(
+          backgroundColor: Colors.black,
+          body: Stack(
+            children: <Widget>[
+              Column(
                 children: [
-                  header,
-                  GlobalTheme.globalDivider,
+                  Container(margin:EdgeInsets.only(top: 100),child: header),
                   ElevatedButton(
                       onPressed: () async {
                         SongModel sampleSong = SongModel(
@@ -68,17 +68,61 @@ class _DjDashboardState extends State<DjDashboard> {
                         await _userRequestService.makeRequest(sampleRequest);
                       },
                       child: Text('createRequest')),
-                  ElevatedButton(
-                    style: globalTheme.signUpButton,
-                    onPressed: () {},
-                    child: Text(
-                      'Go Offline',
+                  RequestListWidget(),
+                  Container(
+                    margin: EdgeInsets.all(20.0),
+                    height: 30,
+                    width: 180,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xFFe63946).withOpacity(0.9),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14.0),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        'Go Offline',
+                      ),
                     ),
                   ),
-                  RequestListWidget()
+                  Divider(indent: 5, endIndent: 5,color: Colors.white.withOpacity(0.4),height: 5,),
                 ],
               ),
-            ));
+            ],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            // onTap: (){setState(() {
+            //
+            // });},
+            unselectedItemColor: Colors.white,
+            selectedItemColor: Colors.white,
+            backgroundColor: Color(0xff27272a).withOpacity(0.3),
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    EvaIcons.homeOutline,
+                    color: Colors.white,
+                  ),
+                  label: 'Home'),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  EvaIcons.music,
+                  color: Colors.white,
+                ),
+                label: 'Requests Made',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  EvaIcons.settings,
+                  color: Colors.white,
+                ),
+                label: 'Settings',
+              ),
+            ],
+            // onTap: (){},
+          ),
+        );
       },
     );
   }
