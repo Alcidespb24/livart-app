@@ -8,7 +8,7 @@ class GlobalTheme extends StatelessWidget {
   static const TextStyle textButton1 = TextStyle(
       color: Color(0xFFFFFFFF),
       fontSize: 13,
-      fontFamily: 'SyneMono-Regular.ttf'); //Creator Text Button
+      fontFamily: 'RobotoCondensed-Bold.ttf'); //Creator Text Button
 
   final BoxDecoration buttonDecoration2 = BoxDecoration(
     borderRadius: BorderRadius.circular(14.0),
@@ -17,14 +17,14 @@ class GlobalTheme extends StatelessWidget {
   static const TextStyle textButton2 = TextStyle(
       color: Color(0xFF000000),
       fontSize: 13,
-      fontFamily: 'SyneMono-Regular.ttf'); //User Text Button
+      fontFamily: 'RobotoCondensed-Bold.ttf'); //User Text Button
 
   static const TextStyle headText = TextStyle(
       fontSize: 24,
       color: Color(0xFFFFFFFF),
       height: 3.4,
       fontFamily:
-          'SyneMono-Regular.ttf'); //Head Text style for landingScreen, homeScreen
+          'RobotoCondensed-Bold.ttf'); //Head Text style for landingScreen, homeScreen
 
   static const BoxDecoration backgroundGradient = BoxDecoration(
     gradient: LinearGradient(
@@ -78,13 +78,13 @@ class GlobalTheme extends StatelessWidget {
   static const Color textColor1 = Color(0xFFDBDBD);
   static const requestsStyle = TextStyle(color: Colors.white, fontSize: 15, fontFamily:'RobotoCondensed-Bold.ttf');//TextField Color for homeScreen
   static const font1 = TextStyle(fontFamily: 'RobotoCondensed-Bold.ttf');
-  static const font2 = TextStyle(fontFamily: 'SyneMono-Regular.ttf');
+  static const font2 = TextStyle(fontFamily: 'RobotoCondensed-Bold.ttf');
   static const Color sideBarColor = Color(0xFF1F1238); //color for the sideBar
   static const Color iconsColor = Color(0xFFFFFFFF); //color for all the icons
   static const TextStyle menuText = TextStyle(
       color: Color(0xFF757585),
       fontSize: 13,
-      fontFamily: 'SyneMono-Regular.ttf'); //style for the items inside the menu
+      fontFamily: 'RobotoCondensed-Bold'); //style for the items inside the menu
   final Image appLogo =   Image.asset(
     'lib/assets/icons/logo.png',
     width: 200,

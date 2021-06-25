@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/Request.dart';
 import 'package:flutter_app/data_models/songDataModel.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_app/services/firestore/UserRequestService.dart';
 import 'package:flutter_app/services/providers/RequestProvider.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:flutter_app/widgets/RequestList/RequestListWidget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -46,84 +48,126 @@ class _DjDashboardState extends State<DjDashboard> {
       builder: (context, watch, err) {
         watch(reqServiceProv);
         return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            title: Text(
+              'LiveArt',
+              style: TextStyle(fontSize: 25),
+            ),
+          ),
           backgroundColor: Colors.black,
           body: Stack(
             children: <Widget>[
-              Column(
-                children: [
-                  Container(margin:EdgeInsets.only(top: 100),child: header),
-                  ElevatedButton(
-                      onPressed: () async {
-                        SongModel sampleSong = SongModel(
-                            uid: 78945,
-                            album: 'testAlbum',
-                            title: 'testTigle',
-                            artistName: 'testArtist');
-                        Request sampleRequest = Request(
-                            fromUid: '456',
-                            toUid: _authService.getCurrentUser().uid,
-                            song: sampleSong,
-                            requestTimeMs: Timestamp.fromDate(DateTime.now()),
-                            paymentAmount: 5);
-                        await _userRequestService.makeRequest(sampleRequest);
-                      },
-                      child: Text('createRequest')),
-                  RequestListWidget(),
-                  Container(
-                    margin: EdgeInsets.all(20.0),
-                    height: 30,
-                    width: 180,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFe63946).withOpacity(0.9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14.0),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        'Go Offline',
+              Container(
+                margin: EdgeInsets.only(top: 25),
+                child: Column(
+                  children: [
+                    Text(
+                      'Requests',
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.white,
+                        decorationColor: Colors.grey,
                       ),
                     ),
-                  ),
-                  Divider(indent: 5, endIndent: 5,color: Colors.white.withOpacity(0.4),height: 1,),
-                ],
+                    Divider(
+                      indent: 130,
+                      endIndent: 130,
+                      color: Colors.white,
+                    ),
+                    // ElevatedButton(
+                    //     onPressed: () async {
+                    //       SongModel sampleSong = SongModel(
+                    //           uid: 78945,
+                    //           album: 'testAlbum',
+                    //           title: 'testTigle',
+                    //           artistName: 'testArtist');
+                    //       Request sampleRequest = Request(
+                    //           fromUid: '456',
+                    //           toUid: _authService.getCurrentUser().uid,
+                    //           song: sampleSong,
+                    //           requestTimeMs: Timestamp.fromDate(DateTime.now()),
+                    //           paymentAmount: 5);
+                    //       await _userRequestService.makeRequest(sampleRequest);
+                    //     },
+                    //     child: Text('createRequest')),
+                    RequestListWidget(),
+                    Container(
+                      margin: EdgeInsets.all(20.0),
+                      height: 30,
+                      width: 180,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0xff00F0FF).withOpacity(0.9),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14.0),
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          'Go Offline',style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      indent: 0,
+                      endIndent: 0,
+                      color: Colors.white.withOpacity(0.4),
+                      height: 1.7,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
           bottomNavigationBar: Padding(
-            padding: EdgeInsets.all(0.5),
-            child: BottomNavigationBar(
-              // onTap: (){setState(() {
-              //
-              // });},
-              unselectedItemColor: Colors.white,
-              selectedItemColor: Colors.white,
-              backgroundColor: Color(0xff27272a).withOpacity(0.3),
-              iconSize: 15,
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
+            padding: EdgeInsets.all(0),
+            child: Theme(
+              data: Theme.of(context).copyWith(canvasColor: Color(0xff111111)),
+              child: BottomNavigationBar(
+                // onTap: (){setState(() {
+                //
+                // });},
+                type: BottomNavigationBarType.fixed,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                iconSize: 20,
+                items: <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                      icon: Icon(
+                        EvaIcons.homeOutline,
+                        color: Colors.white,
+                      ),
+                      label: ''),
+                  BottomNavigationBarItem(
+                      icon: Icon(
+                        Icons.location_on_outlined,
+                        color: Colors.white,
+                      ),
+                      label: ''),
+                  BottomNavigationBarItem(
+                      icon: Icon(
+                        Icons.queue_music,
+                        color: Colors.white,
+                      ),
+                      label: ''),
+                  BottomNavigationBarItem(
                     icon: Icon(
-                      EvaIcons.homeOutline,
+                      Icons.qr_code_outlined,
                       color: Colors.white,
                     ),
-                    label: 'Home'),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    EvaIcons.music,
-                    color: Colors.white,
+                    label: '',
                   ),
-                  label: 'Requests Made',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    EvaIcons.settings,
-                    color: Colors.white,
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      EvaIcons.settingsOutline,
+                      color: Colors.white,
+                    ),
+                    label: '',
                   ),
-                  label: 'Settings',
-                ),
-              ],
-              // onTap: (){},
+                ],
+                // onTap: (){},
+              ),
             ),
           ),
         );

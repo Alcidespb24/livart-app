@@ -102,7 +102,6 @@ flutter:
       - family: Roboto
         fonts:
           - asset: lib/assets/fonts/RobotoCondensed-Bold.ttf
-          - asset: lib/assets/fonts/SyneMono-Regular.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

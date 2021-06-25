@@ -1,3 +1,4 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/Request.dart';
 
@@ -23,31 +24,43 @@ class RequestListTile extends StatefulWidget {
 class _RequestListTileState extends State<RequestListTile> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            width: 0.3,
-            color: Color(0xFF212529),
-          ),
+    return ListTile(
+      leading: Container(
+        margin: EdgeInsets.only(top:12 ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Icon(
+              EvaIcons.musicOutline,
+              color: Colors.purpleAccent,
+              size: 27,
+            ),
+            SizedBox(
+              width: 35,
+            ),
+            Column(
+              children: <Widget>[
+                getTextWidget(widget._songTitle),
+                getTextWidget(widget._artistName)
+              ],
+            )
+          ],
         ),
       ),
-      margin: EdgeInsets.all(1),
-      child: ListTile(
-        leading: getTextWidget(widget._timeLeft),
-        title: getTextWidget(widget._songTitle),
-        subtitle: getTextWidget(widget._artistName),
-        trailing: getTextWidget(widget._paymentAmount),
-        dense: true,
-        onTap: () {},
-      ),
+      title: getTextWidget(widget._timeLeft),
+      trailing: getTextWidget(widget._paymentAmount),
+      dense: true,
+      onTap: () {},
     );
   }
 
   Widget getTextWidget(dynamic value) {
     return Text(
       value.toString(),
-      style: TextStyle(color: Colors.white),
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: Colors.white,
+      ),
     );
   }
 }
