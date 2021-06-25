@@ -113,7 +113,7 @@ class _DjDashboardState extends State<DjDashboard> {
                       indent: 0,
                       endIndent: 0,
                       color: Colors.white.withOpacity(0.4),
-                      height: 1.7,
+                      height: 1.8,
                     ),
                   ],
                 ),
