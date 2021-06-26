@@ -39,7 +39,7 @@ class _SearchBarState extends State<SearchBar> {
                 ),
                 contentPadding: EdgeInsets.all(5),
                 filled: true,
-                fillColor: Colors.grey.withOpacity(0.4),
+                fillColor: Color(0xff242423),
                 hintText: 'Search Places',
                 hintStyle: TextStyle(
                     wordSpacing: 1,
