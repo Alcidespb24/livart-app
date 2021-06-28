@@ -7,7 +7,7 @@ import '../divider_widget.dart';
 
 class CarouselSongWidget extends StatelessWidget {
   final String title;
-  final List<SongModel> songs;
+  final List<AppSongModel> songs;
   final String cta;
   final dynamic onCtaTapped;
 
@@ -79,7 +79,7 @@ class CarouselSongWidget extends StatelessWidget {
 }
 
 class CarouselSongItemWidget extends StatelessWidget {
-  final SongModel song;
+  final AppSongModel song;
 
   CarouselSongItemWidget({this.song});
 

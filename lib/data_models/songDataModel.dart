@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class SongModel {
-  final int uid;
+class AppSongModel {
+  final String uid;
   final String type;
   final String link;
   final String title;
@@ -10,7 +10,7 @@ class SongModel {
   final String artworkRawUrl;
   final String artistName;
 
-  SongModel(
+  AppSongModel(
       {this.uid,
       this.type,
       this.link,
@@ -20,8 +20,8 @@ class SongModel {
       @required this.artistName,
       @required this.album});
 
-  factory SongModel.fromJson(Map<String, dynamic> json) {
-    return SongModel(
+  factory AppSongModel.fromJson(Map<String, dynamic> json) {
+    return AppSongModel(
         uid: json['uid'],
         type: json['type'],
         link: json['link'],

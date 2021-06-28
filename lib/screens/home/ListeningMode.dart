@@ -1,16 +1,15 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/services/ACRCloudService.dart';
+import 'package:flutter_app/services/notifiers/ACRCloudService.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-//import 'package:shazam/song_screen.dart';
 
-class HomePage extends HookWidget {
+class ListeningMode extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final vm = useProvider(homeViewModel);
-    return ProviderListener<HomeViewModel>(
-      provider: homeViewModel,
+    final vm = useProvider(acrCloudChangeNotifier);
+    return ProviderListener<ACRCloudService>(
+      provider: acrCloudChangeNotifier,
       onChange: (context, vm) {
         /*
         if (vm.success) {
@@ -44,9 +43,9 @@ class HomePage extends HookWidget {
                   endRadius: 200.0,
                   animate: vm.isRecognizing,
                   child: GestureDetector(
-                    onTap: () => vm.isRecognizing
+                    /*onTap: ()=> null;() => vm.isRecognizing
                         ? vm.stopRecognizing()
-                        : vm.startRecognizing(),
+                        : vm.startRecognizing(),*/
                     child: Material(
                       shape: CircleBorder(),
                       elevation: 8,

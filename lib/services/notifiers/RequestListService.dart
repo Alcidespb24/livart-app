@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_app/data_models/Request.dart';
+import 'package:flutter_app/global_resources/Constants.dart';
 import 'package:flutter_app/services/firestore/RequestServiceBase.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -12,24 +13,25 @@ enum RequestListFilter {
 
 class RequestListService extends StateNotifier<List<Request>> {
   Timer requestUpdateTimer;
+  Timer requestRecognitionAttemptTimer;
   final RequestServiceBase reqService;
   RequestListService(
       List<Request> userRequestList, RequestServiceBase reqService)
       : this.reqService = reqService,
         super(userRequestList ?? []) {
-    startTimer();
+    startRequestTimeoutTimer();
   }
 
   void add(Request req) {
     if(state.isEmpty && req != null)
-      startTimer();
+      startRequestTimeoutTimer();
 
     state = [...state, req];
   }
 
   void addAll(Iterable<Request> reqs) {
     if(state.isEmpty && reqs.isNotEmpty)
-      startTimer();
+      startRequestTimeoutTimer();
 
     state = [...state, ...reqs];
   }
@@ -43,7 +45,12 @@ class RequestListService extends StateNotifier<List<Request>> {
         .toList();
   }
 
-  void startTimer() {
+  void updateTriesLeft(Request request){
+    if(state.where((listItem) => listItem.requestUuid == request.requestUuid).single.updateTriesLeft())
+      remove(request);
+  }
+
+  void startRequestTimeoutTimer() {
       requestUpdateTimer = new Timer.periodic(Duration(seconds: 1), (timer) {
         if (state.isNotEmpty)
           timerTick();
@@ -54,17 +61,9 @@ class RequestListService extends StateNotifier<List<Request>> {
 
   void timerTick() {
     final prevState = state;
-    var removeList = [];
-    prevState.forEach((element) {
-      if (element.updateTimeRemaining()) {
-        removeList.add(element);
-      }
-    });
+  //  state.forEach((req) {
+    prevState.removeWhere((element) => element.updateTimeRemaining());
 
-    removeList.forEach((element) {
-      prevState.remove(element);
-      remove(element);
-    });
 
     state = prevState;
   }

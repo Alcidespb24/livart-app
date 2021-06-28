@@ -121,7 +121,7 @@ class SearchWidgetState extends State<SearchWidget>
                       snapshot.connectionState != ConnectionState.waiting) {
                     final searchResult = snapshot.data;
 
-                    List<SongModel> songs = searchResult.songs;
+                    List<AppSongModel> songs = searchResult.songs;
                     if (songs.length >= 5) {
                       songs = songs.sublist(0, 5);
                     }

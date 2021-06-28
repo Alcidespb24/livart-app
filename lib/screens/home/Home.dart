@@ -80,7 +80,7 @@ class _State extends State<Home> {
 
   Future<Request> createRequest(
       String songName, String artist, String dj, String album) async {
-    SongModel song = new SongModel(title: songName, artistName: artist, album: album);
+    AppSongModel song = new AppSongModel(title: songName, artistName: artist, album: album);
 
     if (_userService.userExists(creatorUserName)) {
       AppUser creator =
