@@ -94,6 +94,7 @@ class _DjDashboardState extends State<DjDashboard> {
                               uid: 78945,
                               album: 'testAlbum',
                               title: 'testTigle',
+                              // artworkRawUrl: ,
                               artistName: 'testArtist');
                           Request sampleRequest = Request(
                               fromUid: '456',
