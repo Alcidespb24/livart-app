@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/Request.dart';
 import 'package:flutter_app/data_models/songDataModel.dart';
+import 'package:flutter_app/services/notifiers/ACRCloudService.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/services/firestore/UserRequestService.dart';
 import 'package:flutter_app/services/providers/RequestProvider.dart';
@@ -19,13 +20,12 @@ class DjDashboard extends StatefulWidget {
 }
 
 class _DjDashboardState extends State<DjDashboard> {
-  AuthService _authService = AuthService();
-  UserRequestService _userRequestService = UserRequestService();
+  final _authService = AuthService();
+  final _userRequestService = UserRequestService();
 
   @override
   void initState() {
     super.initState();
-    getLocation();
   }
 
   void getLocation() async {

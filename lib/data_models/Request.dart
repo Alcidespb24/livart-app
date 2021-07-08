@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/data_models/songDataModel.dart';
@@ -7,12 +6,12 @@ import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 class Request {
-  final uuid = Uuid();
+  final _uuid = Uuid();
 
   String requestUuid;
   String fromUid;
   String toUid;
-  SongModel song;
+  AppSongModel song;
   Timestamp requestTimeMs;
   String timeRemaining;
   int triesLeft;
@@ -31,7 +30,7 @@ class Request {
     REQUEST_TIME_OUT_MIN.toString();
     timeRemaining = REQUEST_TIME_OUT_MIN.toString();
     triesLeft = 3;
-    requestUuid = uuid.v4();
+    requestUuid = _uuid.v4();
   }
 
   Map<String, dynamic> toMap() {
@@ -51,7 +50,7 @@ class Request {
     requestUuid = map['requestUuid'];
     fromUid = map['fromUid'];
     toUid = map['toUid'];
-    song = SongModel.fromJson(map['song']);
+    song = AppSongModel.fromJson(map['song']);
     requestTimeMs = map['requestTimeMs'];
     triesLeft = map['triesLeft'];
     paymentAmount = map['paymentAmount'];
@@ -60,7 +59,7 @@ class Request {
 
   // returns false if request is still active
   // true if it needs to be removed;
-  bool updateTimeRemaining(){
+  bool updateTimeRemaining() {
     bool needsRemoval = false;
     DateTime currentTime = DateTime.now();
     Duration elapsedTime = currentTime.difference(requestTimeMs.toDate());
@@ -70,11 +69,21 @@ class Request {
         .format(DateTime.fromMillisecondsSinceEpoch(timeLeft.inMilliseconds));
 
     if (timeLeft <= Duration(minutes: 0)) {
-       needsRemoval = true;
+      needsRemoval = true;
     } else {
       timeRemaining = formattedTimeLeft;
     }
 
+    return needsRemoval;
+  }
+
+  bool updateTriesLeft() {
+    bool needsRemoval = false;
+    triesLeft--;
+
+    if (triesLeft == 0) {
+      needsRemoval = true;
+    }
     return needsRemoval;
   }
 }

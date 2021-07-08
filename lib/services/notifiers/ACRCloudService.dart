@@ -1,16 +1,22 @@
+import 'dart:async';
+
 import 'package:acr_cloud_sdk/acr_cloud_sdk.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/data_models/Listening_deezer_song_model.dart';
+import 'package:flutter_app/data_models/Request.dart';
+import 'package:flutter_app/global_resources/Constants.dart';
 import 'package:flutter_app/services/ListeningDeezerService.dart';
+import 'package:flutter_app/services/providers/RequestListProvider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomeViewModel extends ChangeNotifier {
-  HomeViewModel() {
+class ACRCloudService extends ChangeNotifier {
+  ACRCloudService() {
     initAcr();
   }
 
-  final AcrCloudSdk acr = AcrCloudSdk();
-  final songService = SongService();
+  final AcrCloudSdk _acr = AcrCloudSdk();
+  final _songService = SongService();
+  Timer requestRecognitionAttemptTimer;
   DeezerSongModel currentSong;
   bool isRecognizing = false;
   bool success = false;
@@ -18,7 +24,7 @@ class HomeViewModel extends ChangeNotifier {
   //initializes AcrCloud
   Future<void> initAcr() async {
     try {
-      acr
+      _acr
         ..init(
           host: 'identify-eu-west-1.acrcloud.com', // https://www.acrcloud.com/
           accessKey: '6398948e9e5840fbde80acfa0caac7f8',
@@ -32,14 +38,19 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   void searchSong(SongModel song) async {
-    print(song);
+
     final metaData = song?.metadata;
     if (metaData != null && metaData.music.length > 0) {
+      print(song.metadata.music[0].externalMetadata.deezer.track.id);
       final trackId = metaData?.music[0]?.externalMetadata?.deezer?.track?.id;
       try {
-        final res = await songService.getTrack(trackId);
+        final res = await _songService.getTrack(trackId);
         currentSong = res;
-        success = true;
+       /* if (trackId.compareTo(requestToRecognize.song.uid) == 0 &&
+            isRecognizing)
+        {
+          success = true;
+        }*/
         notifyListeners();
       } catch (e) {
         isRecognizing = false;
@@ -55,7 +66,7 @@ class HomeViewModel extends ChangeNotifier {
     success = false;
     notifyListeners();
     try {
-      await acr.start();
+      await _acr.start();
     } catch (e) {
       print(e.toString());
     }
@@ -65,16 +76,24 @@ class HomeViewModel extends ChangeNotifier {
   Future<void> stopRecognizing() async {
     isRecognizing = false;
     success = false;
+    if(requestRecognitionAttemptTimer!= null)
+      requestRecognitionAttemptTimer.cancel();
     notifyListeners();
     try {
-      await acr.stop();
+      await _acr.stop();
     } catch (e) {
       print(e.toString());
     }
   }
+
+  Future<void> startSongRecognitionAttemptTimer() async {
+    requestRecognitionAttemptTimer =
+        Timer.periodic(REQUEST_RECOGNITION_INITIAL_SECS, (timer) async {
+      //await startRecognizing(requestToRecognize);
+    });
+  }
 }
 
-final homeViewModel = ChangeNotifierProvider<HomeViewModel>((ref) {
-  print('>>> In homeViewModel');
-  return HomeViewModel();
+final acrCloudChangeNotifier = ChangeNotifierProvider<ACRCloudService>((ref) {
+  return ACRCloudService();
 });
