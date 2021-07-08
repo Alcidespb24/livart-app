@@ -30,7 +30,7 @@ class RequestListTile extends ConsumerWidget {
         onTap: () async {
           acrCloudProviderNotifier.isRecognizing
           ? await acrCloudProviderNotifier.stopRecognizing()
-          : await acrCloudProviderNotifier.startRecognizing(request);
+          : await acrCloudProviderNotifier.startRecognizing();
         },
         enabled: isTileEnabled,
       ),

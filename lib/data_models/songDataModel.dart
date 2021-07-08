@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/data_models/Listening_deezer_song_model.dart';
 
 class AppSongModel {
   final String uid;
@@ -30,6 +31,15 @@ class AppSongModel {
         artworkRawUrl: json['album'],
         artistName: json['artist'],
         album: json['album']);
+  }
+
+  factory AppSongModel.fromDeezerSongModel(DeezerSongModel deezerSongModel) {
+    return AppSongModel(
+        uid: deezerSongModel.id.toString(),
+        title: deezerSongModel.title,
+        artistName: deezerSongModel.artist.name,
+        album: deezerSongModel.album.title
+    );
   }
 
   Map<String, dynamic> toJson() {

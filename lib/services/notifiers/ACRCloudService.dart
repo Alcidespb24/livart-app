@@ -16,10 +16,8 @@ class ACRCloudService extends ChangeNotifier {
 
   final AcrCloudSdk _acr = AcrCloudSdk();
   final _songService = SongService();
-  final _requestListProvider = requestListProvider.notifier;
   Timer requestRecognitionAttemptTimer;
   DeezerSongModel currentSong;
-  Request requestToRecognize;
   bool isRecognizing = false;
   bool success = false;
 
@@ -48,11 +46,11 @@ class ACRCloudService extends ChangeNotifier {
       try {
         final res = await _songService.getTrack(trackId);
         currentSong = res;
-        if (trackId.compareTo(requestToRecognize.song.uid) == 0 &&
-            isRecognizing) {
+       /* if (trackId.compareTo(requestToRecognize.song.uid) == 0 &&
+            isRecognizing)
+        {
           success = true;
-          await startSongRecognitionAttemptTimer();
-        }
+        }*/
         notifyListeners();
       } catch (e) {
         isRecognizing = false;
@@ -63,8 +61,7 @@ class ACRCloudService extends ChangeNotifier {
   }
 
   //This method when called will start recognizing the current song
-  Future<void> startRecognizing(Request request) async {
-    requestToRecognize = request;
+  Future<void> startRecognizing() async {
     isRecognizing = true;
     success = false;
     notifyListeners();
@@ -91,8 +88,8 @@ class ACRCloudService extends ChangeNotifier {
 
   Future<void> startSongRecognitionAttemptTimer() async {
     requestRecognitionAttemptTimer =
-        Timer.periodic(REQUEST_RECOGNITION_INTERVAL_MIN, (timer) async {
-      await startRecognizing(requestToRecognize);
+        Timer.periodic(REQUEST_RECOGNITION_INITIAL_SECS, (timer) async {
+      //await startRecognizing(requestToRecognize);
     });
   }
 }
