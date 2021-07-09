@@ -8,29 +8,37 @@ import 'package:flutter_app/screens/places_api/location_search.dart';
 import 'djDashboard.dart';
 
 class NavigationBar extends StatefulWidget {
-
   @override
   _NavigationBarState createState() => _NavigationBarState();
 }
 
 class _NavigationBarState extends State<NavigationBar> {
-
   int _selectedIndex = 0;
 
-  void _onItemTap(int index){
+  void _onItemTap(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
-  List <Widget> _navigationItem = [DjHome(), HomePlaces(), DjDashboard(),Code(), DjSettings()];
+  List<Widget> _navigationItem = [
+    DjHome(),
+    HomePlaces(),
+    DjDashboard(),
+    Code(),
+    DjSettings()
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(child: _navigationItem.elementAt(_selectedIndex),),
-        bottomNavigationBar:BottomNavigationBar(
-          backgroundColor: Color(0xff0b090a),
+      body: Container(
+        child: _navigationItem.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: SizedBox(
+        height: 50,
+        child: BottomNavigationBar(
+          backgroundColor: Color(0xff212121),
           currentIndex: _selectedIndex,
           onTap: _onItemTap,
           type: BottomNavigationBarType.fixed,
@@ -75,6 +83,7 @@ class _NavigationBarState extends State<NavigationBar> {
             ),
           ],
         ),
+      ),
     );
   }
 }

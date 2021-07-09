@@ -18,9 +18,9 @@ class _SearchBarState extends State<SearchBar> {
       child: Consumer(
         builder: (context, watch, child) {
           return Container(
-            margin: EdgeInsets.only(right: 25, left: 25),
+            padding: EdgeInsets.only(left: 1),
             height: 32,
-            width: double.infinity,
+            width: 120,
             child: TextField(
               style: TextStyle(
                 fontSize: 13,

@@ -61,13 +61,7 @@ class _DjDashboardState extends State<DjDashboard> {
       builder: (context, watch, err) {
         watch(reqServiceProv);
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.black,
-            title: Text(
-              'LiveArt',
-              style: TextStyle(fontSize: 25),
-            ),
-          ),
+          appBar: GlobalTheme().globalAppBar,
           backgroundColor: Colors.black,
           body: Stack(
             children: <Widget>[
