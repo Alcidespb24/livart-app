@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/Request.dart';
 import 'package:flutter_app/data_models/songDataModel.dart';
@@ -35,50 +36,77 @@ class _DjDashboardState extends State<DjDashboard> {
 
   GlobalTheme globalTheme = GlobalTheme();
 
+  var offlineButton = Container(
+    margin: EdgeInsets.all(20.0),
+    height: 30,
+    width: 180,
+    child: ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        primary: Color(0xff00F0FF).withOpacity(0.9),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14.0),
+        ),
+      ),
+      onPressed: () {},
+      child: Text(
+        'Go Offline',
+        style: TextStyle(color: Colors.black),
+      ),
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
-    var header = Text(
-      'Requests',
-      style: TextStyle(color: Colors.white, fontSize: 35),
-    );
     return Consumer(
       builder: (context, watch, err) {
         watch(reqServiceProv);
         return Scaffold(
-            backgroundColor: Colors.black,
-            body: //getBody(watcher),
-                SafeArea(
-              child: Column(
-                children: [
-                  header,
-                  GlobalTheme.globalDivider,
-                  ElevatedButton(
-                      onPressed: () async {
-                        AppSongModel sampleSong = AppSongModel(
-                            uid: '1110605242',
-                            album: 'testAlbum',
-                            title: 'testTigle',
-                            artistName: 'testArtist');
-                        Request sampleRequest = Request(
-                            fromUid: '456',
-                            toUid: _authService.getCurrentUser().uid,
-                            song: sampleSong,
-                            requestTimeMs: Timestamp.fromDate(DateTime.now()),
-                            paymentAmount: 5);
-                        await _userRequestService.makeRequest(sampleRequest);
-                      },
-                      child: Text('createRequest')),
-                  ElevatedButton(
-                    style: globalTheme.signUpButton,
-                    onPressed: () {},
-                    child: Text(
-                      'Go Offline',
+          appBar: GlobalTheme().globalAppBar,
+          backgroundColor: Colors.black,
+          body: Stack(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: 25),
+                child: Column(
+                  children: [
+                    Text(
+                      'Requests',
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.white,
+                        decorationColor: Colors.grey,
+                      ),
                     ),
-                  ),
-                  RequestListWidget()
-                ],
+                    Divider(
+                      indent: 130,
+                      endIndent: 130,
+                      color: Colors.white,
+                    ),
+                    ElevatedButton(
+                        onPressed: () async {
+                          SongModel sampleSong = SongModel(
+                              uid: 78945,
+                              album: 'testAlbum',
+                              title: 'testTigle',
+                              // artworkRawUrl: ,
+                              artistName: 'testArtist');
+                          Request sampleRequest = Request(
+                              fromUid: '456',
+                              toUid: _authService.getCurrentUser().uid,
+                              song: sampleSong,
+                              requestTimeMs: Timestamp.fromDate(DateTime.now()),
+                              paymentAmount: 5);
+                          await _userRequestService.makeRequest(sampleRequest);
+                        },
+                        child: Text('createRequest')),
+                    RequestListWidget(),
+                    offlineButton,
+                  ],
+                ),
               ),
-            ));
+            ],
+          ),
+        );
       },
     );
   }

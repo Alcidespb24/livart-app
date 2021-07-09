@@ -1,3 +1,4 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/Request.dart';
 import 'package:flutter_app/global_resources/Constants.dart';
@@ -17,23 +18,36 @@ class RequestListTile extends ConsumerWidget {
   Widget build(BuildContext context, watch) {
     final acrCloudProviderNotifier = watch(acrCloudChangeNotifier);
 
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-      margin: EdgeInsets.all(3),
-      child: ListTile(
-        leading: getTextWidget(request.timeRemaining != null ? request.timeRemaining :  REQUEST_TIME_OUT_MIN.toString().substring(2, 7)),
-        title: getTextWidget(request.song.title),
-        subtitle: getTextWidget(request.song.artistName),
-        trailing: getTextWidget(request.paymentAmount),
-        tileColor: Colors.purple,
-        dense: true,
-        onTap: () async {
-          acrCloudProviderNotifier.isRecognizing
-          ? await acrCloudProviderNotifier.stopRecognizing()
-          : await acrCloudProviderNotifier.startRecognizing();
-        },
-        enabled: isTileEnabled,
+class _RequestListTileState extends State<RequestListTile> {
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Container(
+        margin: EdgeInsets.only(top:12 ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Icon(
+              EvaIcons.musicOutline,
+              color: Colors.purpleAccent,
+              size: 27,
+            ),
+            SizedBox(
+              width: 35,
+            ),
+            Column(
+              children: <Widget>[
+                getTextWidget(widget._songTitle),
+                getTextWidget(widget._artistName)
+              ],
+            )
+          ],
+        ),
       ),
+      title: getTextWidget(widget._timeLeft),
+      trailing: getTextWidget(widget._paymentAmount),
+      dense: true,
+      onTap: () {},
     );
   }
   void disableTile() {
@@ -43,7 +57,10 @@ class RequestListTile extends ConsumerWidget {
   Widget getTextWidget(dynamic value) {
     return Text(
       value.toString(),
-      style: TextStyle(color: Colors.white),
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: Colors.white,
+      ),
     );
   }
 }
