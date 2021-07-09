@@ -1,3 +1,4 @@
+import 'package:acr_cloud_sdk/acr_cloud_sdk.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class DjDashboard extends StatefulWidget {
 }
 
 class _DjDashboardState extends State<DjDashboard> {
+
   final _authService = AuthService();
   final _userRequestService = UserRequestService();
 
@@ -84,8 +86,8 @@ class _DjDashboardState extends State<DjDashboard> {
                     ),
                     ElevatedButton(
                         onPressed: () async {
-                          SongModel sampleSong = SongModel(
-                              uid: 78945,
+                          AppSongModel sampleSong = AppSongModel(
+                              uid: 78945.toString(),
                               album: 'testAlbum',
                               title: 'testTigle',
                               // artworkRawUrl: ,
