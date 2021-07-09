@@ -31,6 +31,24 @@ class _HomePlacesState extends State<HomePlaces> {
             children: <Widget>[
               Container(
                 decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[900],
+                        offset: Offset(
+                          1.0,
+                          1.0,
+                        ),
+                        blurRadius: 1.0,
+                      ),
+                      BoxShadow(
+                        color: Colors.grey[900],
+                        offset: Offset(
+                          -1.0,
+                          -1.0,
+                        ),
+                        blurRadius: 1.0,
+                      )
+                    ],
                     borderRadius: BorderRadius.circular(25),
                     color: Color(0xff181717)),
                 padding: EdgeInsets.all(10),
@@ -105,9 +123,83 @@ class _HomePlacesState extends State<HomePlaces> {
                   ],
                 ),
               ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text(
+                        'Hottest Tracks',
+                        style: TextStyle(color: Colors.white, fontSize: 25),
+                      ),
+                      Text(
+                        'Earnings',
+                        style: TextStyle(color: Colors.white, fontSize: 25),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey[900],
+                                offset: Offset(
+                                  1.0,
+                                  1.0,
+                                ),
+                                blurRadius: 1.0,
+                              ),
+                              BoxShadow(
+                                color: Colors.grey[900],
+                                offset: Offset(
+                                  -1.0,
+                                  -1.0,
+                                ),
+                                blurRadius: 1.0,
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(25),
+                            color: Color(0xff181717)),
+                        padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.only(top: 50, left: 0, right: 0),
+                        child: Text('\$500'),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey[900],
+                                offset: Offset(
+                                  1.0,
+                                  1.0,
+                                ),
+                                blurRadius: 1.0,
+                              ),
+                              BoxShadow(
+                                color: Colors.grey[900],
+                                offset: Offset(
+                                  -1.0,
+                                  -1.0,
+                                ),
+                                blurRadius: 1.0,
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(25),
+                            color: Color(0xff181717)),
+                        padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.only(top: 50, left: 0, right: 0),
+                        child: Text('\$500'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ],
           ),
-          Column(),
         ],
       ),
     );
