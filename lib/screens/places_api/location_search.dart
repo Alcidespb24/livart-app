@@ -17,8 +17,8 @@ class _HomePlacesState extends State<HomePlaces> {
       appBar: GlobalTheme().globalAppBar,
       body: Stack(
         children: <Widget>[
-          Center(
-            heightFactor: 4.04,
+          Container(
+            margin: EdgeInsets.only(top: 70, left: 125),
             child: Text(
               'Session Setup',
               style: TextStyle(
@@ -53,8 +53,8 @@ class _HomePlacesState extends State<HomePlaces> {
                       borderRadius: BorderRadius.circular(25),
                       color: Color(0xff181717)),
                   padding: EdgeInsets.only(top: 8, bottom: 5),
-                  margin:
-                      EdgeInsets.only(top: 70, left: 60, right: 60, bottom: 50),
+                  margin: EdgeInsets.only(
+                      top: 100, left: 60, right: 60, bottom: 15),
                   child: Column(
                     children: [
                       SizedBox(
@@ -140,73 +140,153 @@ class _HomePlacesState extends State<HomePlaces> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Text(
-                          'Hottest Tracks',
-                          style: TextStyle(color: Colors.white, fontSize: 25),
-                        ),
-                        Text(
-                          'Earnings',
-                          style: TextStyle(color: Colors.white, fontSize: 25),
-                        ),
-                      ],
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.only(left: 50),
+                            child: Text(
+                              'Earnings',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(right: 25),
+                            child: Text(
+                              'Hottest Tracks',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Container(
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey[900],
-                                  offset: Offset(
-                                    1.0,
-                                    1.0,
+                        Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey[900],
+                                      offset: Offset(
+                                        1.0,
+                                        1.0,
+                                      ),
+                                      blurRadius: 1.0,
+                                    ),
+                                    BoxShadow(
+                                      color: Colors.grey[900],
+                                      offset: Offset(
+                                        -1.0,
+                                        -1.0,
+                                      ),
+                                      blurRadius: 1.0,
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: Color(0xff181717)),
+                              padding: EdgeInsets.all(10),
+                              margin:
+                                  EdgeInsets.only(top: 0, left: 0, right: 5),
+                              width: 140,
+                              height: 140,
+                              child: Center(
+                                child: Text(
+                                  '\$500',
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    color: Colors.green[500],
                                   ),
-                                  blurRadius: 1.0,
                                 ),
-                                BoxShadow(
-                                  color: Colors.grey[900],
-                                  offset: Offset(
-                                    -1.0,
-                                    -1.0,
-                                  ),
-                                  blurRadius: 1.0,
-                                ),
-                              ],
-                              borderRadius: BorderRadius.circular(25),
-                              color: Color(0xff181717)),
-                          padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.only(top: 50, left: 0, right: 0),
-                          child: Text('\$500'),
+                              ),
+                            ),
+                          ],
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey[900],
-                                  offset: Offset(
-                                    1.0,
-                                    1.0,
-                                  ),
-                                  blurRadius: 1.0,
+                        Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey[900],
+                                      offset: Offset(
+                                        1.0,
+                                        1.0,
+                                      ),
+                                      blurRadius: 1.0,
+                                    ),
+                                    BoxShadow(
+                                      color: Colors.grey[900],
+                                      offset: Offset(
+                                        -1.0,
+                                        -1.0,
+                                      ),
+                                      blurRadius: 1.0,
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: Color(0xff181717)),
+                              padding: EdgeInsets.all(8),
+                              margin:
+                                  EdgeInsets.only(top: 0, left: 5, right: 0),
+                              width: 140,
+                              height: 140,
+                              child: Card(
+                                color: Colors.transparent,
+                                child: ListView(
+                                  physics: BouncingScrollPhysics(),
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: false,
+                                  children: <Widget>[
+                                    ListTile(
+                                      minLeadingWidth: 0,
+                                      leading: Icon(
+                                        Icons.plus_one,
+                                        color: Colors.white,
+                                        size: 15,
+                                      ),
+                                      title: Text(
+                                        'Name of Song',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                    ),
+                                    ListTile(
+                                      minLeadingWidth: 0,
+                                      leading: Icon(
+                                        Icons.plus_one,
+                                        color: Colors.white,
+                                        size: 15,
+                                      ),
+                                      title: Text(
+                                        'Name of Song',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                    ),
+                                    ListTile(
+                                      minLeadingWidth: 0,
+                                      leading: Icon(
+                                        Icons.plus_one,
+                                        color: Colors.white,
+                                        size: 15,
+                                      ),
+                                      title: Text(
+                                        'Name of Song',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                BoxShadow(
-                                  color: Colors.grey[900],
-                                  offset: Offset(
-                                    -1.0,
-                                    -1.0,
-                                  ),
-                                  blurRadius: 1.0,
-                                ),
-                              ],
-                              borderRadius: BorderRadius.circular(25),
-                              color: Color(0xff181717)),
-                          padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.only(top: 50, left: 0, right: 0),
-                          child: Text('\$500'),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
