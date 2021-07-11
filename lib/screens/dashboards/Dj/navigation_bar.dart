@@ -34,45 +34,52 @@ class _NavigationBarState extends State<NavigationBar> {
         child: _navigationItem.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: SizedBox(
-        height: 50,
-        child: BottomNavigationBar(
-          backgroundColor: Color(0xff212121),
-          currentIndex: _selectedIndex,
-          onTap: _onItemTap,
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          iconSize: 20,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(
-                EvaIcons.homeOutline,
-                color: Colors.white,
-              ),
-              label: 'Location',
+        height: 51,
+        child: Container(
+          decoration: BoxDecoration(
+            border: BorderDirectional(
+              top: BorderSide(color: Colors.grey[800]),
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.queue_music,
-                color: Colors.white,
+          ),
+          child: BottomNavigationBar(
+            backgroundColor: Colors.grey[900],
+            currentIndex: _selectedIndex,
+            onTap: _onItemTap,
+            type: BottomNavigationBarType.fixed,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            iconSize: 20,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(
+                  EvaIcons.homeOutline,
+                  color: Colors.white,
+                ),
+                label: 'Location',
               ),
-              label: 'Requests',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.qr_code_outlined,
-                color: Colors.white,
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.queue_music,
+                  color: Colors.white,
+                ),
+                label: 'Requests',
               ),
-              label: 'QR',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                EvaIcons.settingsOutline,
-                color: Colors.white,
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.qr_code_outlined,
+                  color: Colors.white,
+                ),
+                label: 'QR',
               ),
-              label: 'Settings',
-            ),
-          ],
+              BottomNavigationBarItem(
+                icon: Icon(
+                  EvaIcons.settingsOutline,
+                  color: Colors.white,
+                ),
+                label: 'Settings',
+              ),
+            ],
+          ),
         ),
       ),
     );
