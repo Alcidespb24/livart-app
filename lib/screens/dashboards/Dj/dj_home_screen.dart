@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/places_api/location_search.dart';
 import 'package:flutter_app/themes/theme.dart';
-import 'package:flutter_app/widgets/search_bar.dart';
 
 class DjHome extends StatefulWidget {
   @override

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/themes/theme.dart';
-import 'package:flutter_app/widgets/SearchListWidget.dart';
 import 'package:flutter_app/widgets/minimum_money.dart';
 import 'package:flutter_app/widgets/search_bar.dart';
 
-class HomePlaces extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _HomePlacesState createState() => _HomePlacesState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomePlacesState extends State<HomePlaces> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +53,7 @@ class _HomePlacesState extends State<HomePlaces> {
                       color: Color(0xff181717)),
                   padding: EdgeInsets.only(top: 8, bottom: 5),
                   margin: EdgeInsets.only(
-                      top: 100, left: 60, right: 60, bottom: 15),
+                      top: 100, left: 60, right: 60, bottom: 30),
                   child: Column(
                     children: [
                       SizedBox(
@@ -200,7 +199,7 @@ class _HomePlacesState extends State<HomePlaces> {
                                   '\$500',
                                   style: TextStyle(
                                     fontSize: 30,
-                                    color: Colors.green[500],
+                                    color: Colors.green[800],
                                   ),
                                 ),
                               ),

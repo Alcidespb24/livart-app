@@ -1,9 +1,8 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/dashboards/Dj/dj_home_screen.dart';
 import 'package:flutter_app/screens/dashboards/Dj/qr_code.dart';
 import 'package:flutter_app/screens/dashboards/Dj/settings.dart';
-import 'package:flutter_app/screens/places_api/location_search.dart';
+import 'package:flutter_app/screens/dashboards/Dj/home_screen.dart';
 
 import 'djDashboard.dart';
 
@@ -22,8 +21,7 @@ class _NavigationBarState extends State<NavigationBar> {
   }
 
   List<Widget> _navigationItem = [
-    DjHome(),
-    HomePlaces(),
+    HomeScreen(),
     DjDashboard(),
     Code(),
     DjSettings()
@@ -49,13 +47,6 @@ class _NavigationBarState extends State<NavigationBar> {
             BottomNavigationBarItem(
               icon: Icon(
                 EvaIcons.homeOutline,
-                color: Colors.white,
-              ),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.location_on_outlined,
                 color: Colors.white,
               ),
               label: 'Location',
