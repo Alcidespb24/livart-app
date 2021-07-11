@@ -18,7 +18,7 @@ class _HomePlacesState extends State<HomePlaces> {
       body: Stack(
         children: <Widget>[
           Center(
-            heightFactor: 4,
+            heightFactor: 4.04,
             child: Text(
               'Session Setup',
               style: TextStyle(
@@ -27,178 +27,193 @@ class _HomePlacesState extends State<HomePlaces> {
               ),
             ),
           ),
-          Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey[900],
-                        offset: Offset(
-                          1.0,
-                          1.0,
+          SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey[900],
+                          offset: Offset(
+                            1.0,
+                            1.0,
+                          ),
+                          blurRadius: 1.0,
                         ),
-                        blurRadius: 1.0,
+                        BoxShadow(
+                          color: Colors.grey[900],
+                          offset: Offset(
+                            -1.0,
+                            -1.0,
+                          ),
+                          blurRadius: 1.0,
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(25),
+                      color: Color(0xff181717)),
+                  padding: EdgeInsets.only(top: 8, bottom: 5),
+                  margin:
+                      EdgeInsets.only(top: 70, left: 60, right: 60, bottom: 50),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 15,
                       ),
-                      BoxShadow(
-                        color: Colors.grey[900],
-                        offset: Offset(
-                          -1.0,
-                          -1.0,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              'Location: ',
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.white),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Flexible(child: SearchBar()),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      // Expanded(
+                      //   child: SearchListWidget(),
+                      // ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              'Minimum Amount Per Song: ',
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.white),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Flexible(
+                            child: MinimumAmount(),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              'Maximum Amount of Request: ',
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.white),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Flexible(
+                            child: MinimumAmount(),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 40),
+                        height: 25,
+                        width: 150,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Start Session',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          style: GlobalTheme().signUpButton,
                         ),
-                        blurRadius: 1.0,
-                      )
+                      ),
                     ],
-                    borderRadius: BorderRadius.circular(25),
-                    color: Color(0xff181717)),
-                padding: EdgeInsets.all(10),
-                margin: EdgeInsets.only(top: 70, left: 60, right: 60),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 15,
-                    ),
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Flexible(
-                          child: Text(
-                            'Location: ',
-                            style: TextStyle(fontSize: 14, color: Colors.white),
-                          ),
+                        Text(
+                          'Hottest Tracks',
+                          style: TextStyle(color: Colors.white, fontSize: 25),
                         ),
-                        Flexible(child: SearchBar()),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    // Expanded(
-                    //   child: SearchListWidget(),
-                    // ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Flexible(
-                          child: Text(
-                            'Minimum Amount Per Song: ',
-                            style: TextStyle(fontSize: 14, color: Colors.white),
-                          ),
-                        ),
-                        Flexible(
-                          child: MinimumAmount(),
+                        Text(
+                          'Earnings',
+                          style: TextStyle(color: Colors.white, fontSize: 25),
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 15,
-                    ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Flexible(
-                          child: Text(
-                            'Maximum Amount of Request: ',
-                            style: TextStyle(fontSize: 14, color: Colors.white),
-                          ),
+                        Container(
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey[900],
+                                  offset: Offset(
+                                    1.0,
+                                    1.0,
+                                  ),
+                                  blurRadius: 1.0,
+                                ),
+                                BoxShadow(
+                                  color: Colors.grey[900],
+                                  offset: Offset(
+                                    -1.0,
+                                    -1.0,
+                                  ),
+                                  blurRadius: 1.0,
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(25),
+                              color: Color(0xff181717)),
+                          padding: EdgeInsets.all(10),
+                          margin: EdgeInsets.only(top: 50, left: 0, right: 0),
+                          child: Text('\$500'),
                         ),
-                        Flexible(
-                          child: MinimumAmount(),
+                        Container(
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey[900],
+                                  offset: Offset(
+                                    1.0,
+                                    1.0,
+                                  ),
+                                  blurRadius: 1.0,
+                                ),
+                                BoxShadow(
+                                  color: Colors.grey[900],
+                                  offset: Offset(
+                                    -1.0,
+                                    -1.0,
+                                  ),
+                                  blurRadius: 1.0,
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(25),
+                              color: Color(0xff181717)),
+                          padding: EdgeInsets.all(10),
+                          margin: EdgeInsets.only(top: 50, left: 0, right: 0),
+                          child: Text('\$500'),
                         ),
                       ],
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 25),
-                      height: 25,
-                      width: 150,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Start Session',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        style: GlobalTheme().signUpButton,
-                      ),
                     ),
                   ],
                 ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Text(
-                        'Hottest Tracks',
-                        style: TextStyle(color: Colors.white, fontSize: 25),
-                      ),
-                      Text(
-                        'Earnings',
-                        style: TextStyle(color: Colors.white, fontSize: 25),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey[900],
-                                offset: Offset(
-                                  1.0,
-                                  1.0,
-                                ),
-                                blurRadius: 1.0,
-                              ),
-                              BoxShadow(
-                                color: Colors.grey[900],
-                                offset: Offset(
-                                  -1.0,
-                                  -1.0,
-                                ),
-                                blurRadius: 1.0,
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(25),
-                            color: Color(0xff181717)),
-                        padding: EdgeInsets.all(10),
-                        margin: EdgeInsets.only(top: 50, left: 0, right: 0),
-                        child: Text('\$500'),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey[900],
-                                offset: Offset(
-                                  1.0,
-                                  1.0,
-                                ),
-                                blurRadius: 1.0,
-                              ),
-                              BoxShadow(
-                                color: Colors.grey[900],
-                                offset: Offset(
-                                  -1.0,
-                                  -1.0,
-                                ),
-                                blurRadius: 1.0,
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(25),
-                            color: Color(0xff181717)),
-                        padding: EdgeInsets.all(10),
-                        margin: EdgeInsets.only(top: 50, left: 0, right: 0),
-                        child: Text('\$500'),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
