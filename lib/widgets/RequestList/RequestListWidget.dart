@@ -8,11 +8,11 @@ class RequestListWidget extends ConsumerWidget {
   Widget build(BuildContext context, watch) {
     final localList = watch(requestListProvider);
     return Expanded(
-      child:
-      ListView.builder(
+      child: ListView.builder(
+        physics: BouncingScrollPhysics(),
         itemCount: localList.length,
         itemBuilder: (context, int index) {
-            return RequestListTile(localList[index]);
+          return RequestListTile(localList[index]);
         },
       ),
     );
