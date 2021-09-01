@@ -137,7 +137,7 @@ class SearchWidgetState extends State<SearchWidget>
 
                     final List<Widget> list = [];
 
-                    if (artists != null && artists.isNotEmpty) {
+                    if (artists.isNotEmpty) {
                       list.add(Padding(
                           padding:
                               EdgeInsets.only(top: 16, left: 20, right: 20),
@@ -187,7 +187,7 @@ class SearchWidgetState extends State<SearchWidget>
                       });
                     }
 
-                    if (songs != null && songs.isNotEmpty) {
+                    if (songs.isNotEmpty) {
                       list.add(Padding(
                         padding: EdgeInsets.only(top: 16),
                       ));

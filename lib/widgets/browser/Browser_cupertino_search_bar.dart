@@ -14,9 +14,7 @@ class IOSSearchBar extends AnimatedWidget {
     this.onClear,
     this.onSubmit,
     this.onUpdate,
-  })  : assert(controller != null),
-        assert(focusNode != null),
-        super(key: key, listenable: animation);
+  })  : super(key: key, listenable: animation);
 
   /// The text editing controller to control the search field
   final TextEditingController controller;

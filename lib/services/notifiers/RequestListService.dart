@@ -23,7 +23,7 @@ class RequestListService extends StateNotifier<List<Request>> {
   }
 
   void add(Request req) {
-    if(state.isEmpty && req != null)
+    if(state.isEmpty)
       startRequestTimeoutTimer();
 
     state = [...state, req];

@@ -39,10 +39,10 @@ class ACRCloudService extends ChangeNotifier {
 
   void searchSong(SongModel song) async {
 
-    final metaData = song?.metadata;
+    final metaData = song.metadata;
     if (metaData != null && metaData.music!.length > 0) {
       print(song.metadata!.music![0].externalMetadata!.deezer!.track!.id);
-      final trackId = metaData?.music![0]?.externalMetadata?.deezer?.track?.id;
+      final trackId = metaData.music![0].externalMetadata?.deezer?.track?.id;
       try {
         final res = await _songService.getTrack(trackId);
         currentSong = res;
