@@ -8,23 +8,23 @@ import 'package:uuid/uuid.dart';
 class Request {
   final _uuid = Uuid();
 
-  String requestUuid;
-  String fromUid;
-  String toUid;
-  AppSongModel song;
-  Timestamp requestTimeMs;
-  String timeRemaining;
-  int triesLeft;
-  int paymentAmount;
-  bool fulfilled;
+  String? requestUuid;
+  String? fromUid;
+  String? toUid;
+  AppSongModel? song;
+  Timestamp? requestTimeMs;
+  String? timeRemaining;
+  int? triesLeft;
+  int? paymentAmount;
+  bool? fulfilled;
 
   Request({
-    @required this.requestUuid,
-    @required this.fromUid,
-    @required this.toUid,
-    @required this.song,
-    @required this.requestTimeMs,
-    @required this.paymentAmount,
+    required this.requestUuid,
+    required this.fromUid,
+    required this.toUid,
+    required this.song,
+    required this.requestTimeMs,
+    required this.paymentAmount,
     this.fulfilled,
   }) {
     REQUEST_TIME_OUT_MIN.toString();
@@ -38,7 +38,7 @@ class Request {
       "requestUuid": this.requestUuid,
       "fromUid": this.fromUid,
       "toUid": this.toUid,
-      "song": this.song.toJson(),
+      "song": this.song!.toJson(),
       "requestTimeMs": this.requestTimeMs,
       "triesLeft": this.triesLeft,
       "paymentAmount": this.paymentAmount,
@@ -62,7 +62,7 @@ class Request {
   bool updateTimeRemaining() {
     bool needsRemoval = false;
     DateTime currentTime = DateTime.now();
-    Duration elapsedTime = currentTime.difference(requestTimeMs.toDate());
+    Duration elapsedTime = currentTime.difference(requestTimeMs!.toDate());
     Duration timeLeft = REQUEST_TIME_OUT_MIN - elapsedTime;
 
     String formattedTimeLeft = DateFormat('mm:ss')

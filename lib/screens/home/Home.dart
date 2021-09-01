@@ -42,7 +42,7 @@ class _State extends State<Home> {
                 hintText: 'Creator\'s User Name',
               ),
               validator: (value) {
-                if (value.isEmpty) {
+                if (value!.isEmpty) {
                   return "invalid username";
                 }
                 return null;
@@ -89,10 +89,10 @@ class _State extends State<Home> {
       });
 
       Request req = new Request(
-          fromUid: _authService.getCurrentUser().uid,
+          fromUid: _authService.getCurrentUser()!.uid,
           toUid: creator.uid,
           song: song,
-          requestTimeMs: Timestamp.fromDate(DateTime.now()));
+          requestTimeMs: Timestamp.fromDate(DateTime.now()), requestUuid: '', paymentAmount: null);
       return req;
     }
   }

@@ -27,35 +27,35 @@ class DeezerSongModel {
     this.type,
   });
 
-  int id;
-  bool readable;
-  String title;
-  String titleShort;
-  String titleVersion;
-  String isrc;
-  String link;
+  int? id;
+  bool? readable;
+  String? title;
+  String? titleShort;
+  String? titleVersion;
+  String? isrc;
+  String? link;
   dynamic share;
   dynamic duration;
   dynamic bpm;
-  String md5Image;
-  Artist artist;
-  Album album;
-  String type;
+  String? md5Image;
+  Artist? artist;
+  Album? album;
+  String? type;
 
   DeezerSongModel copyWith({
-    int id,
-    bool readable,
-    String title,
-    String titleShort,
-    String titleVersion,
-    String isrc,
-    String link,
+    int? id,
+    bool? readable,
+    String? title,
+    String? titleShort,
+    String? titleVersion,
+    String? isrc,
+    String? link,
     dynamic share,
     dynamic bpm,
-    String md5Image,
-    Artist artist,
-    Album album,
-    String type,
+    String? md5Image,
+    Artist? artist,
+    Album? album,
+    String? type,
   }) =>
       DeezerSongModel(
         id: id ?? this.id,
@@ -103,8 +103,8 @@ class DeezerSongModel {
         "duration": duration == null ? null : duration,
         "bpm": bpm == null ? null : bpm,
         "md5_image": md5Image == null ? null : md5Image,
-        "artist": artist == null ? null : artist.toJson(),
-        "album": album == null ? null : album.toJson(),
+        "artist": artist == null ? null : artist!.toJson(),
+        "album": album == null ? null : album!.toJson(),
         "type": type == null ? null : type,
       };
 }
@@ -126,31 +126,31 @@ class Album {
   });
 
   dynamic id;
-  String title;
-  String link;
-  String cover;
-  String coverSmall;
-  String coverMedium;
-  String coverBig;
-  String coverXl;
-  String md5Image;
-  DateTime releaseDate;
-  String tracklist;
-  String type;
+  String? title;
+  String? link;
+  String? cover;
+  String? coverSmall;
+  String? coverMedium;
+  String? coverBig;
+  String? coverXl;
+  String? md5Image;
+  DateTime? releaseDate;
+  String? tracklist;
+  String? type;
 
   Album copyWith({
     dynamic id,
-    String title,
-    String link,
-    String cover,
-    String coverSmall,
-    String coverMedium,
-    String coverBig,
-    String coverXl,
-    String md5Image,
-    DateTime releaseDate,
-    String tracklist,
-    String type,
+    String? title,
+    String? link,
+    String? cover,
+    String? coverSmall,
+    String? coverMedium,
+    String? coverBig,
+    String? coverXl,
+    String? md5Image,
+    DateTime? releaseDate,
+    String? tracklist,
+    String? type,
   }) =>
       Album(
         id: id ?? this.id,
@@ -196,7 +196,7 @@ class Album {
         "md5_image": md5Image == null ? null : md5Image,
         "release_date": releaseDate == null
             ? null
-            : "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
+            : "${releaseDate!.year.toString().padLeft(4, '0')}-${releaseDate!.month.toString().padLeft(2, '0')}-${releaseDate!.day.toString().padLeft(2, '0')}",
         "tracklist": tracklist == null ? null : tracklist,
         "type": type == null ? null : type,
       };
@@ -219,31 +219,31 @@ class Artist {
   });
 
   dynamic id;
-  String name;
-  String link;
-  String share;
-  String picture;
-  String pictureSmall;
-  String pictureMedium;
-  String pictureBig;
-  String pictureXl;
-  bool radio;
-  String tracklist;
-  String type;
+  String? name;
+  String? link;
+  String? share;
+  String? picture;
+  String? pictureSmall;
+  String? pictureMedium;
+  String? pictureBig;
+  String? pictureXl;
+  bool? radio;
+  String? tracklist;
+  String? type;
 
   Artist copyWith({
     dynamic id,
-    String name,
-    String link,
-    String share,
-    String picture,
-    String pictureSmall,
-    String pictureMedium,
-    String pictureBig,
-    String pictureXl,
-    bool radio,
-    String tracklist,
-    String type,
+    String? name,
+    String? link,
+    String? share,
+    String? picture,
+    String? pictureSmall,
+    String? pictureMedium,
+    String? pictureBig,
+    String? pictureXl,
+    bool? radio,
+    String? tracklist,
+    String? type,
   }) =>
       Artist(
         id: id ?? this.id,

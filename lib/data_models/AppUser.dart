@@ -4,29 +4,29 @@ import 'package:flutter_app/data_models/DataModelBase.dart';
 enum Role { CREATOR, USER }
 
 class AppUser implements DataModelBase<AppUser> {
-  String uid;
-  String userName;
-  bool isAnonymous;
-  bool emailVerified;
-  Role userRole;
-  String profilePicture;
-  String userLocation;
+  String? uid;
+  String? userName;
+  bool?/*?*/ isAnonymous;
+  bool? emailVerified;
+  Role?/*?*//*?*/ userRole;
+  String? profilePicture;
+  String? userLocation;
 
   AppUser(
-      {@required this.uid,
-      @required this.userName,
-      @required this.userRole,
+      {/*required*/ /*required*/ /*required*/ /*required*/ required this.uid,
+      required this.userName,
+      /*required*/ /*required*/ required this.userRole,
       this.isAnonymous,
       this.emailVerified});
 
-  AppUser.fromMap(Map<String, dynamic> map) {
-    int role = map["userRole"];
+  AppUser.fromMap(Map<String, dynamic>? map) {
+    int role = map?["userRole"];
     Role finalRole = Role.values[role];
-    uid = map["uid"];
-    userName = map["userName"];
+    uid = map?["uid"];
+    userName = map?["userName"];
     userRole = finalRole;
-    userLocation = map["userLocation"];
-    emailVerified = map["emailVerified"];
+    userLocation = map?["userLocation"];
+    emailVerified = map?["emailVerified"];
   }
 
   // Function Used to translate user data to a map
@@ -36,7 +36,7 @@ class AppUser implements DataModelBase<AppUser> {
     Map<String, dynamic> userDataMap = {
       "uid": this.uid,
       "userName": this.userName,
-      "userRole": this.userRole.index,
+      "userRole": this.userRole!.index,
       "userLocation": this.userLocation,
       "emailVerified": this.emailVerified
     };

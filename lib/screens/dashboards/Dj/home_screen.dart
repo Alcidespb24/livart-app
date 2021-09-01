@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/services/place_service.dart';
 import 'package:flutter_app/themes/theme.dart';
+import 'package:flutter_app/widgets/SearchListWidget.dart';
 import 'package:flutter_app/widgets/minimum_money.dart';
 import 'package:flutter_app/widgets/search_bar.dart';
 
@@ -33,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey[900],
+                          color: Colors.grey[900]!,
                           offset: Offset(
                             1.0,
                             1.0,
@@ -41,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           blurRadius: 1.0,
                         ),
                         BoxShadow(
-                          color: Colors.grey[900],
+                          color: Colors.grey[900]!,
                           offset: Offset(
                             -1.0,
                             -1.0,
@@ -171,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: BoxDecoration(
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.grey[900],
+                                      color: Colors.grey[900]!,
                                       offset: Offset(
                                         1.0,
                                         1.0,
@@ -179,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       blurRadius: 1.0,
                                     ),
                                     BoxShadow(
-                                      color: Colors.grey[900],
+                                      color: Colors.grey[900]!,
                                       offset: Offset(
                                         -1.0,
                                         -1.0,
@@ -212,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: BoxDecoration(
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.grey[900],
+                                      color: Colors.grey[900]!,
                                       offset: Offset(
                                         1.0,
                                         1.0,
@@ -220,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       blurRadius: 1.0,
                                     ),
                                     BoxShadow(
-                                      color: Colors.grey[900],
+                                      color: Colors.grey[900]!,
                                       offset: Offset(
                                         -1.0,
                                         -1.0,

@@ -5,14 +5,14 @@ import 'package:flutter_app/data_models/Request.dart';
 //TODO: Make the tile look better jesus im bad at making things look good
 
 class RequestListTile extends StatefulWidget {
-  String _songTitle;
-  String _artistName;
-  int _paymentAmount;
-  String _timeLeft;
+  String? _songTitle;
+  String? _artistName;
+  int? _paymentAmount;
+  String? _timeLeft;
 
   RequestListTile(Request request) {
-    _songTitle = request.song.title;
-    _artistName = request.song.artistName;
+    _songTitle = request.song!.title;
+    _artistName = request.song!.artistName;
     _paymentAmount = request.paymentAmount;
     _timeLeft = request.timeRemaining;
   }

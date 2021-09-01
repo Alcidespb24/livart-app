@@ -10,7 +10,7 @@ import 'package:flutter_app/widgets/FormFields/UserField.dart';
 class SignUpWidget extends StatefulWidget {
   SignUpWidget({this.userRole});
 
-  final Role userRole;
+  final Role? userRole;
 
 
 

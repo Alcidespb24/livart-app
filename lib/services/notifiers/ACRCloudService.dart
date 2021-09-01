@@ -16,8 +16,8 @@ class ACRCloudService extends ChangeNotifier {
 
   final AcrCloudSdk _acr = AcrCloudSdk();
   final _songService = SongService();
-  Timer requestRecognitionAttemptTimer;
-  DeezerSongModel currentSong;
+  Timer? requestRecognitionAttemptTimer;
+  late DeezerSongModel currentSong;
   bool isRecognizing = false;
   bool success = false;
 
@@ -40,9 +40,9 @@ class ACRCloudService extends ChangeNotifier {
   void searchSong(SongModel song) async {
 
     final metaData = song?.metadata;
-    if (metaData != null && metaData.music.length > 0) {
-      print(song.metadata.music[0].externalMetadata.deezer.track.id);
-      final trackId = metaData?.music[0]?.externalMetadata?.deezer?.track?.id;
+    if (metaData != null && metaData.music!.length > 0) {
+      print(song.metadata!.music![0].externalMetadata!.deezer!.track!.id);
+      final trackId = metaData?.music![0]?.externalMetadata?.deezer?.track?.id;
       try {
         final res = await _songService.getTrack(trackId);
         currentSong = res;
@@ -77,7 +77,7 @@ class ACRCloudService extends ChangeNotifier {
     isRecognizing = false;
     success = false;
     if(requestRecognitionAttemptTimer!= null)
-      requestRecognitionAttemptTimer.cancel();
+      requestRecognitionAttemptTimer!.cancel();
     notifyListeners();
     try {
       await _acr.stop();

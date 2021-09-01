@@ -23,11 +23,11 @@ class SearchWidgetState extends State<SearchWidget>
     with SingleTickerProviderStateMixin {
   TextEditingController _searchTextController = TextEditingController();
   FocusNode _searchFocusNode = FocusNode();
-  Animation _animation;
-  AnimationController _animationController;
-  Future<Search> _search;
+  late Animation _animation;
+  late AnimationController _animationController;
+  Future<Search>? _search;
   AppleMusicStore musicStore = AppleMusicStore.instance;
-  String _searchTextInProgress;
+  String? _searchTextInProgress;
 
   @override
   initState() {
@@ -102,7 +102,7 @@ class SearchWidgetState extends State<SearchWidget>
           middle: IOSSearchBar(
         controller: _searchTextController,
         focusNode: _searchFocusNode,
-        animation: _animation,
+        animation: _animation as Animation<double>,
         onCancel: _cancelSearch,
         onClear: _clearSearch,
       )),
@@ -119,9 +119,9 @@ class SearchWidgetState extends State<SearchWidget>
                 builder: (context, snapshot) {
                   if (snapshot.hasData &&
                       snapshot.connectionState != ConnectionState.waiting) {
-                    final searchResult = snapshot.data;
+                    final searchResult = snapshot.data!;
 
-                    List<AppSongModel> songs = searchResult.songs;
+                    List<AppSongModel> songs = searchResult.songs!;
                     if (songs.length >= 5) {
                       songs = songs.sublist(0, 5);
                     }
@@ -130,7 +130,7 @@ class SearchWidgetState extends State<SearchWidget>
                       songs = songs.sublist(0, songs.length);
                     }
 
-                    List<Artist> artists = searchResult.artists;
+                    List<Artist> artists = searchResult.artists!;
                     if (artists.length > 3) {
                       artists = artists.sublist(0, 3);
                     }
@@ -143,7 +143,7 @@ class SearchWidgetState extends State<SearchWidget>
                               EdgeInsets.only(top: 16, left: 20, right: 20),
                           child: Text(
                             'Artists',
-                            style: Theme.of(context).textTheme.title,
+                            style: Theme.of(context).textTheme.headline6,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           )));
@@ -171,8 +171,8 @@ class SearchWidgetState extends State<SearchWidget>
                                                       artistName: a.name)));
                                     },
                                     child: Text(
-                                      a.name,
-                                      style: Theme.of(context).textTheme.body1,
+                                      a.name!,
+                                      style: Theme.of(context).textTheme.bodyText2,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1,
                                     )),

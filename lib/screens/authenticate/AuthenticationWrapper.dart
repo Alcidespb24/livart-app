@@ -11,10 +11,10 @@ class AuthenticationWrapper extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final _authService = AuthService();
-    AppUser localUser;
+    AppUser? localUser;
 
-    return FutureBuilder<AppUser>(
-      future: watch(authStateChangeProvider).when(
+    return FutureBuilder<AppUser?>(
+      future: watch(authStateChangeProvider!).when(
           data: (userData) async {
             if (userData != null) {
               localUser = await _authService.getFirestoreUser(userData);
@@ -26,9 +26,9 @@ class AuthenticationWrapper extends ConsumerWidget {
           error: (err, stack) {
             return null;
           }),
-      builder: (context, AsyncSnapshot<AppUser> snapshot) {
+      builder: (context, AsyncSnapshot<AppUser?> snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data.userRole == Role.CREATOR) return NavigationBar();
+          if (snapshot.data!.userRole == Role.CREATOR) return NavigationBar();
 
           return UserDashboard();
         }

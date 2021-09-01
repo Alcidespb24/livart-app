@@ -33,7 +33,7 @@ class _DjDashboardState extends State<DjDashboard> {
   void getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    Position lastLocation = await Geolocator.getLastKnownPosition();
+    Position? lastLocation = await Geolocator.getLastKnownPosition();
   }
 
   GlobalTheme globalTheme = GlobalTheme();
@@ -61,7 +61,7 @@ class _DjDashboardState extends State<DjDashboard> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, watch, err) {
-        watch(reqServiceProv);
+        watch(reqServiceProv!);
         return Scaffold(
           appBar: GlobalTheme().globalAppBar,
           backgroundColor: Colors.black,
@@ -94,10 +94,10 @@ class _DjDashboardState extends State<DjDashboard> {
                               artistName: 'testArtist');
                           Request sampleRequest = Request(
                               fromUid: '456',
-                              toUid: _authService.getCurrentUser().uid,
+                              toUid: _authService.getCurrentUser()!.uid,
                               song: sampleSong,
                               requestTimeMs: Timestamp.fromDate(DateTime.now()),
-                              paymentAmount: 5);
+                              paymentAmount: 5, requestUuid: '');
                           await _userRequestService.makeRequest(sampleRequest);
                         },
                         child: Text('createRequest')),

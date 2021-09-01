@@ -28,7 +28,7 @@ class _SearchBarState extends State<SearchBar> {
                 decorationColor: Colors.white.withOpacity(0),
               ),
               onChanged: (value) => context
-                  .read(placeListServiceProvider.notifier)
+                  .read(placeListServiceProvider!.notifier)
                   .searchPlace(value),
               decoration: InputDecoration(
                 border: InputBorder.none,

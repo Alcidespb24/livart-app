@@ -11,7 +11,7 @@ import 'package:flutter_app/widgets/FormFields/PasswordField.dart';
 class LogInWidget extends StatefulWidget {
   LogInWidget({this.userRole});
 
-  final Role userRole;
+  final Role? userRole;
 
   @override
   _LogInWidgetState createState() => _LogInWidgetState();

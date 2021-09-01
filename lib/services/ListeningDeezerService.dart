@@ -4,7 +4,7 @@ import '../data_models/Listening_deezer_song_model.dart';
 
 //This is to get the song info using the deezer API
 class SongService {
-  Dio _dio;
+  late Dio _dio;
 
   SongService() {
     BaseOptions options = BaseOptions(

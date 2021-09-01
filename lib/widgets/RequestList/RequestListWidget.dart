@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class RequestListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, watch) {
-    final localList = watch(requestListProvider);
+    final localList = watch(requestListProvider!);
     return Expanded(
       child: ListView.builder(
         physics: BouncingScrollPhysics(),

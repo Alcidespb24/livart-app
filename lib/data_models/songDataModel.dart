@@ -2,24 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/data_models/Listening_deezer_song_model.dart';
 
 class AppSongModel {
-  final String uid;
-  final String type;
-  final String link;
-  final String title;
-  final String album; //TODO: Could be a unique Id from Deezer
-  final String previewUrl;
-  final String artworkRawUrl;
-  final String artistName;
+  final String? uid;
+  final String? type;
+  final String? link;
+  final String? title;
+  final String? album; //TODO: Could be a unique Id from Deezer
+  final String? previewUrl;
+  final String? artworkRawUrl;
+  final String? artistName;
 
   AppSongModel(
       {this.uid,
       this.type,
       this.link,
-      @required this.title,
+      required this.title,
       this.previewUrl,
       this.artworkRawUrl,
-      @required this.artistName,
-      @required this.album});
+      required this.artistName,
+      required this.album});
 
   factory AppSongModel.fromJson(Map<String, dynamic> json) {
     return AppSongModel(
@@ -37,8 +37,8 @@ class AppSongModel {
     return AppSongModel(
         uid: deezerSongModel.id.toString(),
         title: deezerSongModel.title,
-        artistName: deezerSongModel.artist.name,
-        album: deezerSongModel.album.title
+        artistName: deezerSongModel.artist!.name,
+        album: deezerSongModel.album!.title
     );
   }
 
@@ -57,6 +57,6 @@ class AppSongModel {
   }
 
   String artworkUrl(int size) {
-    return this.artworkRawUrl.replaceAll('{w}x{h}', "${size}x$size");
+    return this.artworkRawUrl!.replaceAll('{w}x{h}', "${size}x$size");
   }
 }

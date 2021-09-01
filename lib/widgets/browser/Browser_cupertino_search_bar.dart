@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 /// Creates the Cupertino-style search bar. See the README for an example on how to use.
 class IOSSearchBar extends AnimatedWidget {
   IOSSearchBar({
-    Key key,
-    @required Animation<double> animation,
-    @required this.controller,
-    @required this.focusNode,
+    Key? key,
+    required Animation<double> animation,
+    required this.controller,
+    required this.focusNode,
     this.onCancel,
     this.onClear,
     this.onSubmit,
@@ -25,16 +25,16 @@ class IOSSearchBar extends AnimatedWidget {
   final FocusNode focusNode;
 
   /// The function to call when the "Cancel" button is pressed
-  final Function onCancel;
+  final Function? onCancel;
 
   /// The function to call when the "Clear" button is pressed
-  final Function onClear;
+  final Function? onClear;
 
   /// The function to call when the text is updated
-  final Function(String) onUpdate;
+  final Function(String)? onUpdate;
 
   /// The function to call when the text field is submitted
-  final Function(String) onSubmit;
+  final Function(String)? onSubmit;
 
   static final _opacityTween = new Tween(begin: 1.0, end: 0.0);
   static final _paddingTween = new Tween(begin: 0.0, end: 60.0);
@@ -42,7 +42,7 @@ class IOSSearchBar extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Animation<double> animation = listenable;
+    final Animation<double> animation = listenable as Animation<double>;
     return new Padding(
       padding: const EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 0.0),
       child: new Row(
@@ -120,7 +120,7 @@ class IOSSearchBar extends AnimatedWidget {
                           if (animation.isDismissed)
                             return;
                           else
-                            onClear();
+                            onClear!();
                         },
                       ),
                     ],
@@ -133,7 +133,7 @@ class IOSSearchBar extends AnimatedWidget {
             width: _paddingTween.evaluate(animation),
             child: new CupertinoButton(
               padding: const EdgeInsets.only(left: 8.0),
-              onPressed: onCancel,
+              onPressed: onCancel as void Function()?,
               child: new Text(
                 'Cancel',
                 softWrap: false,

@@ -7,8 +7,8 @@ import '../../services/DeezedSearch_musicservice.dart';
 import 'Browser_carousel_song_widget.dart';
 
 class ArtistWidget extends StatefulWidget {
-  final int artistId;
-  final String artistName;
+  final int? artistId;
+  final String? artistName;
 
   ArtistWidget({this.artistId, this.artistName});
 
@@ -19,7 +19,7 @@ class ArtistWidget extends StatefulWidget {
 }
 
 class ArtistWidgetState extends State<ArtistWidget> {
-  Future<Artist> _artist;
+  Future<Artist>? _artist;
   AppleMusicStore _musicStore = AppleMusicStore.instance;
 
   @override
@@ -32,13 +32,13 @@ class ArtistWidgetState extends State<ArtistWidget> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          middle: Text(widget.artistName),
+          middle: Text(widget.artistName!),
         ),
         child: FutureBuilder<Artist>(
             future: _artist,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                final artist = snapshot.data;
+                final artist = snapshot.data!;
                 final List<Widget> list = [];
 
                 /*
@@ -59,7 +59,7 @@ class ArtistWidgetState extends State<ArtistWidget> {
 
                  */
 
-                if (artist.songs.length > 0) {
+                if (artist.songs!.length > 0) {
                   list.add(Padding(
                     padding: EdgeInsets.only(top: 16),
                   ));

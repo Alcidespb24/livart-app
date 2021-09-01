@@ -12,10 +12,10 @@ import 'package:flutter_app/services/firestore/RequestServiceBase.dart';
 
 class UserRequestService extends RequestServiceBase{
   static AuthService _authService = AuthService();
-  AppUser currentUser;
+  AppUser? currentUser;
 
   static final CollectionReference requestCollection = FirebaseFirestore.instance.collection('Requests');
-  CollectionReference currentUserRequestCollection;
+  CollectionReference? currentUserRequestCollection;
 
   UserRequestService(){
     currentUser = _authService.getCurrentUser();
@@ -41,15 +41,15 @@ class UserRequestService extends RequestServiceBase{
 
 
 
-  Stream<QuerySnapshot> get requestList {
+  Stream<QuerySnapshot>? get requestList {
     return null;//currentCreatorRequestCollection.snapshots();
   }
 
-  Future get usersRequests{
+  Future get usersRequests async {
 
   }
 
   @override
-  Future<void> deleteRequest(Request request) {
+  Future<void> deleteRequest(Request request) async {
   }
 }

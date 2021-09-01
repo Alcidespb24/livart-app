@@ -6,7 +6,7 @@ typedef void onChangedCallback(String pwd);
 class PasswordField extends StatelessWidget {
   final onChangedCallback onChangedPassword;
 
-  PasswordField({@required this.onChangedPassword});
+  PasswordField({required this.onChangedPassword});
 
   Widget build(BuildContext context) {
     return TextFormField(
@@ -16,7 +16,7 @@ class PasswordField extends StatelessWidget {
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
-        if (!PasswordValidator.validPassword(value)) {
+        if (!PasswordValidator.validPassword(value!)) {
           return 'Please enter a valid password';
         }
         return null;

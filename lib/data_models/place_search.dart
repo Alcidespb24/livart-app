@@ -1,6 +1,6 @@
 class PlaceSearch {
-  final String name;
-  final String placeId;
+  final String/*?*/ name;
+  final String? placeId;
 
   PlaceSearch(this.name, this.placeId);
 

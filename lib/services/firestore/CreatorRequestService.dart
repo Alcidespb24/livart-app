@@ -8,15 +8,15 @@ import 'package:flutter_app/services/firestore/RequestServiceBase.dart';
 
 class CreatorRequestService extends RequestServiceBase {
   final AuthService _authService = AuthService();
-  static AppUser creator;
-  CollectionReference currentCreatorRequestCollection;
+  static AppUser? creator;
+  late CollectionReference currentCreatorRequestCollection;
 
   CreatorRequestService() {
     creator = _authService.getCurrentUser();
     currentCreatorRequestCollection = FirebaseFirestore
         .instance
         .collection('Requests')
-        .doc(creator.uid)
+        .doc(creator!.uid)
         .collection('creatorRequests');
   }
 

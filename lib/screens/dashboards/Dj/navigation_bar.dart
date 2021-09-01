@@ -38,7 +38,7 @@ class _NavigationBarState extends State<NavigationBar> {
         child: Container(
           decoration: BoxDecoration(
             border: BorderDirectional(
-              top: BorderSide(color: Colors.grey[800]),
+              top: BorderSide(color: Colors.grey[800]!),
             ),
           ),
           child: BottomNavigationBar(

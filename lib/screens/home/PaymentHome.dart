@@ -3,7 +3,7 @@ import 'package:flutter_app/services/payment-service.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   HomePageState createState() => HomePageState();
@@ -30,7 +30,7 @@ class HomePageState extends State<HomePage> {
         await StripeService.payWithNewCard(amount: '1500', currency: 'USD');
     await dialog.hide();
     Scaffold.of(context).showSnackBar(SnackBar(
-      content: Text(response.message),
+      content: Text(response.message!),
       duration:
           new Duration(milliseconds: response.success == true ? 1200 : 3000),
     ));
@@ -53,8 +53,8 @@ class HomePageState extends State<HomePage> {
         padding: EdgeInsets.all(20),
         child: ListView.separated(
             itemBuilder: (context, index) {
-              Icon icon;
-              Text text;
+              Icon? icon;
+              Text? text;
 
               switch (index) {
                 case 0:
