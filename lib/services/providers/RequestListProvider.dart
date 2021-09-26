@@ -7,14 +7,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'RequestProvider.dart';
 
-final requestListProvider =
+final AutoDisposeStateNotifierProvider<RequestListService, List<Request>>? requestListProvider =
 StateNotifierProvider.autoDispose<RequestListService, List<Request>>((ref) {
 
 
-  final currentRequestService = ref.watch(reqServiceProv);
+  final currentRequestService = ref.watch(reqServiceProv!);
 
   //Listen to the stream itself instead of the value held by the provider
-  final firestoreListStream = ref.watch(reqStreamProvider.stream);
+  final firestoreListStream = ref.watch(reqStreamProvider!.stream);
 
   //Create the instance StateNotifier
   final requestListProvider =
@@ -27,7 +27,7 @@ StateNotifierProvider.autoDispose<RequestListService, List<Request>>((ref) {
     List<Request> localReqList = [];
 
     for (int i = 0; i < value.docChanges.length; i++) {
-      var currentQuery = value.docChanges[i].doc.data();
+      var currentQuery = value.docChanges[i].doc.data()!;
       //current item in list
       Request item = Request.fromMap(currentQuery);
 
@@ -43,22 +43,22 @@ StateNotifierProvider.autoDispose<RequestListService, List<Request>>((ref) {
   return requestListProvider;
 });
 
-final requestListFilter =
+final AutoDisposeStateProvider<RequestListFilter>? requestListFilter =
 StateProvider.autoDispose((_) => RequestListFilter.TIME_REMAINING);
 
-final filteredRequestsProvider = Provider.autoDispose<List<Request>>((ref) {
-  final filter = ref.watch(requestListFilter);
-  final reqList = ref.watch(requestListProvider);
+final AutoDisposeProvider<List<Request>>? filteredRequestsProvider = Provider.autoDispose<List<Request>>((ref) {
+  final filter = ref.watch(requestListFilter!);
+  final reqList = ref.watch(requestListProvider!);
 
   switch (filter.state) {
     case RequestListFilter.AMOUNT_PAID:
       reqList.sort((a, b) {
-        return a.paymentAmount.compareTo(b.paymentAmount);
+        return a.paymentAmount!.compareTo(b.paymentAmount!);
       });
       return reqList;
     case RequestListFilter.ARTIST:
       reqList.sort((a, b) {
-        return a.song.artistName.compareTo(b.song.artistName);
+        return a.song!.artistName!.compareTo(b.song!.artistName!);
       });
       return reqList;
     case RequestListFilter.TIME_REMAINING:

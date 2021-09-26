@@ -3,11 +3,11 @@ import 'package:flutter_app/themes/theme.dart';
 // ignore: camel_case_types
 typedef void onPressedCallback();
 class MenuItems extends StatefulWidget {
-  final String title;
-  final IconData icon;
+  final String? title;
+  final IconData? icon;
   final onPressedCallback onPressedItem;
 
-  MenuItems({this.icon, this.title, @required this.onPressedItem});
+  MenuItems({this.icon, this.title, required this.onPressedItem});
 
   @override
   _MenuItemsState createState() => _MenuItemsState();
@@ -24,7 +24,7 @@ class _MenuItemsState extends State<MenuItems> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [TextButton.icon(
             label: Text(
-              widget.title,
+              widget.title!,
               style: TextStyle(color: GlobalTheme.miscellaneous),
             ),
             icon: Icon(

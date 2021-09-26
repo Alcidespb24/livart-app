@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
@@ -5,8 +6,8 @@ import 'package:http/http.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
 class StripeTransactionResponse {
-  String message;
-  bool success;
+  String? message;
+  bool? success;
 
   StripeTransactionResponse({this.message, this.success});
 }
@@ -31,12 +32,12 @@ class StripeService {
   }
 
   static Future<StripeTransactionResponse> payWithNewCard(
-      {String amount, String currency}) async {
+      {String? amount, String? currency}) async {
     try {
       var paymentMethod = await StripePayment.paymentRequestWithCardForm(
           CardFormPaymentRequest());
       var paymentIntent =
-          await StripeService.createPaymentIntent(amount, currency);
+          await (StripeService.createPaymentIntent(amount, currency) as FutureOr<Map<String, dynamic>>);
       //Add if statement here to check if the song has been played
       var response = await StripePayment.confirmPaymentIntent(PaymentIntent(
           clientSecret: paymentIntent['client_secret'],
@@ -65,8 +66,8 @@ class StripeService {
     return new StripeTransactionResponse(message: message, success: false);
   }
 
-  static Future<Map<String, dynamic>> createPaymentIntent(
-      String amount, String currency) async {
+  static Future<Map<String, dynamic>?> createPaymentIntent(
+      String? amount, String? currency) async {
     try {
       Map<String, dynamic> body = {
         'amount': amount,

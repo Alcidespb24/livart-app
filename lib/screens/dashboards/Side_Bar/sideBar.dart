@@ -17,10 +17,10 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
   final AuthService _authService = AuthService();
   final bool isSideBarOpened = true;
   String username = 'username';
-  StreamController<bool> isSideBarOpenedStreamController;
-  Stream<bool> isSideBarOpenedStream;
-  StreamSink<bool> isSideBarOpenedSink;
-  AnimationController _animationController;
+  late StreamController<bool> isSideBarOpenedStreamController;
+  Stream<bool>? isSideBarOpenedStream;
+  late StreamSink<bool> isSideBarOpenedSink;
+  late AnimationController _animationController;
   final _animationDuration = Duration(milliseconds: 500);
 
   @override
@@ -66,8 +66,8 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
             duration: _animationDuration,
             top: 0,
             bottom: 0,
-            left: isSideBarOpenedAsync.data ? 0 : -screenWidth,
-            right: isSideBarOpenedAsync.data ? 0 : screenWidth - 39,
+            left: isSideBarOpenedAsync.data! ? 0 : -screenWidth,
+            right: isSideBarOpenedAsync.data! ? 0 : screenWidth - 39,
             child: Row(
               children: <Widget>[
                 Expanded(

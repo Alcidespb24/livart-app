@@ -1,22 +1,25 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/Request.dart';
-import 'package:flutter_app/global_resources/Constants.dart';
-import 'package:flutter_app/services/notifiers/ACRCloudService.dart';
-import 'package:flutter_app/services/providers/RequestListProvider.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 //TODO: Make the tile look better jesus im bad at making things look good
 
-class RequestListTile extends ConsumerWidget {
-  final Request request;
-  bool isTileEnabled = true;
+class RequestListTile extends StatefulWidget {
+  String? _songTitle;
+  String? _artistName;
+  int? _paymentAmount;
+  String? _timeLeft;
 
-  RequestListTile({this.request});
+  RequestListTile(Request request) {
+    _songTitle = request.song!.title;
+    _artistName = request.song!.artistName;
+    _paymentAmount = request.paymentAmount;
+    _timeLeft = request.timeRemaining;
+  }
 
   @override
-  Widget build(BuildContext context, watch) {
-    final acrCloudProviderNotifier = watch(acrCloudChangeNotifier);
+  _RequestListTileState createState() => _RequestListTileState();
+}
 
 class _RequestListTileState extends State<RequestListTile> {
   @override
@@ -49,9 +52,6 @@ class _RequestListTileState extends State<RequestListTile> {
       dense: true,
       onTap: () {},
     );
-  }
-  void disableTile() {
-    isTileEnabled = false;
   }
 
   Widget getTextWidget(dynamic value) {

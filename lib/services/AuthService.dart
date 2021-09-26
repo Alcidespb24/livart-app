@@ -14,36 +14,36 @@ class AuthService extends Service {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirestoreUserService _userDataBaseService = FirestoreUserService();
-  static AppUser _currentUser;
+  static AppUser? _currentUser;
 
   AuthService() {
     setState(NotifierState.INITIAL);
   }
 
   // Authentication change for user stream
-  Stream<User> get user {
+  Stream<User?> get user {
     return _auth.authStateChanges();
   }
 
-  Future<AppUser> getFirestoreUser(User user) async {
+  Future<AppUser?> getFirestoreUser(User user) async {
     _currentUser = await _userDataBaseService.getUserFromUid(user.uid);
     return _currentUser;
   }
 
   // Create account with email and password
   Future createAccountEmailPwd(
-      String email, String userName, String pwd, Role userRole) async {
+      String email, String userName, String pwd, Role? userRole) async {
     try {
       setState(NotifierState.LOADING);
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: pwd);
 
-      if (!userCredential.user.emailVerified) {
-        await userCredential.user.sendEmailVerification();
+      if (!userCredential.user!.emailVerified) {
+        await userCredential.user!.sendEmailVerification();
       }
 
       _currentUser = AppUser(
-        uid: userCredential.user.uid,
+        uid: userCredential.user!.uid,
         userName: userName,
         userRole: userRole,
       );
@@ -72,16 +72,16 @@ class AuthService extends Service {
     }
   }
 
-  bool isEmailVerified() {
-    _currentUser.emailVerified = _auth.currentUser.emailVerified;
-    return _currentUser.emailVerified;
+  bool? isEmailVerified() {
+    _currentUser!.emailVerified = _auth.currentUser!.emailVerified;
+    return _currentUser!.emailVerified;
   }
 
 
-  Future<void> signInWithGoogle(Role userRole) async {
+  Future<void> signInWithGoogle(Role? userRole) async {
     try {
       final GoogleSignInAccount googleSignInAccount =
-          await _googleSignIn.signIn();
+          await (_googleSignIn.signIn() as FutureOr<GoogleSignInAccount>);
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
 
@@ -106,7 +106,7 @@ class AuthService extends Service {
     }
   }
 
-  AppUser getCurrentUser() {
+  AppUser? getCurrentUser() {
     return _currentUser;
   }
 

@@ -42,7 +42,7 @@ class _State extends State<Home> {
                 hintText: 'Creator\'s User Name',
               ),
               validator: (value) {
-                if (value.isEmpty) {
+                if (value!.isEmpty) {
                   return "invalid username";
                 }
                 return null;
@@ -82,18 +82,18 @@ class _State extends State<Home> {
       String songName, String artist, String dj, String album) async {
     AppSongModel song = new AppSongModel(title: songName, artistName: artist, album: album);
 
-    if (_userService.userExists(creatorUserName)) {
       AppUser creator =
           await _userService.getUserFromUserName(creatorUserName).then((value) {
         return value;
       });
 
       Request req = new Request(
-          fromUid: _authService.getCurrentUser().uid,
+          fromUid: _authService.getCurrentUser()!.uid,
           toUid: creator.uid,
           song: song,
-          requestTimeMs: Timestamp.fromDate(DateTime.now()));
+          requestTimeMs: Timestamp.fromDate(DateTime.now()), requestUuid: '', paymentAmount: null);
       return req;
-    }
+
+
   }
 }

@@ -33,7 +33,7 @@ class AppleMusicStore {
     return AppSongModel.fromJson(json['data'][0]);
   }
 
-  Future<Artist> fetchArtistById(int id) async {
+  Future<Artist> fetchArtistById(int? id) async {
     final jsonArtist = await _fetchJSON("$_ARTIST_URL/$id");
     final trackLink = jsonArtist['tracklist'];
     final jsonSong = await _fetchJSON("$trackLink");
@@ -53,12 +53,12 @@ class AppleMusicStore {
     final List<AppSongModel> songs = [];
     final List<Artist> artists = [];
 
-    final artistJSON = jsonArtist['data'] as List;
+    final artistJSON = jsonArtist['data'] as List?;
     if (artistJSON != null) {
       artists.addAll((artistJSON).map((a) => Artist.fromJson(a, null)));
     }
 
-    final songJSON = jsonTrack['data'] as List;
+    final songJSON = jsonTrack['data'] as List?;
     if (songJSON != null) {
       songs.addAll((songJSON).map((a) => AppSongModel.fromJson(a)));
     }

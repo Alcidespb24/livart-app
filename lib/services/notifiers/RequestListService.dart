@@ -12,8 +12,8 @@ enum RequestListFilter {
 }
 
 class RequestListService extends StateNotifier<List<Request>> {
-  Timer requestUpdateTimer;
-  Timer requestRecognitionAttemptTimer;
+  late Timer requestUpdateTimer;
+  Timer? requestRecognitionAttemptTimer;
   final RequestServiceBase reqService;
   RequestListService(
       List<Request> userRequestList, RequestServiceBase reqService)
@@ -23,7 +23,7 @@ class RequestListService extends StateNotifier<List<Request>> {
   }
 
   void add(Request req) {
-    if(state.isEmpty && req != null)
+    if(state.isEmpty)
       startRequestTimeoutTimer();
 
     state = [...state, req];
@@ -60,7 +60,7 @@ class RequestListService extends StateNotifier<List<Request>> {
   }
 
   void timerTick() {
-    final prevState = state;
+    final List<Request> prevState = state;
   //  state.forEach((req) {
     prevState.removeWhere((element) => element.updateTimeRemaining());
 

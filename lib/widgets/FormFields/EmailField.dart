@@ -6,7 +6,7 @@ typedef void onChangedCallback(String pwd);
 class EmailField extends StatelessWidget {
   final onChangedCallback onChangedEmail;
 
-  EmailField({@required this.onChangedEmail});
+  EmailField({required this.onChangedEmail});
 
   Widget build(BuildContext context) {
     return TextFormField(
@@ -16,7 +16,7 @@ class EmailField extends StatelessWidget {
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
-        if (!EmailValidator.validEmail(value)) {
+        if (!EmailValidator.validEmail(value!)) {
           return 'Please enter a valid email';
         }
         return null;

@@ -4,12 +4,12 @@ import 'package:flutter_app/services/Service.dart';
 
 abstract class RequestServiceBase extends Service {
   Future<void> deleteRequest(Request request);
-  Stream<QuerySnapshot> get requestList;
+  Stream<QuerySnapshot>? get requestList;
 }
 
 class RequestServiceInitial extends RequestServiceBase{
   @override
-  Future<void> deleteRequest(Request request) {
+  Future<void> deleteRequest(Request request) async {
   }
 
   @override

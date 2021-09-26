@@ -7,8 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final authenticationServiceProvider = Provider((ref) => AuthService());
-final authStateChangeProvider = StreamProvider.autoDispose<User>((ref) {
-  return ref.watch(authenticationServiceProvider).user;
+final AutoDisposeStreamProvider<User>? authStateChangeProvider = StreamProvider.autoDispose<User>((ref) {
+  return ref.watch(authenticationServiceProvider).user as Stream<User>;
 });
 
 final placeListProvider = Provider<PlacesService>((ref) => PlacesService());

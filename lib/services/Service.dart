@@ -7,7 +7,7 @@ enum NotifierState { INITIAL, LOADING, LOADED }
 
 class Service {
   // Stores Failures
-  Failure _failure;
+  Failure? _failure;
 
   // Used to notify GUI of state changes
   NotifierState _state = NotifierState.INITIAL;
@@ -25,8 +25,8 @@ class Service {
   }
 
   // Failure Management
-  Failure get failure {
-    Failure tmp = _failure;
+  Failure? get failure {
+    Failure? tmp = _failure;
     _failure = null;
     return tmp;
   }

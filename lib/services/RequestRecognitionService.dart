@@ -28,7 +28,7 @@ class RequestRecognitionService extends ChangeNotifier{
     if(_acrCloudService.success)
       return AppSongModel.fromDeezerSongModel(_acrCloudService.currentSong);
 
-    return AppSongModel();
+    return AppSongModel(artistName: '', title: '', album: '');
   }
 }
 

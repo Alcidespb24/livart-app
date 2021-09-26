@@ -8,7 +8,7 @@ import 'package:flutter_app/services/Service.dart';
 class FirestoreUserService extends Service {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('Users');
-  AuthService _authService;
+  late AuthService _authService;
 
   FirestoreUserService() {
     setState(NotifierState.INITIAL);
@@ -38,10 +38,10 @@ class FirestoreUserService extends Service {
 
   // Should only be called when creating user
   // if a document exists with this user's uid the data will be overwritten
-  Future createUserData(AppUser user) async {
+  Future createUserData(AppUser? user) async {
     setState(NotifierState.LOADING);
     try {
-      await userCollection.doc(user.uid).set(user.toMap());
+      await userCollection.doc(user!.uid).set(user.toMap());
     } on FirebaseException {
       throw Failure(id: EventCodes.UNABLE_TO_WRITE_TO_DB);
     }
@@ -73,20 +73,19 @@ class FirestoreUserService extends Service {
           .where('userName', isEqualTo: userName)
           .get()
           .then((value) => AppUser.fromMap(value.docs[0].data()));
-      assert(userInfo != null);
 
       setState(NotifierState.LOADED);
 
       return userInfo;
     } on FirebaseException {
-      setFailure(Failure(id: EventCodes.UNABLE_TO_WRITE_TO_DB));
+      throw Failure(id: EventCodes.UNABLE_TO_WRITE_TO_DB);
     } on AssertionError {
-      setFailure(Failure(id: EventCodes.USER_NOT_FOUND_IN_DB));
+      throw Failure(id: EventCodes.USER_NOT_FOUND_IN_DB);
     }
   }
 
-  Future<String> searchUsernameLive(String username) async {
-    String returnstring = '';
+  Future<String?> searchUsernameLive(String username) async {
+    String? returnstring = '';
     if (username.length > 0) {
       await userCollection
           .where('userName',
@@ -108,8 +107,7 @@ class FirestoreUserService extends Service {
   Future updateUserName(String newUserName) async {
     setState(NotifierState.LOADING);
     _authService = AuthService();
-    String uid = _authService.getCurrentUser().uid;
-    assert(uid != null);
+    String uid = _authService.getCurrentUser()!.uid!;
     setState(NotifierState.LOADED);
     try {
       await userCollection.doc(uid).update({'userName': newUserName});

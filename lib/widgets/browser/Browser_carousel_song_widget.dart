@@ -6,16 +6,16 @@ import '../divider_widget.dart';
 //import 'player_widget.dart';
 
 class CarouselSongWidget extends StatelessWidget {
-  final String title;
-  final List<AppSongModel> songs;
-  final String cta;
+  final String? title;
+  final List<AppSongModel>? songs;
+  final String? cta;
   final dynamic onCtaTapped;
 
   CarouselSongWidget({this.title, this.songs, this.cta, this.onCtaTapped});
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> songsItemWidget = songs
+    final List<Widget> songsItemWidget = songs!
         .map((s) => CarouselSongItemWidget(
               song: s,
             ))
@@ -30,8 +30,8 @@ class CarouselSongWidget extends StatelessWidget {
             children: <Widget>[
               Expanded(
                   child: Text(
-                title,
-                style: Theme.of(context).textTheme.title,
+                title!,
+                style: Theme.of(context).textTheme.headline6,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               )),
@@ -43,10 +43,10 @@ class CarouselSongWidget extends StatelessWidget {
                             this.onCtaTapped();
                           },
                           child: Text(
-                            this.cta,
+                            this.cta!,
                             style: Theme.of(context)
                                 .textTheme
-                                .subhead
+                                .subtitle1!
                                 .apply(color: Colors.red),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
@@ -79,7 +79,7 @@ class CarouselSongWidget extends StatelessWidget {
 }
 
 class CarouselSongItemWidget extends StatelessWidget {
-  final AppSongModel song;
+  final AppSongModel? song;
 
   CarouselSongItemWidget({this.song});
 
@@ -115,7 +115,7 @@ class CarouselSongItemWidget extends StatelessWidget {
                         child: AspectRatio(
                             aspectRatio: 1,
                             child: Image.network(
-                              song.artworkUrl(256),
+                              song!.artworkUrl(256),
                               width: 60,
                               height: 60,
                               fit: BoxFit.cover,
@@ -127,13 +127,13 @@ class CarouselSongItemWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          song.title,
+                          song!.title!,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
-                          style: Theme.of(context).textTheme.subtitle,
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
                         Padding(padding: EdgeInsets.only(top: 4.0)),
-                        Text(song.artistName,
+                        Text(song!.artistName!,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: Theme.of(context).textTheme.caption)

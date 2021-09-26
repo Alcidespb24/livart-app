@@ -4,13 +4,13 @@ import '../data_models/songDataModel.dart';
 
 // TODO: Remove this class and implement this functionality in a function
 class Search {
-  final String term;
-  final List<AppSongModel> songs;
-  final List<Artist> artists;
+  final String? term;
+  final List<AppSongModel>? songs;
+  final List<Artist>? artists;
 
   Search({this.songs, this.artists, this.term});
 
-  int get totalCount => songs.length + artists.length;
+  int get totalCount => songs!.length + artists!.length;
 
   bool get isEmpty => totalCount == 0;
 }

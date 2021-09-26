@@ -1,3 +1,4 @@
+import 'package:acr_cloud_sdk/acr_cloud_sdk.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class DjDashboard extends StatefulWidget {
 }
 
 class _DjDashboardState extends State<DjDashboard> {
+
   final _authService = AuthService();
   final _userRequestService = UserRequestService();
 
@@ -31,7 +33,7 @@ class _DjDashboardState extends State<DjDashboard> {
   void getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    Position lastLocation = await Geolocator.getLastKnownPosition();
+    Position? lastLocation = await Geolocator.getLastKnownPosition();
   }
 
   GlobalTheme globalTheme = GlobalTheme();
@@ -59,7 +61,7 @@ class _DjDashboardState extends State<DjDashboard> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, watch, err) {
-        watch(reqServiceProv);
+        watch(reqServiceProv!);
         return Scaffold(
           appBar: GlobalTheme().globalAppBar,
           backgroundColor: Colors.black,
@@ -84,18 +86,18 @@ class _DjDashboardState extends State<DjDashboard> {
                     ),
                     ElevatedButton(
                         onPressed: () async {
-                          SongModel sampleSong = SongModel(
-                              uid: 78945,
+                          AppSongModel sampleSong = AppSongModel(
+                              uid: 78945.toString(),
                               album: 'testAlbum',
                               title: 'testTigle',
                               // artworkRawUrl: ,
                               artistName: 'testArtist');
                           Request sampleRequest = Request(
                               fromUid: '456',
-                              toUid: _authService.getCurrentUser().uid,
+                              toUid: _authService.getCurrentUser()!.uid,
                               song: sampleSong,
                               requestTimeMs: Timestamp.fromDate(DateTime.now()),
-                              paymentAmount: 5);
+                              paymentAmount: 5, requestUuid: '');
                           await _userRequestService.makeRequest(sampleRequest);
                         },
                         child: Text('createRequest')),
