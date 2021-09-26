@@ -79,8 +79,7 @@ class Request {
 
   bool updateTriesLeft() {
     bool needsRemoval = false;
-    triesLeft--;
-
+    triesLeft = triesLeft! - 1;
     if (triesLeft == 0) {
       needsRemoval = true;
     }

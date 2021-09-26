@@ -78,9 +78,9 @@ class FirestoreUserService extends Service {
 
       return userInfo;
     } on FirebaseException {
-      setFailure(Failure(id: EventCodes.UNABLE_TO_WRITE_TO_DB));
+      throw Failure(id: EventCodes.UNABLE_TO_WRITE_TO_DB);
     } on AssertionError {
-      setFailure(Failure(id: EventCodes.USER_NOT_FOUND_IN_DB));
+      throw Failure(id: EventCodes.USER_NOT_FOUND_IN_DB);
     }
   }
 

@@ -82,7 +82,6 @@ class _State extends State<Home> {
       String songName, String artist, String dj, String album) async {
     AppSongModel song = new AppSongModel(title: songName, artistName: artist, album: album);
 
-    if (_userService.userExists(creatorUserName)) {
       AppUser creator =
           await _userService.getUserFromUserName(creatorUserName).then((value) {
         return value;
@@ -94,6 +93,7 @@ class _State extends State<Home> {
           song: song,
           requestTimeMs: Timestamp.fromDate(DateTime.now()), requestUuid: '', paymentAmount: null);
       return req;
-    }
+
+
   }
 }
