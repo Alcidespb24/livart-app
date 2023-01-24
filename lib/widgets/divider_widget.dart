@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
 
 class DividerWidget extends StatelessWidget {
-  EdgeInsets _margin;
+  EdgeInsets? _margin;
 
   DividerWidget({margin: EdgeInsets}) {
     if (margin != null) {
@@ -20,4 +19,3 @@ class DividerWidget extends StatelessWidget {
     );
   }
 }
-

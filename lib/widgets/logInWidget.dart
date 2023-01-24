@@ -4,8 +4,8 @@ import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/screens/dashboards/djDashboard.dart';
 import 'package:flutter_app/screens/dashboards/djRequests.dart';
 import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
+import 'package:flutter_app/screens/authenticate/AuthenticationWrapper.dart';
 import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
 import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
 import 'package:flutter_app/themes/theme.dart';
 import 'package:flutter_app/widgets/FormFields/EmailField.dart';
@@ -14,18 +14,19 @@ import 'package:flutter_app/widgets/FormFields/PasswordField.dart';
 class LogInWidget extends StatefulWidget {
   LogInWidget({this.userRole});
 
-  final Role userRole;
+  final Role? userRole;
+
   @override
   _LogInWidgetState createState() => _LogInWidgetState();
 }
 
 class _LogInWidgetState extends State<LogInWidget> {
   final FirestoreUserService _userService = FirestoreUserService();
-  final FirestoreRequestService _requestService = FirestoreRequestService();
   final AuthService _authService = AuthService();
   String emailField = '';
   String passwordField = '';
   String userName = '';
+  GlobalTheme globalTheme = GlobalTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -76,13 +77,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                 color: GlobalTheme.buttonColor4,
               ),
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: GlobalTheme.buttonColor4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14.0),
-                  ),
-                  elevation: 1,
-                ),
+                style: globalTheme.loginButton,
                 child: Text(
                   "Submit",
                   style: TextStyle(
@@ -95,7 +90,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                     //TODO: Handle Error and send information about what went wrong to the user
                     print(_authService.failure.toString());
                   }
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  DjDashboard()));
+                  Navigator.pushReplacementNamed(context, '/');
                 },
               ),
             ),
@@ -135,14 +130,11 @@ class _LogInWidgetState extends State<LogInWidget> {
                 borderRadius: BorderRadius.circular(14.0),
               ),
               child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  primary:GlobalTheme.buttonColor2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14.0),
-                  ),
-                  elevation: 1,
+                style: globalTheme.loginButton,
+                label: Text(
+                  'Sign in with Google',
+                  style: TextStyle(color: GlobalTheme.miscellaneous),
                 ),
-                label: Text('Sign in with Google', style: TextStyle(color: GlobalTheme.miscellaneous1),),
                 icon: Icon(
                   CommunityMaterialIcons.google,
                   size: 20,
@@ -153,14 +145,7 @@ class _LogInWidgetState extends State<LogInWidget> {
 
                   await _userService
                       .createUserData(_authService.getCurrentUser());
-
-                  // if the user is a creator create a document to handle requests
-                  if (_authService.getCurrentUser().userRole == Role.CREATOR) {
-                    await _requestService.createCreatorRequestDoc(
-                        _authService.getCurrentUser().uid);
-                  }
-
-                  Navigator.pop(context, SideBarLayout());
+                  Navigator.pushReplacement(context,   MaterialPageRoute(builder: (context)=>AuthenticationWrapper()));
                 },
               ),
             ),

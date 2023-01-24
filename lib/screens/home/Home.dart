@@ -1,15 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
 import 'package:flutter_app/data_models/Request.dart';
-import 'package:flutter_app/data_models/SongStruct.dart';
+import 'package:flutter_app/data_models/songDataModel.dart';
 import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/services/firestore/FirestoreRequestService.dart';
 import 'package:flutter_app/services/firestore/FirestoreUserService.dart';
+import 'package:flutter_app/services/firestore/UserRequestService.dart';
 
 String creatorUserName = '';
-AppUser currentUser;
 final AuthService _authService = AuthService();
-final FirestoreRequestService _requestService = FirestoreRequestService();
+final UserRequestService _requestService = UserRequestService();
 final FirestoreUserService _userService = FirestoreUserService();
 
 class Home extends StatefulWidget {
@@ -18,12 +18,6 @@ class Home extends StatefulWidget {
 }
 
 class _State extends State<Home> {
-  Home() {
-    _authService.user.first.then((value) {
-      currentUser = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +42,7 @@ class _State extends State<Home> {
                 hintText: 'Creator\'s User Name',
               ),
               validator: (value) {
-                if (value.isEmpty) {
+                if (value!.isEmpty) {
                   return "invalid username";
                 }
                 return null;
@@ -75,7 +69,7 @@ class _State extends State<Home> {
             ElevatedButton(
                 onPressed: () async {
                   _requestService.makeRequest(
-                      await createRequest("lla", "mahartist", "djUname"));
+                      await createRequest('lla', 'mahartist', 'djUname', 'album'));
                 },
                 child: Text('create request'))
           ],
@@ -85,22 +79,21 @@ class _State extends State<Home> {
   }
 
   Future<Request> createRequest(
-      String songName, String artist, String dj) async {
-    SongStruct song = new SongStruct(songName: songName, artist: artist);
+      String songName, String artist, String dj, String album) async {
+    AppSongModel song = new AppSongModel(title: songName, artistName: artist, album: album);
 
-    if (_userService.userExists(creatorUserName)) {
       AppUser creator =
           await _userService.getUserFromUserName(creatorUserName).then((value) {
         return value;
       });
 
       Request req = new Request(
-          fromUid: _authService.getCurrentUser().uid,
+          fromUid: _authService.getCurrentUser()!.uid,
           toUid: creator.uid,
           song: song,
-          requestTimeMs: DateTime.now().millisecondsSinceEpoch);
-      print("reached here");
+          requestTimeMs: Timestamp.fromDate(DateTime.now()), requestUuid: '', paymentAmount: null);
       return req;
-    }
+
+
   }
 }

@@ -1,12 +1,12 @@
 import 'dart:async';
 
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/services/AuthService.dart';
 import 'package:flutter_app/themes/theme.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:flutter_app/widgets/menuItems.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:rxdart/rxdart.dart';
 
 class SideBar extends StatefulWidget {
   @override
@@ -17,10 +17,10 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
   final AuthService _authService = AuthService();
   final bool isSideBarOpened = true;
   String username = 'username';
-  StreamController<bool> isSideBarOpenedStreamController;
-  Stream<bool> isSideBarOpenedStream;
-  StreamSink<bool> isSideBarOpenedSink;
-  AnimationController _animationController;
+  late StreamController<bool> isSideBarOpenedStreamController;
+  Stream<bool>? isSideBarOpenedStream;
+  late StreamSink<bool> isSideBarOpenedSink;
+  late AnimationController _animationController;
   final _animationDuration = Duration(milliseconds: 500);
 
   @override
@@ -54,7 +54,6 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -67,8 +66,8 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
             duration: _animationDuration,
             top: 0,
             bottom: 0,
-            left: isSideBarOpenedAsync.data ? 0 : -screenWidth,
-            right: isSideBarOpenedAsync.data ? 0 : screenWidth - 39,
+            left: isSideBarOpenedAsync.data! ? 0 : -screenWidth,
+            right: isSideBarOpenedAsync.data! ? 0 : screenWidth - 39,
             child: Row(
               children: <Widget>[
                 Expanded(
@@ -84,26 +83,34 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                           backgroundColor: GlobalTheme.miscellaneous,
                           radius: 40,
                         ),
+                        SizedBox(height: 8,),
                         //will be used for the user to insert an image of himself/herself
                         Text(
                           username,
+                          style: TextStyle(color: Colors.white),
                         ),
-                        Divider(
-                          height: 25,
-                          thickness: 0.1,
-                          indent: 70,
-                          endIndent: 70,
-                          color: GlobalTheme.miscellaneous,
-                        ),
-                        SizedBox(height: 15),
-                        MenuItems(icon: EvaIcons.musicOutline,title: 'Requests', onPressedItem: (){},),
-                        SizedBox(height: 15),
-                        MenuItems(icon: EvaIcons.code,title: 'QR Code', onPressedItem: (){}),
-                        SizedBox(height: 15),
-                        MenuItems(icon:EvaIcons.map,title: 'Change Location', onPressedItem: (){}),
+                        GlobalTheme.globalDivider,
                         SizedBox(height: 15),
                         MenuItems(
-                            icon: EvaIcons.settings,title: 'Settings', onPressedItem: (){}),
+                          icon: EvaIcons.musicOutline,
+                          title: 'Requests',
+                          onPressedItem: () {},
+                        ),
+                        SizedBox(height: 15),
+                        MenuItems(
+                            icon: EvaIcons.code,
+                            title: 'QR Code',
+                            onPressedItem: () {}),
+                        SizedBox(height: 15),
+                        MenuItems(
+                            icon: EvaIcons.map,
+                            title: 'Change Location',
+                            onPressedItem: () {}),
+                        SizedBox(height: 15),
+                        MenuItems(
+                            icon: EvaIcons.settings,
+                            title: 'Settings',
+                            onPressedItem: () {}),
                         Divider(
                           height: 25,
                           thickness: 0.1,
@@ -114,9 +121,14 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
                         SizedBox(height: 30),
                         Row(
                           children: [
-                            MenuItems(icon: Icons.logout,title: 'Log Out', onPressedItem: () async {
-                              await _authService.signOut();
-                            },),
+                            MenuItems(
+                              icon: Icons.logout,
+                              title: 'Log Out',
+                              onPressedItem: () async {
+                                await _authService.signOut();
+                                Navigator.pushNamed(context, '/');
+                              },
+                            ),
                           ],
                         ),
                       ],
@@ -152,7 +164,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
   }
 }
 
-class CustomMenuClipper extends CustomClipper <Path> {
+class CustomMenuClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Paint paint = Paint();
@@ -164,9 +176,9 @@ class CustomMenuClipper extends CustomClipper <Path> {
     Path path = Path();
     path.moveTo(0, 0);
     path.quadraticBezierTo(0, 8, 10, 16);
-    path.quadraticBezierTo(width-1, height/2-20, width, height/2);
-    path.quadraticBezierTo(width+1, height/2+20, 10, height-16);
-    path.quadraticBezierTo(0, height-8,0 , height);
+    path.quadraticBezierTo(width - 1, height / 2 - 20, width, height / 2);
+    path.quadraticBezierTo(width + 1, height / 2 + 20, 10, height - 16);
+    path.quadraticBezierTo(0, height - 8, 0, height);
     path.close();
     return path;
   }

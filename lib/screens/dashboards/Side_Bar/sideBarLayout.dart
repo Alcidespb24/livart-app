@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/dashboards/djDashboard.dart';
-import 'package:flutter_app/screens/dashboards/sideBar.dart';
-import 'package:flutter_app/screens/dashboards/userDashboard.dart';
+import 'package:flutter_app/screens/dashboards/Dj/djDashboard.dart';
+import 'package:flutter_app/screens/dashboards/Side_Bar/sideBar.dart';
 
 class SideBarLayout extends StatelessWidget {
   @override
@@ -10,7 +9,6 @@ class SideBarLayout extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           DjDashboard(),
-          SideBar(),
         ],
       ),
     );

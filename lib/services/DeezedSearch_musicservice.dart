@@ -19,8 +19,8 @@ class AppleMusicStore {
   static const JWT_KEY = 'fraHqOefFZ2zYgsfC1nRPcNBONGxaehnNR5RGwv3wiWOxG5vUqB';
 
   Future<dynamic> _fetchJSON(String url) async {
-    final response =
-    await get(Uri.parse(url), headers: {'Authorization': "Bearer $JWT_KEY"});
+    final response = await get(Uri.parse(url),
+        headers: {'Authorization': "Bearer $JWT_KEY"});
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
@@ -28,16 +28,16 @@ class AppleMusicStore {
     }
   }
 
-  Future<Song> fetchSongById(String id) async {
+  Future<AppSongModel> fetchSongById(String id) async {
     final json = await _fetchJSON("$_SONG_URL/$id");
-    return Song.fromJson(json['data'][0]);
+    return AppSongModel.fromJson(json['data'][0]);
   }
 
-  Future<Artist> fetchArtistById(int id) async {
+  Future<Artist> fetchArtistById(int? id) async {
     final jsonArtist = await _fetchJSON("$_ARTIST_URL/$id");
     final trackLink = jsonArtist['tracklist'];
     final jsonSong = await _fetchJSON("$trackLink");
-    return Artist.fromJson(jsonArtist,jsonSong);
+    return Artist.fromJson(jsonArtist, jsonSong);
   }
 
   Future<Search> search(String query) async {
@@ -50,21 +50,19 @@ class AppleMusicStore {
     final jsonArtist = await _fetchJSON(encodedArtist);
     final jsonTrack = await _fetchJSON(encodedTrack);
 
-    final List<Song> songs = [];
+    final List<AppSongModel> songs = [];
     final List<Artist> artists = [];
 
-    final artistJSON = jsonArtist['data'] as List;
+    final artistJSON = jsonArtist['data'] as List?;
     if (artistJSON != null) {
-      artists
-          .addAll((artistJSON).map((a) => Artist.fromJson(a,null)));
+      artists.addAll((artistJSON).map((a) => Artist.fromJson(a, null)));
     }
 
-    final songJSON = jsonTrack['data'] as List;
+    final songJSON = jsonTrack['data'] as List?;
     if (songJSON != null) {
-      songs.addAll((songJSON).map((a) => Song.fromJson(a)));
+      songs.addAll((songJSON).map((a) => AppSongModel.fromJson(a)));
     }
 
     return Search(songs: songs, artists: artists, term: query);
   }
-
 }

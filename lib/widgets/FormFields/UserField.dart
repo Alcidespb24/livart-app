@@ -6,7 +6,7 @@ typedef void onChangedCallback(String uName);
 class UserField extends StatelessWidget {
   final onChangedCallback onChangedUname;
 
-  UserField({@required this.onChangedUname});
+  UserField({required this.onChangedUname});
 
   Widget build(BuildContext context) {
     return TextFormField(

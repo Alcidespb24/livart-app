@@ -7,6 +7,7 @@ import 'package:flutter_app/widgets/UserCreatorButton.dart';
 
 class LandingScreen extends StatefulWidget {
   static const String id = 'landing_screen';
+
   @override
   _LandingScreenState createState() => _LandingScreenState();
 }
@@ -52,7 +53,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     Role.USER,
                     globalTheme.buttonDecoration2,
                     10.0,
-                    GlobalTheme.buttonColor2),//User
+                    GlobalTheme.buttonColor2), //User
               ],
             ),
           ),
@@ -61,5 +62,3 @@ class _LandingScreenState extends State<LandingScreen> {
     );
   }
 }
-
-

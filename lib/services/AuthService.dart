@@ -14,97 +14,76 @@ class AuthService extends Service {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirestoreUserService _userDataBaseService = FirestoreUserService();
-  static AppUser _currentUser;
+  static AppUser? _currentUser;
 
-  AuthService(){
+  AuthService() {
     setState(NotifierState.INITIAL);
   }
 
-  AppUser _appUserFromFirebaseUser(User user){
-    return user != null ? new AppUser(
-        uid: user.uid,
-        isAnonymous: user.isAnonymous,
-        emailVerified: user.emailVerified,
-        userName: user.displayName
-    ) : null;
-  }
-
-  // Sign in anonymously
-  void  signInAnonymous() async {
-    try {
-      setState(NotifierState.LOADING);
-      // TODO: need to access firestore and delete user account if the user decides not to use his Email/Pwd anymore
-      if(_auth.currentUser != null && _auth.currentUser.emailVerified == false){
-        print('Deleting user'+_auth.currentUser.toString() );
-      }
-
-      UserCredential user = await _auth.signInAnonymously();
-      _currentUser = _appUserFromFirebaseUser(user.user);
-
-      super.setState(NotifierState.LOADED);
-    } on  FirebaseAuthException{
-      setFailure(Failure(id: EventCodes.USER_NOT_FOUND_INVALID_UNAME));
-    }
-  }
-
   // Authentication change for user stream
-  Stream<AppUser> get user {
-    return _auth.authStateChanges().map((User user) => _appUserFromFirebaseUser(user));
+  Stream<User?> get user {
+    return _auth.authStateChanges();
+  }
+
+  Future<AppUser?> getFirestoreUser(User user) async {
+    _currentUser = await _userDataBaseService.getUserFromUid(user.uid);
+    return _currentUser;
   }
 
   // Create account with email and password
-  void createAccountEmailPwd(String email, String userName, String pwd, Role userRole) async {
+  Future createAccountEmailPwd(
+      String email, String userName, String pwd, Role? userRole) async {
     try {
       setState(NotifierState.LOADING);
-      UserCredential userCredential =
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email,
-          password: pwd);
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: pwd);
 
-      _currentUser = _appUserFromFirebaseUser(userCredential.user);
-      _currentUser.userName = userName;
-      _currentUser.userRole = userRole;
-
-      if (!userCredential.user.emailVerified) {
-        await userCredential.user.sendEmailVerification();
+      if (!userCredential.user!.emailVerified) {
+        await userCredential.user!.sendEmailVerification();
       }
 
+      _currentUser = AppUser(
+        uid: userCredential.user!.uid,
+        userName: userName,
+        userRole: userRole,
+      );
       setState(NotifierState.LOADED);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'weak-password') {
-        setFailure(Failure(id: EventCodes.PASSWORD_TOO_WEAK));
+        throw Failure(id: EventCodes.PASSWORD_TOO_WEAK);
       } else if (error.code == 'email-already-in-use') {
-        setFailure(Failure(id: EventCodes.CREDENTIALS_IN_USE));
+        throw Failure(id: EventCodes.CREDENTIALS_IN_USE);
       }
     }
   }
 
-  // Sign in email pwd
-  void signInEmailPwd(String email, String pwd) async {
+
+  Future signInEmailPwd(String email, String pwd) async {
     try {
       setState(NotifierState.LOADING);
-      UserCredential curr = await _auth.signInWithEmailAndPassword(email: email, password: pwd);
-      _currentUser = _appUserFromFirebaseUser(curr.user);
+      await _auth.signInWithEmailAndPassword(email: email, password: pwd);
       setState(NotifierState.LOADED);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'user-not-found') {
-        setFailure(Failure(id: EventCodes.USER_NOT_FOUND_INVALID_UNAME));
+        throw Failure(id: EventCodes.USER_NOT_FOUND_INVALID_UNAME);
       } else if (error.code == 'wrong-password') {
-        setFailure(Failure(id: EventCodes.INVALID_CREDENTIALS));
+        throw (Failure(id: EventCodes.INVALID_CREDENTIALS));
       }
     }
   }
 
-  bool isEmailVerified() {
-    _currentUser.emailVerified = _auth.currentUser.emailVerified;
-    return _currentUser.emailVerified;
+  bool? isEmailVerified() {
+    _currentUser!.emailVerified = _auth.currentUser!.emailVerified;
+    return _currentUser!.emailVerified;
   }
 
-  // Sign in with google
-  void signInWithGoogle(Role userRole) async {
+
+  Future<void> signInWithGoogle(Role? userRole) async {
     try {
-      final GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
-      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+      final GoogleSignInAccount googleSignInAccount =
+          await (_googleSignIn.signIn() as FutureOr<GoogleSignInAccount>);
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
@@ -112,31 +91,27 @@ class AuthService extends Service {
       );
 
       UserCredential curr = await _auth.signInWithCredential(credential);
-      _currentUser = _appUserFromFirebaseUser(curr.user);
-      _currentUser.userRole = userRole;
-
     } on PlatformException {
       setFailure(Failure(id: EventCodes.SIGN_IN_FAILED));
     }
   }
 
-  void resetPwd(String email) async{
+  void resetPwd(String email) async {
     try {
       setState(NotifierState.LOADING);
       await _auth.sendPasswordResetEmail(email: email);
       setState(NotifierState.LOADED);
-    } on FirebaseAuthException catch(e){
-      setFailure(Failure(id: EventCodes.UNABLE_TO_SEND_PASSWORD_EMAIL));
-      print (e.code);
+    } on FirebaseAuthException catch (e) {
+      throw Failure(id: EventCodes.UNABLE_TO_SEND_PASSWORD_EMAIL);
     }
   }
 
-  AppUser getCurrentUser() {
-    return  _currentUser;
+  AppUser? getCurrentUser() {
+    return _currentUser;
   }
 
   // User Sign out
-  void signOut() async {
+  Future<void> signOut() async {
     setState(NotifierState.LOADING);
     _googleSignIn.signOut();
     _auth.signOut();
