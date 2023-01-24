@@ -1,6 +1,5 @@
 # PlayThis
-THIS IS A TEST
-La resinga de tu madre
+
 
 Deadlines
     Sunday Feb 7th
