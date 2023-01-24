@@ -27,7 +27,7 @@ class _LandingScreenState extends State<LandingScreen> {
               children: <Widget>[
                 globalTheme.appLogo,
                 Container(
-                  margin: EdgeInsets.only(bottom: 10, top: 100),
+                  margin: EdgeInsets.only(bottom: 0, top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[

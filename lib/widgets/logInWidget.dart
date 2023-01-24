@@ -1,7 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_models/AppUser.dart';
-import 'package:flutter_app/screens/bridge_screen_dj/bank_info.dart';
 import 'package:flutter_app/screens/dashboards/djDashboard.dart';
 import 'package:flutter_app/screens/dashboards/djRequests.dart';
 import 'package:flutter_app/screens/dashboards/sideBarLayout.dart';
