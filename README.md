@@ -1,4 +1,7 @@
 # PlayThis
+LIvart
+
+A mobile application developed with Dart using Flutter that helps artists monetarized their work,. The first version focuses around DJs, these artists can make money by fullfilling song requests made by user attending the event. The app uses multiple APIs and an algorithm that makes it all come together.
 
 
 Deadlines
